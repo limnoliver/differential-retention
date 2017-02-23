@@ -77,6 +77,8 @@ har$Q <- har$Q_km3.yr*(1/(60*60*24*365))*10^9
  
 har <- har[,c(1,2,4,24,3,25,26,7,5,8,35,6,16,34,18,32,11,33,13,32,30,28,29,27,23)]
 names(har) <- names(dat)
+
+#################################
 # Maavara data
 maav <- read.csv("Maavara et al 2015 data_with N.csv", header = TRUE)
 
@@ -144,8 +146,75 @@ brett$tn_out_conc = brett$tn_out_conc/1000
 # change units of volume from 10^6m3 to km3
 brett$volume <- brett$volume/1000
 
-donald <- read.csv("Donald et al 2015 data.csv", header = TRUE)
+names(brett) <- names(dat)
 
+#################################
+# Donald et al 2015 data
+#################################
+
+donald <- read.csv("Donald et al 2015 data.csv", header = TRUE)
+donald$tn_in_mass = ""
+donald$tn_in_conc = ""
+donald$tp_in_mass = ""
+donald$tp_in_conc = ""
+donald$tn_out_mass = ""
+donald$tp_out_mass = ""
+donald$tn_calculated = ""
+donald$tp_calculated = ""
+donald$source = "donald2015"
+donald$state = ""
+donald$notes = ""
+
+donald <- donald[,c(27,1,3,28,2,4,5,8,9,10,12,11,22,21,13,24,20,19,14,23,15,26,17,25,29)]
+donald$TP_out_ugperL <- 1000*donald$TP_out_ugperL
+donald$TN_out_ugperL <- 1000*donald$TN_out_ugperL
+
+names(donald) <- names(dat)
+
+##############################
+# my compiled data
+##############################
+
+lit <- read.csv("NP_retention_litreview.csv", header = TRUE, na.strings = c("", "NA", "ND"))
+
+#############################
+# get all data together
+#############################
+
+dat.all <- rbind(dat, brett, har, donald)
+dat.all$Rp <- as.numeric(dat.all$Rp_source)
+dat.all$Rp[is.na(dat.all$Rp)] <- as.numeric(dat.all$Rp_calculated[is.na(dat.all$Rp)])
+dat.all$Rn <- as.numeric(dat.all$Rn_source)
+dat.all$Rn[is.na(dat.all$Rn)] <- as.numeric(dat.all$Rn_calculated[is.na(dat.all$Rn)])
+
+dat.np <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$Rp),]
+dat.np$relret <- dat.np$Rn/dat.np$Rp
+dat.np.pos <- dat.np[dat.np$Rn>0 & dat.np$Rp>0,]
+
+# rank by depth an residence time
+plot(log10(as.numeric(dat.np.pos$res_time))~log10(as.numeric(dat.np.pos$mean_depth)))
+
+# first rank by residence time
+dat.np.pos$rank_restime <- rank(dat.np.pos$res_time)
+dat.np.pos$rank_depth <- rank(dat.np.pos$mean_depth)
+dat.np.pos$rank_sum = dat.np.pos$rank_restime + dat.np.pos$rank_depth
+
+q1 <- mean(dat.np.pos$relret[dat.np.pos$rank_sum<303])
+q2 <- mean(dat.np.pos$relret[dat.np.pos$rank_sum>=303 & dat.np.pos$rank_sum])
+q4 <- mean(dat.np.pos$relret[dat.np.pos$rank_sum>647.2])
+
+ngp <- dat.np.pos[dat.np.pos$relret>1, ]
+pgn <- dat.np.pos[dat.np.pos$relret<1, ]
+
+dat.np.pos$h <- dat.np.pos$mean_depth/as.numeric(dat.np.pos$res_time)
+plot(dat.np.pos$Rn~log10(dat.np.pos$h))
+
+plot(dat.np.pos$Rn~dat.np.pos$Rp)
+abline(0,1,col = "blue", lwd = 2)
+points(dat.np.pos$Rn[dat.np.pos$rank_sum<150],
+       dat.np.pos$Rp[dat.np.pos$rank_sum<150], bg = "red", pch = 21)
+points(dat.np.pos$Rn[dat.np.pos$rank_sum>775],
+       dat.np.pos$Rp[dat.np.pos$rank_sum>775], bg = "green", pch = 21)
 hist(epa$Rp[epa$Rp>0])
 length(which(epa$Rp<0))
 hist(epa)
