@@ -6,7 +6,7 @@ setwd("data")
 ###################
 # epa data
 ###################
-epa <- read.csv("EPA data extraction.csv", header = TRUE)
+epa <- read.csv("EPA data extraction.csv", header = TRUE, na.strings = c("", "NA"))
 
 # add volume column
 epa$volume <- epa$surface_area_km2*(epa$mean_depth_m/1000)
@@ -23,6 +23,9 @@ epa$longitude = ""
 # convert "impoundment" to "reservoir
 levels(epa$type)[1:4] = c("reservoir", "lake", "lake", "lake")
 
+# get rid of all lakes with residence time <1 day
+
+epa <- epa[epa$retention_time_years>(1/365), ]
 #################################################
 # rearrange columns, create data frame to work from
 dat <- epa[,c(1,2,3,4,22,27,28,6,7,21,8,9,23,14,10,16,24,15,11,17,25,18,26,19, 20)]
@@ -78,9 +81,21 @@ har$Q <- har$Q_km3.yr*(1/(60*60*24*365))*10^9
 har <- har[,c(1,2,4,24,3,25,26,7,5,8,35,6,16,34,18,32,11,33,13,32,30,28,29,27,23)]
 names(har) <- names(dat)
 
+har <- har[har$res_time>(1/365), ]
 #################################
 # Maavara data
-maav <- read.csv("Maavara et al 2015 data_with N.csv", header = TRUE)
+maav <- read.csv("Maavara et al 2015 data_with N.csv", header = TRUE, 
+                 na.strings = c("", "NA"))
+maav <- maav[c(1:156), ]
+maav$lake_type = "reservoir"
+maav$state = ""
+maav$country = ""
+maav$Rp_calculated = ""
+maav$Rn_calculated = ""
+maav <- maav[,c(34,1,36,37,38,2,3,8,9,10,12,11,15,17,16,18,19,21,20,22,23,39,24,40,35)]
+names(maav) <- names(dat)
+
+maav <- maav[maav$res_time>(1/365), ]
 
 ########################
 # Brett & Benjamin data
@@ -148,6 +163,8 @@ brett$volume <- brett$volume/1000
 
 names(brett) <- names(dat)
 
+# get rid fo lakes with residence time <1 day
+
 #################################
 # Donald et al 2015 data
 #################################
@@ -174,14 +191,14 @@ names(donald) <- names(dat)
 ##############################
 # my compiled data
 ##############################
-
+ 
 lit <- read.csv("NP_retention_litreview.csv", header = TRUE, na.strings = c("", "NA", "ND"))
 
 #############################
 # get all data together
 #############################
 
-dat.all <- rbind(dat, brett, har, donald)
+dat.all <- rbind(dat, brett, har, donald, maav)
 dat.all$Rp <- as.numeric(dat.all$Rp_source)
 dat.all$Rp[is.na(dat.all$Rp)] <- as.numeric(dat.all$Rp_calculated[is.na(dat.all$Rp)])
 dat.all$Rn <- as.numeric(dat.all$Rn_source)
@@ -189,8 +206,9 @@ dat.all$Rn[is.na(dat.all$Rn)] <- as.numeric(dat.all$Rn_calculated[is.na(dat.all$
 
 dat.np <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$Rp),]
 dat.np$relret <- dat.np$Rn/dat.np$Rp
-dat.np.pos <- dat.np[dat.np$Rn>0 & dat.np$Rp>0,]
 
+dat.np.pos <- dat.np[dat.np$Rn>0 & dat.np$Rp>0,]
+dat.np.real <- dat.np[dat.np$Rn>-1 & dat.np$Rp>-1, ]
 # rank by depth an residence time
 plot(log10(as.numeric(dat.np.pos$res_time))~log10(as.numeric(dat.np.pos$mean_depth)))
 
@@ -198,6 +216,10 @@ plot(log10(as.numeric(dat.np.pos$res_time))~log10(as.numeric(dat.np.pos$mean_dep
 dat.np.pos$rank_restime <- rank(dat.np.pos$res_time)
 dat.np.pos$rank_depth <- rank(dat.np.pos$mean_depth)
 dat.np.pos$rank_sum = dat.np.pos$rank_restime + dat.np.pos$rank_depth
+
+dat.np.real$rank_restime <- rank(dat.np.real$res_time)
+dat.np.real$rank_depth <- rank(dat.np.real$mean_depth)
+dat.np.real$rank_sum <- dat.np.real$rank_restime + dat.np.real$rank_depth
 
 q1 <- mean(dat.np.pos$relret[dat.np.pos$rank_sum<303])
 q2 <- mean(dat.np.pos$relret[dat.np.pos$rank_sum>=303 & dat.np.pos$rank_sum])
@@ -209,15 +231,24 @@ pgn <- dat.np.pos[dat.np.pos$relret<1, ]
 dat.np.pos$h <- dat.np.pos$mean_depth/as.numeric(dat.np.pos$res_time)
 plot(dat.np.pos$Rn~log10(dat.np.pos$h))
 
-plot(dat.np.pos$Rn~dat.np.pos$Rp)
+#
+dat.np.pos
+
+plot(dat.np.real$Rn~dat.np.real$Rp, pch = 21, 
+     bg = rgb(222,222,222,alpha = 200, max = 255), cex = 2, ylim = c(-1,1))
 abline(0,1,col = "blue", lwd = 2)
-points(dat.np.pos$Rn[dat.np.pos$rank_sum<150],
-       dat.np.pos$Rp[dat.np.pos$rank_sum<150], bg = "red", pch = 21)
-points(dat.np.pos$Rn[dat.np.pos$rank_sum>775],
-       dat.np.pos$Rp[dat.np.pos$rank_sum>775], bg = "green", pch = 21)
+points(dat.np.real$Rn[dat.np.real$rank_sum<250],
+       dat.np.real$Rp[dat.np.real$rank_sum<250], pch = 21, cex = 2,
+       bg = rgb(178,34,34,max=255,alpha=200))
+points(dat.np.real$Rn[dat.np.real$rank_sum>1260],
+       dat.np.real$Rp[dat.np.real$rank_sum>1260], bg = rgb(85,107,47,alpha = 200, max = 255), 
+       pch = 21, cex = 2)
 hist(epa$Rp[epa$Rp>0])
 length(which(epa$Rp<0))
 hist(epa)
+
+plot(dat.np.real$Rn~log10(as.numeric(dat.np.real$res_time)), pch = 21, 
+     bg = rgb(222,222,222,alpha = 200, max = 255), cex = 2, ylim = c(-1,1))
 
 hist(epa$Rn[epa$Rn>0])
 hist(epa$Rn)
@@ -244,3 +275,22 @@ points(epa.positive$Rn~log10(epa.positive$retention_time_years), col = "red", ad
 # show really short residence time relationships
 epa.short = epa.positive[epa$retention_time_years<.5,]
 plot(epa.short$rret~log10(epa.short$retention_time_years))
+
+#plot retention vs residence time then add curve of Brett & Benjamin
+plot(dat.np.real$Rp~log(as.numeric(dat.np.real$res_time)))
+curve(1-((1/(1+(1.12*(x^-0.53)*x)))/1), 0.001,1000,log="x",
+      ylab = "P Retention", xlab = "Residence Time (y)", 
+      col = "red", ylim = c(-0.8, 1))
+abline(v=1/365, col="red", lty=2)
+# week
+abline(v=7/365, col="red", lty=2)
+# month
+abline(v=30/365, col="red", lty=2)
+# year
+abline(v=1, col = "red", lty = 2)
+
+curve(1-(exp((-9.92*x)/1)), .001, 1000, 
+      log = "x", ylab="N Retention", xlab = "Residence Time (y)", 
+      col = "lightblue", add = TRUE)
+curve(1-(exp((-9.92*x)/10)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = "blue", add = TRUE)
+curve(1-(exp((-9.92*x)/20)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", add = TRUE)
