@@ -1,111 +1,111 @@
 Reference,Lake/Reservoir Name,Country,Lake or Reservoir,Z (m),Restime(y),Area_km2,Volume_km3,Q_km3 yr,N_in_mass,N_in_conc,N_out_mass,N_out_conc,% N Removed,P_in_mass,P_in_conc,P_out_mass,P_out_conc,mass_units,conc_units,N_retention,P_retention,Notes
-"Ahlgren et al., 1994_Ambio",Norrvikken,,Lake,5.40,0.85,,,,,,,,17.93,,,,,,,0.18,,no P data
-"Ahlgren et al., 1994_Ambio",Vallentuna,,Lake,2.50,1.81,,,,,,,,39.73,,,,,,,0.40,,no P data
-Andersen 1974,Kvind so,,Lake,1.90,0.04,,,,,,,,27.53,,,,,,,0.28,,
-Andersen 1974,Kul So,,Lake,2.20,0.05,,,,,,,,22.70,,,,,,,0.23,,
-Andersen 1974,Stigsholm so,,Lake,2.10,0.03,,,,,,,,23.97,,,,,,,0.24,,
-Andersen 1974,Byrup Langso,,Lake,5.00,0.36,,,,,,,,55.34,,,,,,,0.55,,
-Andersen 1974,Halle so,,Lake,2.80,0.10,,,,,,,,53.19,,,,,,,0.53,,
-Andersen 1974,Salten Langso,,Lake,12.00,0.16,,,,,,,,23.29,,,,,,,0.23,,
-Ayers 1970 cited by???,Michigan,,Lake,84.00,100.00,,,,,,,,66.00,,,,,,,0.66,,
-Calderoni et al. 1978,Mergozzo,,Lake,45.00,4.70,,,,,,,,40.00,,,,,,,0.40,,
-Dillon & Molot 1990,Clearwater,,Lake,8.30,3.70,,,,,,,,61.00,,,,,,,0.61,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
-Dillon & Molot 1990,Batchawana,,Lake,3.30,0.30,,,,,,,,24.00,,,,,,,0.24,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
-Dillon & Molot 1990,Lohi,,Lake,6.20,1.00,,,,,,,,46.00,,,,,,,0.46,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
-Dillon & Molot 1990,Turkey,,Lake,12.20,0.90,,,,,,,,29.00,,,,,,,0.29,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
-Dillon & Molot 1990,239,,Lake,10.90,6.20,,,,,,,,82.00,,,,,,,0.82,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
-Dillon & Molot 1990,Harp,,Lake,2.50,13.30,,,,,,,,67.00,,,,,,,0.67,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
-Dillon & Molot 1990,Plastic,,Lake,3.00,8.00,,,,,,,,80.00,,,,,,,0.80,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
-Downing unpublished,Crystal ,,Lake,1.50,0.40,,,,,,,,50.22,,,,,,,0.50,,
-Downing unpublished,Clear,,Lake,2.90,1.60,,,,,,,,82.24,,,,,,,0.82,,
-Downing unpublished,lake of 3 fires,,Reservoir,2.50,0.30,,,,,,,,69.57,,,,,,,0.70,,
-Downing unpublished,Rock Creek,,Reservoir,2.30,0.18,,,,,,,,37.24,,,,,,,0.37,,
-Dudel et al 1992,Gr. MÅggelsee,,Lake,4.85,0.13,,,,,,,,16.60,,,,,,,0.17,,
-"Jeppesen et al., 1998",Vaeng,,Lake,1.20,0.05,,,,,,,,53.45,,,,,,,0.53,,
-"Jeppesen et al., 1998",Sobygard,,Lake,1.00,0.05,,,,,,,,54.43,,,,,,,0.54,,
-"Jeppesen et al., 1998",Engelsholm,,Lake,2.60,0.21,,,,,,,,41.43,,,,,,,0.41,0.34,P data from Sondergaard et al 2012 pulled from Fig 3 - 20 yrs of data
-"Jeppesen et al., 1998",Arreskov,,Lake,1.90,1.75,,,,,,,,43.29,,,,,,,0.43,,
-"Kelly et al., 1987",302N,,Lake,5.70,5.80,,,,,,,,70.00,,,,,,,0.70,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",302S,,Lake,5.10,8.30,,,,,,,,98.00,,,,,,,0.98,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",223,,Lake,7.10,8.70,,,,,,,,98.00,,,,,,,0.98,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",Plastic,,Lake,8.00,3.83,,,,,,,,81.00,,,,,,,0.81,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",239,,Lake,10.90,6.20,,,,,,,,88.00,,,,,,,0.88,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",Harp,,Lake,12.40,2.35,,,,,,,,58.00,,,,,,,0.58,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",Crystal,,Lake,10.60,25.00,,,,,,,,99.00,,,,,,,0.99,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",Langtjern,,Lake,2.40,0.20,,,,,,,,36.00,,,,,,,0.36,,"No P data in this paper, but maybe in original papers."
-"Kelly et al., 1987",Darts ,,Lake,7.10,0.06,,,,,,,,7.00,,,,,,,0.07,,"No P data in this paper, but maybe in original papers."
-"Mengis et al., 1997",Baldegg,,Lake,33.00,4.10,,,,,,,,78.80,,,,,,,0.79,,No P data
-"Mengis et al., 1997",Zug,,Lake,84.00,14.10,,,,,,,,87.35,,,,,,,0.87,,No P data
-Molot & Dillon 1993,Plastic,,Lake,7.90,3.80,0.32,,,,,,,65.00,32.7,,12.7,,mg m-2 y-1,,0.65,0.61,Found P data in Dillon & Evans (1993)
-Molot & Dillon 1993,Chub,,Lake,8.90,2.02,0.34,,,,,,,40.00,99.7,,40.4,,mg m-2 y-1,,0.40,0.59,Found P data in Dillon & Evans (1993)
-Molot & Dillon 1993,Blue Chalk,,Lake,8.50,5.35,0.57,,,,,,,73.00,44.1,,8.8,,mg m-2 y-1,,0.73,0.80,Found P data in Dillon & Evans (1993)
-Molot & Dillon 1993,Crosson,,Lake,9.20,1.60,0.57,,,,,,,36.00,98.6,,57.1,,mg m-2 y-1,,0.36,0.42,Found P data in Dillon & Evans (1993)
-Molot & Dillon 1993,Red Chalk,,Lake,14.20,2.46,0.57,,,,,,,40.00,73.3,,30.8,,mg m-2 y-1,,0.40,0.58,Found P data in Dillon & Evans (1993)
-Molot & Dillon 1993,Harp,,Lake,13.30,3.12,,,,,,,,48.00,,,,,,,0.48,,no data
-Molot & Dillon 1993,Dickie,,Lake,5.00,1.80,,,,,,,,51.00,,,,,,,0.51,,no data
+"Ahlgren et al., 1994_Ambio",Norrvikken,,Lake,5.40,0.847,,,,,,,,17.93,,,,,,,0.18,,no P data
+"Ahlgren et al., 1994_Ambio",Vallentuna,,Lake,2.50,1.807,,,,,,,,39.73,,,,,,,0.40,,no P data
+Andersen 1974,Kvind so,,Lake,1.90,0.038,,,,,,,,27.53,,,,,,,0.28,,
+Andersen 1974,Kul So,,Lake,2.20,0.049,,,,,,,,22.70,,,,,,,0.23,,
+Andersen 1974,Stigsholm so,,Lake,2.10,0.030,,,,,,,,23.97,,,,,,,0.24,,
+Andersen 1974,Byrup Langso,,Lake,5.00,0.356,,,,,,,,55.34,,,,,,,0.55,,
+Andersen 1974,Halle so,,Lake,2.80,0.104,,,,,,,,53.19,,,,,,,0.53,,
+Andersen 1974,Salten Langso,,Lake,12.00,0.162,,,,,,,,23.29,,,,,,,0.23,,
+Ayers 1970 cited by???,Michigan,,Lake,84.00,100.000,,,,,,,,66.00,,,,,,,0.66,,
+Calderoni et al. 1978,Mergozzo,,Lake,45.00,4.700,,,,,,,,40.00,,,,,,,0.40,,
+Dillon & Molot 1990,Clearwater,,Lake,8.30,3.700,,,,,,,,61.00,,,,,,,0.61,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
+Dillon & Molot 1990,Batchawana,,Lake,3.30,0.300,,,,,,,,24.00,,,,,,,0.24,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
+Dillon & Molot 1990,Lohi,,Lake,6.20,1.000,,,,,,,,46.00,,,,,,,0.46,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
+Dillon & Molot 1990,Turkey,,Lake,12.20,0.900,,,,,,,,29.00,,,,,,,0.29,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
+Dillon & Molot 1990,239,,Lake,10.90,6.200,,,,,,,,82.00,,,,,,,0.82,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
+Dillon & Molot 1990,Harp,,Lake,2.50,13.300,,,,,,,,67.00,,,,,,,0.67,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
+Dillon & Molot 1990,Plastic,,Lake,3.00,8.000,,,,,,,,80.00,,,,,,,0.80,,"N is TIN; No P data in this paper, but can probably be found elsewhere"
+Downing unpublished,Crystal ,,Lake,1.50,0.400,,,,,,,,50.22,,,,,,,0.50,,
+Downing unpublished,Clear,,Lake,2.90,1.600,,,,,,,,82.24,,,,,,,0.82,,
+Downing unpublished,lake of 3 fires,,Reservoir,2.50,0.300,,,,,,,,69.57,,,,,,,0.70,,
+Downing unpublished,Rock Creek,,Reservoir,2.30,0.180,,,,,,,,37.24,,,,,,,0.37,,
+Dudel et al 1992,Gr. MÅggelsee,,Lake,4.85,0.132,,,,,,,,16.60,,,,,,,0.17,,
+"Jeppesen et al., 1998",Vaeng,,Lake,1.20,0.055,,,,,,,,53.45,,,,,,,0.53,,
+"Jeppesen et al., 1998",Sobygard,,Lake,1.00,0.047,,,,,,,,54.43,,,,,,,0.54,,
+"Jeppesen et al., 1998",Engelsholm,,Lake,2.60,0.210,,,,,,,,41.43,,,,,,,0.41,0.34,P data from Sondergaard et al 2012 pulled from Fig 3 - 20 yrs of data
+"Jeppesen et al., 1998",Arreskov,,Lake,1.90,1.753,,,,,,,,43.29,,,,,,,0.43,,
+"Kelly et al., 1987",302N,,Lake,5.70,5.800,,,,,,,,70.00,,,,,,,0.70,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",302S,,Lake,5.10,8.300,,,,,,,,98.00,,,,,,,0.98,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",223,,Lake,7.10,8.700,,,,,,,,98.00,,,,,,,0.98,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",Plastic,,Lake,8.00,3.830,,,,,,,,81.00,,,,,,,0.81,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",239,,Lake,10.90,6.200,,,,,,,,88.00,,,,,,,0.88,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",Harp,,Lake,12.40,2.350,,,,,,,,58.00,,,,,,,0.58,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",Crystal,,Lake,10.60,25.000,,,,,,,,99.00,,,,,,,0.99,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",Langtjern,,Lake,2.40,0.200,,,,,,,,36.00,,,,,,,0.36,,"No P data in this paper, but maybe in original papers."
+"Kelly et al., 1987",Darts ,,Lake,7.10,0.060,,,,,,,,7.00,,,,,,,0.07,,"No P data in this paper, but maybe in original papers."
+"Mengis et al., 1997",Baldegg,,Lake,33.00,4.100,,,,,,,,78.80,,,,,,,0.79,,No P data
+"Mengis et al., 1997",Zug,,Lake,84.00,14.100,,,,,,,,87.35,,,,,,,0.87,,No P data
+Molot & Dillon 1993,Plastic,,Lake,7.90,3.798,0.32,,,,,,,65.00,32.7,,12.7,,mg m-2 y-1,,0.65,0.61,Found P data in Dillon & Evans (1993)
+Molot & Dillon 1993,Chub,,Lake,8.90,2.018,0.34,,,,,,,40.00,99.7,,40.4,,mg m-2 y-1,,0.40,0.59,Found P data in Dillon & Evans (1993)
+Molot & Dillon 1993,Blue Chalk,,Lake,8.50,5.346,0.57,,,,,,,73.00,44.1,,8.8,,mg m-2 y-1,,0.73,0.80,Found P data in Dillon & Evans (1993)
+Molot & Dillon 1993,Crosson,,Lake,9.20,1.600,0.57,,,,,,,36.00,98.6,,57.1,,mg m-2 y-1,,0.36,0.42,Found P data in Dillon & Evans (1993)
+Molot & Dillon 1993,Red Chalk,,Lake,14.20,2.461,0.57,,,,,,,40.00,73.3,,30.8,,mg m-2 y-1,,0.40,0.58,Found P data in Dillon & Evans (1993)
+Molot & Dillon 1993,Harp,,Lake,13.30,3.122,,,,,,,,48.00,,,,,,,0.48,,no data
+Molot & Dillon 1993,Dickie,,Lake,5.00,1.799,,,,,,,,51.00,,,,,,,0.51,,no data
 Dillon & Evans 1993,Jerry,,Lake,12.40,,0.51,,,,,,,,175.1,,80.4,,mg m-2 y-1,,,0.54,"Not in harrison, added because of matching P data above"
 Dillon & Evans 1993,Heney,,Lake,3.30,,0.21,,,,,,,,98.5,,14,,mg m-2 y-1,,,0.86,"Not in harrison, added because of matching P data above"
-Noges 1998,V?rtsjÑrv,Estonia,Lake,2.80,0.88,270.00,,,7.70,,,,53.10,0.2,,,,g m-2 y-1,,0.53,0.28,
-Noges 2005,Verevi 1991,Estonia,Lake,3.60,1.11,0.13,,,573,,272,,52.00,14,,20,,kg,,0.52,-0.40,"change N retention estimates to the 50:50 surface:groundwater estimate, because discussion says that probably most closely reflects the lake. Time period for loading mass was April-October"
-Noges 2005,Verevi 1993,Estonia,Lake,3.60,1.49,0.13,,,1062,,146,,86.00,11,,8,,kg,,0.86,0.22,"change N retention estimates to the 50:50 surface:groundwater estimate, because discussion says that probably most closely reflects the lake. Time period for loading mass was April-October"
-Patoine et al. 2006,Echo ,,Lake,9.80,0.70,,,,,,,,50.00,,,,,,,0.50,,No P data
-Patoine et al. 2006,Crooked,,Lake,8.10,0.50,15.00,,,,,,,42.00,,,,,,,0.42,,No P data
-Patoine et al. 2006,Pasqua,,Lake,6.00,0.70,,,,,,,,41.00,,,,,,,0.41,,No P data
-Patoine et al. 2006,Mission,,Lake,8.20,0.40,,,,,,,,61.00,,,,,,,0.61,,No P data
-Patoine et al. 2006,Katepwa,,Lake,14.40,1.30,16.00,,,,,,,80.00,,,,,,,0.80,,No P data
-Patoine et al. 2006,Wascana,,Reservoir,1.40,0.05,0.50,,,,,,,23.00,,,,,,,0.23,,No P data
-Patoine et al. 2006,Buffalo Pond,,Reservoir,3.00,0.70,29.00,,,,,,,95.00,,,,,,,0.95,,No P data
-Patoine et al. 2006,Last Mountain,,Reservoir,7.90,12.60,227.00,,,,,,,99.00,,,,,,,0.99,,No P data
-Patoine et al. 2006,Diefenbaker ,,Reservoir,21.90,1.50,500.00,,,,,,,89.00,,,,,,,0.89,,No P data
-Prairie Unpub,Nick,,Lake,3.00,0.31,,,,,,,,6.07,,,,,,,0.06,,unpublished
-Prairie Unpub,Orford,,Lake,17.70,3.82,,,,,,,,21.73,,,,,,,0.22,,unpublished
-Prairie Unpub,Roxton,,Lake,3.20,0.56,,,,,,,,31.49,,,,,,,0.31,,unpublished
-Prairie Unpub,Bowker,,Lake,25.90,8.96,,,,,,,,57.86,,,,,,,0.58,,unpublished
-Prairie Unpub,Argent,,Lake,4.60,0.15,,,,,,,,27.57,,,,,,,0.28,,unpublished
-Prairie Unpub,Stukely,,Lake,13.60,4.03,,,,,,,,36.71,,,,,,,0.37,,unpublished
-Prairie Unpub,Fraser,,Lake,8.60,0.36,,,,,,,,27.16,,,,,,,0.27,,unpublished
-Prairie Unpub,Brompton,,Lake,11.50,1.48,,,,,,,,23.08,,,,,,,0.23,,unpublished
-Salas & Martino 1991,Laguna Grande,Venezuela,Lake,3.50,0.12,1.11,0.004,0.03238,256.31,8.787771429,,6.56,26.31,13.7,0.469714286,,0.29,g m-2 yr-1,mg l-1,0.25,0.38,waiting to hear back from Harrison
-Salas & Martino 1991,Tortuguero,Puerto Rico,Lake,1.20,0.13,2.24,0.003,0.02021,14.8,1.640333333,,1.7,28.36,0.3,0.03325,,0.01,g m-2 yr-1,mg l-1,-0.04,0.70,
-Salas & Martino 1991,Loiza,Puerto Rico,Lake,6.14,0.05,2.43,0.015,0.27573,232.60,2.045667752,,1.7,13.85,52.9,0.4652443,,0.33,g m-2 yr-1,mg l-1,0.17,0.29,
-Salas & Martino 1991,La Plata,Puerto Rico,Lake,10.00,0.09,3.07,0.031,0.34111,197.30,1.7757,,0.99,21.13,34.9,0.3141,,0.22,g m-2 yr-1,mg l-1,0.44,0.30,
-Salas & Martino 1991,Requena,Mexico,Lake,5.00,0.26,4.82,0.024,0.09269,97.72,5.081388,,1.74,43.62,13.229,0.687908,,0.38,g m-2 yr-1,mg l-1,0.66,0.44,
-Salas & Martino 1991,Tequesquitengo,Mexico,Lake,16.00,98.50,8.00,0.128,0.00130,1.34,8.21859375,,0.645,99.66,0.046,0.2831875,,0.02,g m-2 yr-1,mg l-1,0.92,0.92,
-Salas & Martino 1991,Laguna de Sonso,Colombia,Lake,1.00,0.04,10.00,0.010,0.24390,76.98,3.15618,,2.47,21.74,6.58,0.26978,,0.21,g m-2 yr-1,mg l-1,0.22,0.22,
-Salas & Martino 1991,Livingston,United States,Lake,6.30,0.24,334.00,2.104,8.65926,53.80,2.075142857,,1.6,41.97,14.6,0.563142857,,0.20,g m-2 yr-1,mg l-1,0.23,0.64,
-Salas & Martino 1991,Chapala,Mexico,Lake,4.43,15.94,1078.50,4.778,0.29973,5.18,18.64584199,,1.13,97.94,1.508,5.426076749,,0.68,g m-2 yr-1,mg l-1,0.94,0.87,
-Salas & Martino 1991,Poza Honda,Ecuador,Reservoir,20.14,1.57,3.80,0.077,0.04862,NA,NA,,ND,82.41,15.1,1.180109235,,0.20,g m-2 yr-1,mg l-1,NA,0.83,
-Salas & Martino 1991,Vigario,Brazil,Reservoir,9.80,0.01,3.85,0.038,4.71625,1019.00,0.831836735,,0.836,2.33,142.9,0.116653061,,0.08,g m-2 yr-1,mg l-1,-0.01,0.28,
-Salas & Martino 1991,Paiva Castro,Brazil,Reservoir,5.40,0.03,4.10,0.022,0.79071,184.80,0.958222222,,0.831,13.28,5.48,0.028414815,,0.02,g m-2 yr-1,mg l-1,0.13,0.19,
-Salas & Martino 1991,Santana,Brazil,Reservoir,2.50,0.00,4.75,0.012,5.93750,1094.00,0.8752,,0.938,0.59,151.6,0.12128,,0.10,g m-2 yr-1,mg l-1,-0.07,0.18,
-Salas & Martino 1991,Cachoeira,Brazil,Reservoir,10.70,0.13,7.10,0.076,0.58438,72.10,0.875981308,,0.79,9.82,4.14,0.050299065,,0.03,g m-2 yr-1,mg l-1,0.10,0.36,
-Salas & Martino 1991,Taiacupeba,Brazil,Reservoir,2.20,0.14,8.80,0.019,0.14341,12.60,0.773181818,,0.506,34.56,0.64,0.039272727,,0.03,g m-2 yr-1,mg l-1,0.35,0.21,
-Salas & Martino 1991,Americana,Brazil,Reservoir,7.80,0.08,12.70,0.099,1.17929,356.60,3.840307692,,2.456,36.05,31.62,0.340523077,,0.10,g m-2 yr-1,mg l-1,0.36,0.71,
-Salas & Martino 1991,Descoberto,Brazil,Reservoir,6.90,0.28,14.90,0.10,0.36718,NA,NA,,0.46,45.45,0.65,0.026376812,,0.02,g m-2 yr-1,mg l-1,NA,0.39,
-Salas & Martino 1991,Ponte Nova,Brazil,Reservoir,8.30,0.81,20.50,0.17,0.21110,7.76,0.753561446,,0.579,23.16,0.47,0.045640964,,0.03,g m-2 yr-1,mg l-1,0.23,0.45,
-Salas & Martino 1991,Atibainha,Brazil,Reservoir,12.50,0.39,20.80,0.26,0.67010,29.04,0.9014016,,0.901,0.04,1.29,0.0400416,,0.02,g m-2 yr-1,mg l-1,0.00,0.43,
-Salas & Martino 1991,Itupararanga,Brazil,Reservoir,7.80,0.66,20.90,0.16,0.24700,32.40,2.741538462,,0.889,67.57,2.11,0.178538462,,0.03,g m-2 yr-1,mg l-1,0.68,0.84,
-Salas & Martino 1991,Guarapiranga,Brazil,Reservoir,4.90,0.33,23.60,0.12,0.34937,15.80,1.067306122,,0.88,17.55,1.7,0.114836735,,0.04,g m-2 yr-1,mg l-1,0.18,0.62,
-Salas & Martino 1991,Lajes,Brazil,Reservoir,13.60,0.76,26.00,0.35,0.46526,9.14,0.510764706,,0.475,7.00,0.795,0.044426471,,0.02,g m-2 yr-1,mg l-1,0.07,0.59,
-Salas & Martino 1991,Funil,Brazil,Reservoir,21.00,0.08,33.30,0.70,8.63333,212.58,0.819951429,,0.6,26.82,29.3,0.113014286,,0.07,g m-2 yr-1,mg l-1,0.27,0.42,
-Salas & Martino 1991,Jaguari,Brazil,Reservoir,16.80,1.23,35.00,0.59,0.48000,22.90,1.669791667,,0.792,52.57,3.28,0.239166667,,0.04,g m-2 yr-1,mg l-1,0.53,0.85,
-Salas & Martino 1991,Paranoa,Brazil,Reservoir,14.30,0.73,39.50,0.56,0.77271,NA,NA,,1.26,68.51,2.93,0.149778322,,0.04,g m-2 yr-1,mg l-1,NA,0.73,
-Salas & Martino 1991,Pairaibuna,Brazil,Reservoir,26.40,1.92,168.00,4.44,2.30640,10.20,0.742977273,,0.573,22.88,0.79,0.057544318,,0.02,g m-2 yr-1,mg l-1,0.23,0.72,
-Salas & Martino 1991,Barra Bonita,Brazil,Reservoir,8.60,0.22,250.00,2.15,9.72851,98.50,2.53122093,,1.376,45.64,6.96,0.178855814,,0.06,g m-2 yr-1,mg l-1,0.46,0.67,
-Teodoru and Wehrli 2005,Iron Gate,,Reservoir,17.26,0.01,,,,211.7,,247.7,,-17.01,14.9,0.010640913,16.5,,kt y-1,,-0.17,-0.11,changed n data to reflect actual negative value (instead of 0 reported by Harrison)
-Windolf et al. 1996,Hejrede S?,,Lake,0.90,0.10,0.51,,,241,9.7,,,26.00,,0.17,,0.14,,mg l-1,0.26,0.18,Got P data from Jensen et al 2006
-Windolf et al. 1996,Lange S?,,Lake,3.10,0.55,0.17,,,208,10.3,,,47.00,,0.207,,0.28,,mg l-1,0.47,-0.33,Got P data from Jensen et al 2006
-Windolf et al. 1996,Borup S?,,Lake,0.90,0.05,0.10,,,403,8.4,,,21.00,,0.128,,0.149,,mg l-1,0.21,-0.16,Got P data from Jensen et al 2006
-Windolf et al. 1996,S?gÜrd S?,,Lake,1.60,0.07,0.27,,,825,12.1,,,18.00,,,,,,,0.18,-0.10,"P data from Sondergaard et al 2012, pulled data from Fig 3"
-Windolf et al. 1996,Kilen,,Lake,2.90,0.69,3.34,,,92,7.8,,,72.00,,0.15,,0.17,,mg l-1,0.72,-0.12,Got P data from Jensen et al 2006
-Windolf et al. 1996,St. S?gÜrd S?,,Lake,2.70,0.17,0.27,,,513,12,,,29.00,,,,,,,0.29,-0.10,"P data from Sondergaard et al 2012, pulled data from Fig 3"
-Windolf et al. 1996,Dons N?rres?,,Lake,1.00,0.05,0.36,,,406,7.8,,,24.00,,0.094,,0.17,,mg l-1,0.24,-0.80,Got P data from Jensen et al 2006
-Windolf et al. 1996,Hinge S?,,Lake,1.20,0.04,0.91,,,415,6.2,,,19.00,,,,,,,0.19,-0.05,"P data from Sondergaard et al 2012, pulled data from Fig 3"
-Windolf et al. 1996,Vesterborg S?,,Lake,1.40,0.05,0.21,,,769,11.2,,,22.00,,,,,,,0.22,0.10,"P data from Sondergaard et al 2012, pulled data from Fig 3"
-Windolf et al. 1996,Jels Overs?,,Lake,1.20,0.02,0.09,,,1940,11,,,11.00,,0.136,,0.27,,mg l-1,0.11,-1.01,Got P data from Jensen et al 2006
-Windolf et al. 1996,Gunds?magle S?,,Lake,1.20,0.08,0.32,,,468,12.8,,,38.00,,,,,,,0.38,-0.13,"P data from Sondergaard et al 2012, pulled data from Fig 3"
-Windolf et al. 1996,Lemvig S?,,Lake,2.00,0.08,0.16,,,671,8.7,,,26.00,,0.212,,0.29,,mg l-1,0.26,-0.35,Got P data from Jensen et al 2006
-Windolf et al. 1996,FÜrup S?,,Lake,5.60,0.49,,,,120,3.8,,,57.00,,,,,,,0.57,,No P data
-Windolf et al. 1996,Fugles?,,Lake,2.00,0.14,0.05,,,435,11,,,56.00,,0.151,,0.22,,mg l-1,0.56,-0.48,Got P data from Jensen et al 2006
-Windolf et al. 1996,Bryrup Langs?,,Lake,4.60,0.25,0.38,,,445,8.9,,,49.00,,0.116,,0.09,,mg l-1,0.49,0.22,Got P data from Jensen et al 2006
-Windolf et al. 1996,?rn S?,,Lake,4.00,0.04,0.42,,,378,1.6,,,12.00,,0.124,,0.09,,mg l-1,0.12,0.24,Got P data from Jensen et al 2006
+Noges 1998,V?rtsjÑrv,Estonia,Lake,2.80,0.880,270.00,,,7.70,,,,53.10,0.2,,,,g m-2 y-1,,0.53,0.28,
+Noges 2005,Verevi 1991,Estonia,Lake,3.60,1.111,0.13,,,573,,272,,52.00,14,,20,,kg,,0.52,-0.40,"change N retention estimates to the 50:50 surface:groundwater estimate, because discussion says that probably most closely reflects the lake. Time period for loading mass was April-October"
+Noges 2005,Verevi 1993,Estonia,Lake,3.60,1.493,0.13,,,1062,,146,,86.00,11,,8,,kg,,0.86,0.22,"change N retention estimates to the 50:50 surface:groundwater estimate, because discussion says that probably most closely reflects the lake. Time period for loading mass was April-October"
+Patoine et al. 2006,Echo ,,Lake,9.80,0.700,,,,,,,,50.00,,,,,,,0.50,,No P data
+Patoine et al. 2006,Crooked,,Lake,8.10,0.500,15.00,,,,,,,42.00,,,,,,,0.42,,No P data
+Patoine et al. 2006,Pasqua,,Lake,6.00,0.700,,,,,,,,41.00,,,,,,,0.41,,No P data
+Patoine et al. 2006,Mission,,Lake,8.20,0.400,,,,,,,,61.00,,,,,,,0.61,,No P data
+Patoine et al. 2006,Katepwa,,Lake,14.40,1.300,16.00,,,,,,,80.00,,,,,,,0.80,,No P data
+Patoine et al. 2006,Wascana,,Reservoir,1.40,0.050,0.50,,,,,,,23.00,,,,,,,0.23,,No P data
+Patoine et al. 2006,Buffalo Pond,,Reservoir,3.00,0.700,29.00,,,,,,,95.00,,,,,,,0.95,,No P data
+Patoine et al. 2006,Last Mountain,,Reservoir,7.90,12.600,227.00,,,,,,,99.00,,,,,,,0.99,,No P data
+Patoine et al. 2006,Diefenbaker ,,Reservoir,21.90,1.500,500.00,,,,,,,89.00,,,,,,,0.89,,No P data
+Prairie Unpub,Nick,,Lake,3.00,0.314,,,,,,,,6.07,,,,,,,0.06,,unpublished
+Prairie Unpub,Orford,,Lake,17.70,3.820,,,,,,,,21.73,,,,,,,0.22,,unpublished
+Prairie Unpub,Roxton,,Lake,3.20,0.560,,,,,,,,31.49,,,,,,,0.31,,unpublished
+Prairie Unpub,Bowker,,Lake,25.90,8.960,,,,,,,,57.86,,,,,,,0.58,,unpublished
+Prairie Unpub,Argent,,Lake,4.60,0.150,,,,,,,,27.57,,,,,,,0.28,,unpublished
+Prairie Unpub,Stukely,,Lake,13.60,4.030,,,,,,,,36.71,,,,,,,0.37,,unpublished
+Prairie Unpub,Fraser,,Lake,8.60,0.360,,,,,,,,27.16,,,,,,,0.27,,unpublished
+Prairie Unpub,Brompton,,Lake,11.50,1.480,,,,,,,,23.08,,,,,,,0.23,,unpublished
+Salas & Martino 1991,Laguna Grande,Venezuela,Lake,3.50,0.120,1.11,0.004,0.03238,256.31,8.787771429,,6.56,26.31,13.7,0.469714286,,0.29,g m-2 yr-1,mg l-1,0.25,0.38,waiting to hear back from Harrison
+Salas & Martino 1991,Tortuguero,Puerto Rico,Lake,1.20,0.133,2.24,0.003,0.02021,14.8,1.640333333,,1.7,28.36,0.3,0.03325,,0.01,g m-2 yr-1,mg l-1,-0.04,0.70,
+Salas & Martino 1991,Loiza,Puerto Rico,Lake,6.14,0.054,2.43,0.015,0.27573,232.60,2.045667752,,1.7,13.85,52.9,0.4652443,,0.33,g m-2 yr-1,mg l-1,0.17,0.29,
+Salas & Martino 1991,La Plata,Puerto Rico,Lake,10.00,0.090,3.07,0.031,0.34111,197.30,1.7757,,0.99,21.13,34.9,0.3141,,0.22,g m-2 yr-1,mg l-1,0.44,0.30,
+Salas & Martino 1991,Requena,Mexico,Lake,5.00,0.260,4.82,0.024,0.09269,97.72,5.081388,,1.74,43.62,13.229,0.687908,,0.38,g m-2 yr-1,mg l-1,0.66,0.44,
+Salas & Martino 1991,Tequesquitengo,Mexico,Lake,16.00,98.500,8.00,0.128,0.00130,1.34,8.21859375,,0.645,99.66,0.046,0.2831875,,0.02,g m-2 yr-1,mg l-1,0.92,0.92,
+Salas & Martino 1991,Laguna de Sonso,Colombia,Lake,1.00,0.041,10.00,0.010,0.24390,76.98,3.15618,,2.47,21.74,6.58,0.26978,,0.21,g m-2 yr-1,mg l-1,0.22,0.22,
+Salas & Martino 1991,Livingston,United States,Lake,6.30,0.243,334.00,2.104,8.65926,53.80,2.075142857,,1.6,41.97,14.6,0.563142857,,0.20,g m-2 yr-1,mg l-1,0.23,0.64,
+Salas & Martino 1991,Chapala,Mexico,Lake,4.43,15.940,1078.50,4.778,0.29973,5.18,18.64584199,,1.13,97.94,1.508,5.426076749,,0.68,g m-2 yr-1,mg l-1,0.94,0.87,
+Salas & Martino 1991,Poza Honda,Ecuador,Reservoir,20.14,1.574,3.80,0.077,0.04862,NA,NA,,ND,82.41,15.1,1.180109235,,0.20,g m-2 yr-1,mg l-1,NA,0.83,
+Salas & Martino 1991,Vigario,Brazil,Reservoir,9.80,0.008,3.85,0.038,4.71625,1019.00,0.831836735,,0.836,2.33,142.9,0.116653061,,0.08,g m-2 yr-1,mg l-1,-0.01,0.28,
+Salas & Martino 1991,Paiva Castro,Brazil,Reservoir,5.40,0.028,4.10,0.022,0.79071,184.80,0.958222222,,0.831,13.28,5.48,0.028414815,,0.02,g m-2 yr-1,mg l-1,0.13,0.19,
+Salas & Martino 1991,Santana,Brazil,Reservoir,2.50,0.002,4.75,0.012,5.93750,1094.00,0.8752,,0.938,0.59,151.6,0.12128,,0.10,g m-2 yr-1,mg l-1,-0.07,0.18,
+Salas & Martino 1991,Cachoeira,Brazil,Reservoir,10.70,0.130,7.10,0.076,0.58438,72.10,0.875981308,,0.79,9.82,4.14,0.050299065,,0.03,g m-2 yr-1,mg l-1,0.10,0.36,
+Salas & Martino 1991,Taiacupeba,Brazil,Reservoir,2.20,0.135,8.80,0.019,0.14341,12.60,0.773181818,,0.506,34.56,0.64,0.039272727,,0.03,g m-2 yr-1,mg l-1,0.35,0.21,
+Salas & Martino 1991,Americana,Brazil,Reservoir,7.80,0.084,12.70,0.099,1.17929,356.60,3.840307692,,2.456,36.05,31.62,0.340523077,,0.10,g m-2 yr-1,mg l-1,0.36,0.71,
+Salas & Martino 1991,Descoberto,Brazil,Reservoir,6.90,0.280,14.90,0.10,0.36718,NA,NA,,0.46,45.45,0.65,0.026376812,,0.02,g m-2 yr-1,mg l-1,NA,0.39,
+Salas & Martino 1991,Ponte Nova,Brazil,Reservoir,8.30,0.806,20.50,0.17,0.21110,7.76,0.753561446,,0.579,23.16,0.47,0.045640964,,0.03,g m-2 yr-1,mg l-1,0.23,0.45,
+Salas & Martino 1991,Atibainha,Brazil,Reservoir,12.50,0.388,20.80,0.26,0.67010,29.04,0.9014016,,0.901,0.04,1.29,0.0400416,,0.02,g m-2 yr-1,mg l-1,0.00,0.43,
+Salas & Martino 1991,Itupararanga,Brazil,Reservoir,7.80,0.660,20.90,0.16,0.24700,32.40,2.741538462,,0.889,67.57,2.11,0.178538462,,0.03,g m-2 yr-1,mg l-1,0.68,0.84,
+Salas & Martino 1991,Guarapiranga,Brazil,Reservoir,4.90,0.331,23.60,0.12,0.34937,15.80,1.067306122,,0.88,17.55,1.7,0.114836735,,0.04,g m-2 yr-1,mg l-1,0.18,0.62,
+Salas & Martino 1991,Lajes,Brazil,Reservoir,13.60,0.760,26.00,0.35,0.46526,9.14,0.510764706,,0.475,7.00,0.795,0.044426471,,0.02,g m-2 yr-1,mg l-1,0.07,0.59,
+Salas & Martino 1991,Funil,Brazil,Reservoir,21.00,0.081,33.30,0.70,8.63333,212.58,0.819951429,,0.6,26.82,29.3,0.113014286,,0.07,g m-2 yr-1,mg l-1,0.27,0.42,
+Salas & Martino 1991,Jaguari,Brazil,Reservoir,16.80,1.225,35.00,0.59,0.48000,22.90,1.669791667,,0.792,52.57,3.28,0.239166667,,0.04,g m-2 yr-1,mg l-1,0.53,0.85,
+Salas & Martino 1991,Paranoa,Brazil,Reservoir,14.30,0.731,39.50,0.56,0.77271,NA,NA,,1.26,68.51,2.93,0.149778322,,0.04,g m-2 yr-1,mg l-1,NA,0.73,
+Salas & Martino 1991,Pairaibuna,Brazil,Reservoir,26.40,1.923,168.00,4.44,2.30640,10.20,0.742977273,,0.573,22.88,0.79,0.057544318,,0.02,g m-2 yr-1,mg l-1,0.23,0.72,
+Salas & Martino 1991,Barra Bonita,Brazil,Reservoir,8.60,0.221,250.00,2.15,9.72851,98.50,2.53122093,,1.376,45.64,6.96,0.178855814,,0.06,g m-2 yr-1,mg l-1,0.46,0.67,
+Teodoru and Wehrli 2005,Iron Gate,,Reservoir,17.26,0.012,,,,211.7,,247.7,,-17.01,14.9,0.010640913,16.5,,kt y-1,,-0.17,-0.11,changed n data to reflect actual negative value (instead of 0 reported by Harrison)
+Windolf et al. 1996,Hejrede S?,,Lake,0.90,0.100,0.51,,,241,9.7,,,26.00,,0.17,,0.14,,mg l-1,0.26,0.18,Got P data from Jensen et al 2006
+Windolf et al. 1996,Lange S?,,Lake,3.10,0.550,0.17,,,208,10.3,,,47.00,,0.207,,0.28,,mg l-1,0.47,-0.33,Got P data from Jensen et al 2006
+Windolf et al. 1996,Borup S?,,Lake,0.90,0.050,0.10,,,403,8.4,,,21.00,,0.128,,0.149,,mg l-1,0.21,-0.16,Got P data from Jensen et al 2006
+Windolf et al. 1996,S?gÜrd S?,,Lake,1.60,0.070,0.27,,,825,12.1,,,18.00,,,,,,,0.18,-0.10,"P data from Sondergaard et al 2012, pulled data from Fig 3"
+Windolf et al. 1996,Kilen,,Lake,2.90,0.690,3.34,,,92,7.8,,,72.00,,0.15,,0.17,,mg l-1,0.72,-0.12,Got P data from Jensen et al 2006
+Windolf et al. 1996,St. S?gÜrd S?,,Lake,2.70,0.170,0.27,,,513,12,,,29.00,,,,,,,0.29,-0.10,"P data from Sondergaard et al 2012, pulled data from Fig 3"
+Windolf et al. 1996,Dons N?rres?,,Lake,1.00,0.050,0.36,,,406,7.8,,,24.00,,0.094,,0.17,,mg l-1,0.24,-0.80,Got P data from Jensen et al 2006
+Windolf et al. 1996,Hinge S?,,Lake,1.20,0.040,0.91,,,415,6.2,,,19.00,,,,,,,0.19,-0.05,"P data from Sondergaard et al 2012, pulled data from Fig 3"
+Windolf et al. 1996,Vesterborg S?,,Lake,1.40,0.050,0.21,,,769,11.2,,,22.00,,,,,,,0.22,0.10,"P data from Sondergaard et al 2012, pulled data from Fig 3"
+Windolf et al. 1996,Jels Overs?,,Lake,1.20,0.020,0.09,,,1940,11,,,11.00,,0.136,,0.27,,mg l-1,0.11,-1.01,Got P data from Jensen et al 2006
+Windolf et al. 1996,Gunds?magle S?,,Lake,1.20,0.080,0.32,,,468,12.8,,,38.00,,,,,,,0.38,-0.13,"P data from Sondergaard et al 2012, pulled data from Fig 3"
+Windolf et al. 1996,Lemvig S?,,Lake,2.00,0.080,0.16,,,671,8.7,,,26.00,,0.212,,0.29,,mg l-1,0.26,-0.35,Got P data from Jensen et al 2006
+Windolf et al. 1996,FÜrup S?,,Lake,5.60,0.490,,,,120,3.8,,,57.00,,,,,,,0.57,,No P data
+Windolf et al. 1996,Fugles?,,Lake,2.00,0.140,0.05,,,435,11,,,56.00,,0.151,,0.22,,mg l-1,0.56,-0.48,Got P data from Jensen et al 2006
+Windolf et al. 1996,Bryrup Langs?,,Lake,4.60,0.250,0.38,,,445,8.9,,,49.00,,0.116,,0.09,,mg l-1,0.49,0.22,Got P data from Jensen et al 2006
+Windolf et al. 1996,?rn S?,,Lake,4.00,0.040,0.42,,,378,1.6,,,12.00,,0.124,,0.09,,mg l-1,0.12,0.24,Got P data from Jensen et al 2006

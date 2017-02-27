@@ -299,3 +299,36 @@ curve(1-(exp((-9.92*x)/1)), .001, 1000,
       col = "lightblue", add = TRUE)
 curve(1-(exp((-9.92*x)/10)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = "blue", add = TRUE)
 curve(1-(exp((-9.92*x)/20)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", add = TRUE)
+
+# calculate percent change in N:P
+x = c(seq(0.001,1,0.002), seq(2,1000,1))
+
+n_outin = exp((-9.92*x)/10)
+p_outin = 1/(1+(1.12*(x^.47)))
+
+np_perc_change = 1-(n_outin/p_outin)
+plot(np_perc_change~log(x))
+
+curve(100*(1-((exp((-9.92*x)/1))/(1/(1+(1.12*(x^.47)))))), from=.001,to=100, log="x",
+      n=1000,
+      cex.lab = 2,
+      cex.axis = 1.5,
+      ylab="% Change TN:TP", 
+      xlab = "Residence Time (y)",
+      lwd=4, 
+      ylim=c(-100,100), col="dodgerblue", bty="l") 
+
+curve(100*(1-((exp((-9.92*x)/5))/(1/(1+(1.12*(x^.47)))))), .001,100,
+      lwd=4, add=TRUE, col="blue", n=1000) 
+curve(100*(1-((exp((-9.92*x)/10))/(1/(1+(1.12*(x^.47)))))), .001,1000,
+     lwd=4, col="darkblue", add=TRUE, n=1000) 
+curve(100*(1-((exp((-9.92*x)/50))/(1/(1+(1.12*(x^.47)))))), .001,1000,
+      lwd=4, col="black", add=TRUE,n=1000) 
+abline(h=0, col = "red")
+abline(v=1/365, col="red", lty=2)
+# week
+abline(v=7/365, col="red", lty=2)
+# month
+abline(v=30/365, col="red", lty=2)
+# year
+abline(v=1, col = "red", lty = 2)
