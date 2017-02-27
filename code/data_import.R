@@ -25,7 +25,7 @@ levels(epa$type)[1:4] = c("reservoir", "lake", "lake", "lake")
 
 # get rid of all lakes with residence time <1 day
 
-epa <- epa[epa$retention_time_years>(1/365), ]
+#epa <- epa[epa$retention_time_years>(1/365), ]
 #################################################
 # rearrange columns, create data frame to work from
 dat <- epa[,c(1,2,3,4,22,27,28,6,7,21,8,9,23,14,10,16,24,15,11,17,25,18,26,19, 20)]
@@ -81,7 +81,7 @@ har$Q <- har$Q_km3.yr*(1/(60*60*24*365))*10^9
 har <- har[,c(1,2,4,24,3,25,26,7,5,8,35,6,16,34,18,32,11,33,13,32,30,28,29,27,23)]
 names(har) <- names(dat)
 
-har <- har[har$res_time>(1/365), ]
+#har <- har[har$res_time>(1/365), ]
 #################################
 # Maavara data
 maav <- read.csv("Maavara et al 2015 data_with N.csv", header = TRUE, 
@@ -95,7 +95,7 @@ maav$Rn_calculated = ""
 maav <- maav[,c(34,1,36,37,38,2,3,8,9,10,12,11,15,17,16,18,19,21,20,22,23,39,24,40,35)]
 names(maav) <- names(dat)
 
-maav <- maav[maav$res_time>(1/365), ]
+#maav <- maav[maav$res_time>(1/365), ]
 
 ########################
 # Brett & Benjamin data
@@ -277,10 +277,11 @@ epa.short = epa.positive[epa$retention_time_years<.5,]
 plot(epa.short$rret~log10(epa.short$retention_time_years))
 
 #plot retention vs residence time then add curve of Brett & Benjamin
-plot(dat.np.real$Rp~log(as.numeric(dat.np.real$res_time)))
-curve(1-((1/(1+(1.12*(x^-0.53)*x)))/1), 0.001,1000,log="x",
+curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
       ylab = "P Retention", xlab = "Residence Time (y)", 
       col = "red", ylim = c(-0.8, 1))
+points(dat.np.real$Rp~dat.np.real$res_time, xlog = TRUE)
+
 abline(v=1/365, col="red", lty=2)
 # week
 abline(v=7/365, col="red", lty=2)
@@ -289,6 +290,10 @@ abline(v=30/365, col="red", lty=2)
 # year
 abline(v=1, col = "red", lty = 2)
 
+# plot N and P lines together 
+curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
+      ylab = "P Retention", xlab = "Residence Time (y)", 
+      col = "red", ylim = c(-0.8, 1))
 curve(1-(exp((-9.92*x)/1)), .001, 1000, 
       log = "x", ylab="N Retention", xlab = "Residence Time (y)", 
       col = "lightblue", add = TRUE)
