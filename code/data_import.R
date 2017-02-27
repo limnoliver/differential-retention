@@ -102,9 +102,9 @@ names(maav) <- names(dat)
 ########################
 
 brett <- read.csv("Brett_with_N.csv", header = TRUE)
-brett <- brett[,c(2:28)]
+brett <- brett[,c(2:29)]
 brett[,1] = "brett2008"
-brett <- brett[,c(1:9, 11:27)] 
+brett <- brett[,c(1:9, 11:28)] 
 
 names(brett)[c(1:20)] <- c("source", "waterbody_name", "state", 
                   "surface_area", "mean_depth", "Q", "res_time", 
@@ -150,7 +150,7 @@ brett$longitude = ""
 brett$Rp_source = ""
 brett$Rn_calculated = ""
 brett$notes = ""
-brett <- brett[,c(1,2,28,3,27,29,30,4,5,10,6,7,15,9,8,22,25,23,26,21,31,13,24,32,33)]
+brett <- brett[,c(1,2,29,3,28,30,31,4,5,10,6,7,15,9,8,22,26,23,27,21,25,13,24,32,33)]
 
 # change units of concentration from mgperm3 to mgperL
 brett$tp_in_conc = brett$tp_in_conc/1000
@@ -163,7 +163,7 @@ brett$volume <- brett$volume/1000
 
 names(brett) <- names(dat)
 
-# get rid fo lakes with residence time <1 day
+
 
 #################################
 # Donald et al 2015 data
@@ -302,28 +302,42 @@ curve(1-(exp((-9.92*x)/20)), .001, 1000, log = "x", ylab="N Retention", xlab = "
 
 # calculate percent change in N:P
 x = c(seq(0.001,1,0.002), seq(2,1000,1))
-
+x = 10^as.numeric(tapply(log10(dat.all$res_time), INDEX = c(dat.all$z), median, na.rm = TRUE))
 n_outin = exp((-9.92*x)/10)
 p_outin = 1/(1+(1.12*(x^.47)))
 
 np_perc_change = 1-(n_outin/p_outin)
 plot(np_perc_change~log(x))
 
-curve(100*(1-((exp((-9.92*x)/1))/(1/(1+(1.12*(x^.47)))))), from=.001,to=100, log="x",
+## create a plot that shows percent change in N:P by depth and residence time
+# create percentiles for depth, and find residence time for the median depth in those bins
+p <- .bincode(dat.all$mean_depth, breaks = as.numeric(quantile(dat.all$mean_depth, seq(0,1,by=0.1), na.rm = TRUE)), right = FALSE)
+depth = as.numeric(tapply(dat.all$mean_depth, INDEX = c(p), median, na.rm = TRUE))
+x = as.numeric(tapply(dat.all$res_time, INDEX = c(p), median, na.rm = TRUE))
+res_time_sd = as.numeric(tapply(dat.all$res_time, INDEX = c(p), sd, na.rm = TRUE))
+n_outin = exp((-9.92*x)/depth)
+p_outin = 1/(1+(1.12*(x^.47)))
+np_perc = -100*(1-(n_outin/p_outin))
+
+new.cols = c(brewer.pal(n = 9, name = "Blues"), "black")
+png("PercentChange_restime.png", height = 600, width = 800)
+par(cex = 1, mar = c(5,5,1,1))
+curve(-100*(1-((exp((-9.92*x)/depth[1]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=100, log="x",
       n=1000,
       cex.lab = 2,
       cex.axis = 1.5,
       ylab="% Change TN:TP", 
       xlab = "Residence Time (y)",
       lwd=4, 
-      ylim=c(-100,100), col="dodgerblue", bty="l") 
+      ylim=c(-100,100), col=new.cols[1], bty="l", xaxt = "n")
+axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years"), at = c(1/365, 7/365, 30/365, 1, 10))
+for (i in 1:length(depth)){
+  curve(-100*(1-((exp((-9.92*x)/depth[i]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=100, log="x",
+      n=1000,
+      lwd=4, 
+      col=new.cols[i], bty="l", add = TRUE) 
+}
 
-curve(100*(1-((exp((-9.92*x)/5))/(1/(1+(1.12*(x^.47)))))), .001,100,
-      lwd=4, add=TRUE, col="blue", n=1000) 
-curve(100*(1-((exp((-9.92*x)/10))/(1/(1+(1.12*(x^.47)))))), .001,1000,
-     lwd=4, col="darkblue", add=TRUE, n=1000) 
-curve(100*(1-((exp((-9.92*x)/50))/(1/(1+(1.12*(x^.47)))))), .001,1000,
-      lwd=4, col="black", add=TRUE,n=1000) 
 abline(h=0, col = "red")
 abline(v=1/365, col="red", lty=2)
 # week
@@ -332,3 +346,36 @@ abline(v=7/365, col="red", lty=2)
 abline(v=30/365, col="red", lty=2)
 # year
 abline(v=1, col = "red", lty = 2)
+# now add points of where real lakes can be
+points(x, y = np_perc, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), pch = 21,cex = 2)
+text(x = 20, y = -30, "Remove more N \nDecrease N:P")
+text(x = 20, y = 30, "Remove more P \nIncrease N:P")
+
+dev.off()
+
+# create a figure that shows depth vs residence time
+plot(log10(dat.all$res_time)~log10(dat.all$mean_depth), cex = 2,
+     pch = 21, bg = rgb(200,200,200,alpha=200, max = 255),
+     xlab = "Mean Depth (m)", ylab = "Residence Time (yr)", cex.lab = 1.5)
+abline(lm(log10(dat.all$res_time)~log10(dat.all$mean_depth)), col = "red", lwd = 2)
+
+hist(log10(dat.all$res_time))
+breaks <- hist(log10(dat.all$mean_depth), breaks = 5)
+z <- .bincode(dat.all$mean_depth,breaks = c(0,2,3,5,10,20,50,315), right = FALSE)
+
+png("restime_depth.png", height = 600, width = 800, pointsize = 14)
+par(cex = 1.2, mar = c(4,4,1,2))
+boxplot(log10(dat.all$res_time)~z, xaxt = "n", yaxt = "n", cex.lab = 1.5)
+axis(1, labels = c("<2", "2-3", "3-5", "5-10", "10-20", "20-50", ">50"), 
+     at = c(1,2,3,4,5,6,7), main = "Mean Depth (m)", cex.axis = 1.3, mgp = c(1.5,.7,0))
+title(xlab = "Mean Depth (m)", ylab = "Residence Time (yr)", mgp = c(2.5,.7,0), cex.lab = 2)
+axis(2, labels = c(0.001,0.01, 0.1, 1, 10, 100,1000), 
+     at = c(-3,-2,-1,0,1,2,3), cex.axis = 1.3)
+text(x = c(1,2,3,4,5,6,7), 
+     y= c(1,1.5,1.75,1.5,1.55,1.9,3),
+     c("12%", "10%", "17%", "29%", "20%", "8%", "3%"),col = "red")
+text(x = c(1,2,3,4,5,6,7), y = as.numeric(tapply(log10(dat.all$res_time), INDEX = c(dat.all$z), median, na.rm = TRUE)), 
+     c("21 d", "50 d", "4 mo", "5 mo", "10 mo", "1.1 yr", "6.6 yr"), col = "blue", pos = 3)
+
+
+dev.off()
