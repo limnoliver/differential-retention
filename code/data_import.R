@@ -434,6 +434,7 @@ dev.off()
 par(cex = 1.2, mar = c(5,5,1,1))
 
 epa$dasa <- epa$drainage_area_km2/epa$surface_area_km2
+
 plot(log10(epa$retention_time_years[epa$type=="reservoir"])~log10(epa$dasa[epa$type=="reservoir"]), cex = 1.5,
      pch = 21, bg = rgb(200,200,200,alpha=200, max = 255),
      xlab = "log Drainage Area:Surface Area", 
@@ -444,4 +445,4 @@ abline(lm(log10(epa$retention_time_years[epa$type=="reservoir"])~log10(epa$dasa[
 abline(lm(log10(epa$retention_time_years[epa$type=="lake"])~log10(dasa[epa$type=="lake"])), col = rgb(100,200,200,alpha=200,max=255), lwd = 2)     
 abline(lm(log10(epa$retention_time_years)~log10(epa$dasa)), lty = 2, lwd=2)
 text(3.5, 3, "Residence Time = 6.9X^-0.68", col = rgb(150,150,150, max = 255))       
-text(3.5, 2.8, "Residence Time = X^-0.68", col = rgb(150,150,150, max = 255))       
+text(3.5, 2.6, "Residence Time = 24.5X^-1.06", col = rgb(100,200,200, max = 255))       
