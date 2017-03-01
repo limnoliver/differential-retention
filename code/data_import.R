@@ -233,9 +233,12 @@ plot(dat.np.pos$Rn~log10(dat.np.pos$h))
 
 #
 dat.np.pos
-
+png("Rn_Rp_extreme.png", height = 800, width = 800)
+par(mar=c(5,5,1,1), cex = 1.4)
 plot(dat.np.real$Rn~dat.np.real$Rp, pch = 21, 
-     bg = rgb(222,222,222,alpha = 200, max = 255), cex = 2, ylim = c(-1,1))
+     bg = rgb(222,222,222,alpha = 200, max = 255), cex = 2, cex.lab = 1.8,
+     xlab = "Rp", ylab = "Rn", cex.axis = 1.3)
+
 abline(0,1,col = "blue", lwd = 2)
 points(dat.np.real$Rn[dat.np.real$rank_sum<250],
        dat.np.real$Rp[dat.np.real$rank_sum<250], pch = 21, cex = 2,
@@ -243,6 +246,10 @@ points(dat.np.real$Rn[dat.np.real$rank_sum<250],
 points(dat.np.real$Rn[dat.np.real$rank_sum>1260],
        dat.np.real$Rp[dat.np.real$rank_sum>1260], bg = rgb(85,107,47,alpha = 200, max = 255), 
        pch = 21, cex = 2)
+dev.off()
+
+
+
 hist(epa$Rp[epa$Rp>0])
 length(which(epa$Rp<0))
 hist(epa)
@@ -256,40 +263,102 @@ length(which(epa$Rn<0))
 
 plot(epa$Rn[epa$Rn>0]~epa$Rp[epa$Rn>0])
 
-#get rid of unrealistic values (< -1)
-epa.filtered = epa[epa$Rn>-1 & epa$Rp>-1,]
-plot(epa.filtered$Rn~epa.filtered$Rp)
-
-#get rid of all negative values
-epa.positive = epa[epa$Rn>0 & epa$Rp>0,]
-plot(epa.positive$Rn ~ epa.positive$Rp)
-abline(0,1, col = "red")
-epa.positive$rret = epa.positive$Rn/epa.positive$Rp
-epa.positive$h = epa.positive$mean_depth_m/epa.positive$retention_time_years
-plot(epa.positive$rret~log10(epa.positive$h))
-
-# show relative retention vs res time
-plot(epa.positive$Rp~log10(epa.positive$retention_time_years))
-points(epa.positive$Rn~log10(epa.positive$retention_time_years), col = "red", add = TRUE)
-
-# show really short residence time relationships
-epa.short = epa.positive[epa$retention_time_years<.5,]
-plot(epa.short$rret~log10(epa.short$retention_time_years))
-
+##############################################
+## figure - Vollenweider vs observed retention
+##############################################
+pdf("Rpobs_Veq.pdf", height = 6, width = 8)
+par(mar=c(5,5,1,1))
 #plot retention vs residence time then add curve of Brett & Benjamin
 curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
-      ylab = "P Retention", xlab = "Residence Time (y)", 
-      col = "red", ylim = c(-0.8, 1))
-points(dat.np.real$Rp~dat.np.real$res_time, xlog = TRUE)
+      ylab = "Rp", xlab = "Residence Time (y)", 
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
+     at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
 
-abline(v=1/365, col="red", lty=2)
+points(dat.all$Rp~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.5,
+       bg = rgb(222,222,222,max=255,alpha=200))
+curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",add = TRUE,
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+
+abline(v=1/365, col="gray", lty=2)
 # week
-abline(v=7/365, col="red", lty=2)
+abline(v=7/365, col="gray", lty=2)
 # month
-abline(v=30/365, col="red", lty=2)
+abline(v=30/365, col="gray", lty=2)
 # year
-abline(v=1, col = "red", lty = 2)
+abline(v=1, col = "gray", lty = 2)
+abline(v=10, col = "gray", lty = 2)
+abline(v=100, col = "gray", lty = 2)
+dev.off()
 
+##############################################
+## figure - Harrison vs observed retention
+##############################################
+pdf("Rnobs_Heq.pdf", height = 6, width = 8)
+par(mar=c(5,5,1,1))
+#plot retention vs residence time then add curve of Brett & Benjamin
+curve(1-(exp((-9.92*x)/9.6)), 0.001,1000,log = "x",
+      ylab = "Rn", xlab = "Residence Time (y)", 
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
+     at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
+
+points(dat.all$Rn~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.5,
+       bg = rgb(222,222,222,max=255,alpha=200))
+curve(1-(exp((-9.92*x)/9.6)), 0.001,1000,log = "x",add = TRUE,
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+
+abline(v=1/365, col="gray", lty=2)
+# week
+abline(v=7/365, col="gray", lty=2)
+# month
+abline(v=30/365, col="gray", lty=2)
+# year
+abline(v=1, col = "gray", lty = 2)
+abline(v=10, col = "gray", lty = 2)
+abline(v=100, col = "gray", lty = 2)
+dev.off()
+
+# fit our own model
+dat.fit <- data.frame(x = dat.all$res_time[!is.na(dat.all$res_time)&!is.na(dat.all$Rp)], 
+                      y = dat.all$Rp[!is.na(dat.all$res_time)&!is.na(dat.all$Rp)])
+min.RSS <- function(dat.fit, par) {
+  with(dat.fit, sum(((1-(1/(1 + (par[1]*x^par[2])))) - y)^2))
+}
+
+result <- optim(par = c(1.12,0.47), min.RSS, data = dat.fit)
+################
+# n mods with different Vf and depth
+##############################
+png("RN_Vf_depth_restime.png", height = 800, width = 1000)
+par(mar=c(5,5,1,1), cex = 1.4)
+curve(1-(exp((-6.83*x)/1)), .001, 1000, 
+      log = "x", ylab="N Retention", xlab = "Residence Time (y)",  xaxt = "n",
+      col = "deepskyblue", lwd = 4, cex.lab = 1.8, cex.axis = 1.3)
+curve(1-(exp((-13.66*x)/1)), .001, 1000, 
+      log = "x", xaxt = "n", 
+      col = "coral", lwd = 4, cex.lab = 1.8, cex.axis = 1.3, add = TRUE)
+axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
+     at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
+curve(1-(exp((-13.66*x)/50)), .001, 1000, 
+      log = "x", xaxt = "n",
+      col = "coral3", lwd = 4, cex.lab = 1.8, cex.axis = 1.3, add = TRUE)
+curve(1-(exp((-6.83*x)/50)), .001, 1000, 
+      log = "x", xaxt = "n",
+      col = "deepskyblue3", lwd = 4, cex.lab = 1.8, cex.axis = 1.3, add = TRUE)
+text(100,.2,"Deep lakes retain less N", col = "deepskyblue3", cex = 1.3)
+text(4/365,.8,"Reservoirs retain more N", col = "coral3", cex = 1.3)
+
+abline(v=1/365, col="gray", lty=2)
+
+abline(v=7/365, col="gray", lty=2)
+# month
+abline(v=30/365, col="gray", lty=2)
+# year
+abline(v=1, col = "gray", lty = 2)
+abline(v=10, col = "gray", lty = 2)
+abline(v=100, col = "gray", lty = 2)
+dev.off()
 ###############################################
 ## Figure 1
 ###############################################
@@ -306,7 +375,7 @@ axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 year
 
 curve(1-(exp((-9.92*x)/1)), .001, 1000, 
       log = "x", ylab="N Retention", xlab = "Residence Time (y)", 
-      col = new.cols[3], add = TRUE, lwd = 4,)
+      col = new.cols[3], add = TRUE, lwd = 4)
 curve(1-(exp((-9.92*x)/10)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = new.cols[5], lwd = 4, add = TRUE)
 curve(1-(exp((-9.92*x)/20)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = new.cols[7], lwd = 4, add = TRUE)
 curve(1-(exp((-9.92*x)/50)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = new.cols[9], lwd = 4, add = TRUE)
@@ -424,7 +493,7 @@ axis(2, labels = c(0.001,0.01, 0.1, 1, 10, 100,1000),
      at = c(-3,-2,-1,0,1,2,3), cex.axis = 1.3)
 text(x = c(1,2,3,4,5,6,7), 
      y= c(1,1.5,1.75,1.5,1.55,1.9,3),
-     c("12%", "10%", "17%", "29%", "20%", "8%", "3%"),col = "red")
+     c("12%", "10%", "17%", "29%",  "20%", "8%", "3%"),col = "red")
 text(x = c(1,2,3,4,5,6,7), y = as.numeric(tapply(log10(dat.all$res_time), INDEX = c(dat.all$z), median, na.rm = TRUE)), 
      c("21 d", "50 d", "4 mo", "5 mo", "10 mo", "1.1 yr", "6.6 yr"), col = "blue", pos = 3)
 
@@ -434,15 +503,28 @@ dev.off()
 par(cex = 1.2, mar = c(5,5,1,1))
 
 epa$dasa <- epa$drainage_area_km2/epa$surface_area_km2
+png()
 
+#create a relationship between drainage area to residence time
+
+png("restime_dasa.png", height = 600, width = 800, pointsize = 14)
+par(cex = 1.2, mar = c(5,5,1,1))
 plot(log10(epa$retention_time_years[epa$type=="reservoir"])~log10(epa$dasa[epa$type=="reservoir"]), cex = 1.5,
      pch = 21, bg = rgb(200,200,200,alpha=200, max = 255),
      xlab = "log Drainage Area:Surface Area", 
-     ylab = "log Residence Time", cex.lab = 2, cex.axis = 1.3, xlim = c(0,5), ylim=c(-3,3))
+     ylab = "log Residence Time", cex.lab = 1.8, cex.axis = 1.3, xlim = c(0,5), ylim=c(-3,3),
+     xaxt = "n", yaxt = "n")
+axis(1,labels=c("1, 100, 1000, 10000"))
 points(log10(epa$retention_time_years[epa$type=="lake"])~log10(epa$dasa[epa$type=="lake"]), cex = 1.5,
      pch = 21, bg = rgb(100,200,200,alpha=200, max = 255))  
 abline(lm(log10(epa$retention_time_years[epa$type=="reservoir"])~log10(epa$dasa[epa$type=="reservoir"])), col = "gray", lwd = 2)     
 abline(lm(log10(epa$retention_time_years[epa$type=="lake"])~log10(dasa[epa$type=="lake"])), col = rgb(100,200,200,alpha=200,max=255), lwd = 2)     
 abline(lm(log10(epa$retention_time_years)~log10(epa$dasa)), lty = 2, lwd=2)
-text(3.5, 3, "Residence Time = 6.9X^-0.68", col = rgb(150,150,150, max = 255))       
-text(3.5, 2.6, "Residence Time = 24.5X^-1.06", col = rgb(100,200,200, max = 255))       
+text(3.5, 3, expression("Residence Time = 6.9X"^-0.68), col = rgb(150,150,150, max = 255), cex = 1.3)       
+text(3.5, 2.6, expression("Residence Time = 24.5X"^-1.06), col = rgb(100,200,200, max = 255), cex = 1.3)       
+dev.off()
+
+# use hydrolakes database to look at global distribution of depth vs residence time
+
+library(rgdal)
+hl = readOGR(dsn ="/Users/Samantha/Dropbox/Differential Retention/Data/HydroLAKES_points_v10_shp", layer = "HydroLAKES_points_v10")
