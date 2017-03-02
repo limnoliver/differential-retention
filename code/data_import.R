@@ -40,14 +40,13 @@ names(dat) <- c("source", "waterbody_name", "lake_type",
 #######################
 har <- read.csv("Harrison et al data_with P.csv", header = TRUE,
                 na.strings = c("", "NA", "ND"))
-har$state = ""
-har$latitude = ""
-har$longitude = ""
+
 har$Rn_calculated = har$N_retention
 har$Rp_calculated = har$P_retention
 har$Rn_source = ""
 har$Rp_source = ""
 
+## need to rework harrison
 #convert mass units
 for (i in 1:nrow(har)){
   if (har$mass_units[i] %in% "g m-2 y-1" | har$mass_units[i] %in% "g m-2 yr-1"){
@@ -95,7 +94,17 @@ maav$Rn_calculated = ""
 maav <- maav[,c(34,1,36,37,38,2,3,8,9,10,12,11,15,17,16,18,19,21,20,22,23,39,24,40,35)]
 names(maav) <- names(dat)
 
-#maav <- maav[maav$res_time>(1/365), ]
+#update units to match rest of data
+
+maav$Q = maav$Q*(10^9/(60*60*24*365))     
+maav$tn_in_conc = maav$tn_in_conc*(14/1000)
+maav$tn_out_conc = maav$tn_out_conc*(14/1000)
+maav$tp_in_conc = maav$tp_in_conc*(30.97/1000)
+maav$tp_out_conc = maav$tp_out_conc*(30.97/1000)
+maav$tn_in_mass = maav$tn_in_mass*(14/1000)
+maav$tn_out_mass = maav$tn_out_mass*(14/1000)
+maav$tp_in_mass = maav$tp_in_mass*(30.97/1000)
+maav$tp_out_mass = maav$tp_out_mass*(30.97/1000)
 
 ########################
 # Brett & Benjamin data
@@ -213,13 +222,46 @@ dat.all$Q[which(is.na(dat.all$Q))] = (dat.all$volume[which(is.na(dat.all$Q))]/da
 dat.all$Q[which(dat.all$Q==0)] = (dat.all$volume[which(dat.all$Q==0)]/dat.all$res_time[which(dat.all$Q==0)])*((60*60*24*365)/10^9)
 
 # calculate in/out nutrients
-# start with out because has fewest missing values
+
+# tp_out_conc
 dat.all$tp_out_conc[is.na(dat.all$tp_out_conc)] = (as.numeric(dat.all$tp_out_mass[is.na(dat.all$tp_out_conc)])/dat.all$Q[is.na(dat.all$tp_out_conc)])*(1/31536)
 
 #tp_in_conc
+dat.all$tp_in_conc <- as.numeric(dat.all$tp_in_conc)
 dat.all$tp_in_conc[is.na(dat.all$tp_in_conc)] = (as.numeric(dat.all$tp_in_mass[is.na(dat.all$tp_in_conc)])/dat.all$Q[is.na(dat.all$tp_in_conc)])*(1/31536)
 
-for (i in 1:nrow(dat.all)){
+# tp mass in
+dat.all$tp_in_mass <- as.numeric(dat.all$tp_in_mass)
+dat.all$tp_in_mass <- dat.all$tp_in_conc*dat.all$Q*31536
+
+#tp mass out
+dat.all$tp_out_mass <- as.numeric(dat.all$tp_out_mass)
+dat.all$tp_out_mass <- dat.all$tp_out_conc*dat.all$Q*31536
+
+# tn out conc
+dat.all$tn_out_conc[is.na(dat.all$tn_out_conc)] = (as.numeric(dat.all$tn_out_mass[is.na(dat.all$tn_out_conc)])/dat.all$Q[is.na(dat.all$tn_out_conc)])*(1/31536)
+
+#tn_in_conc
+dat.all$tn_in_conc <- as.numeric(dat.all$tn_in_conc)
+dat.all$tn_in_conc[is.na(dat.all$tn_in_conc)] = (as.numeric(dat.all$tn_in_mass[is.na(dat.all$tn_in_conc)])/dat.all$Q[is.na(dat.all$tn_in_conc)])*(1/31536)
+
+# tn mass in
+dat.all$tn_in_mass <- as.numeric(dat.all$tn_in_mass)
+dat.all$tn_in_mass <- dat.all$tn_in_conc*dat.all$Q*31536
+
+#tn mass out
+dat.all$tn_out_mass <- as.numeric(dat.all$tn_out_mass)
+dat.all$tn_out_mass <- dat.all$tn_out_conc*dat.all$Q*31536
+
+# in lagos, max TN = 20.57 max TP = 1.22
+summary(dat.all$tn_out_conc)
+dat.all[which(dat.all$tn_out_conc>20), ]
+
+summary(dat.all$tp_out_conc)
+dat.all[which(dat.all$tp_out_conc>1.2), ]
+
+
+  for (i in 1:nrow(dat.all)){
   if dat.all$Q[i]
 }
 
