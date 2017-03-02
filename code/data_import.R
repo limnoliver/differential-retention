@@ -101,8 +101,8 @@ names(maav) <- names(dat)
 # Brett & Benjamin data
 ########################
 
-brett <- read.csv("Brett_with_N.csv", header = TRUE)
-brett <- brett[,c(2:29)]
+brett <- read.csv("Brett_with_N.csv", header = TRUE, na.strings = c("", NA))
+brett <- brett[,c(2:28, 30)]
 brett[,1] = "brett2008"
 brett <- brett[,c(1:9, 11:28)] 
 
@@ -147,11 +147,9 @@ levels(brett$state) = c(NA, "British Colombia", "California", "Connecticut",
 brett$lake_type = ""
 brett$latitude = ""
 brett$longitude = ""
-brett$Rp_source = ""
 brett$Rn_calculated = ""
 brett$notes = ""
 brett <- brett[,c(1,2,29,3,28,30,31,4,5,10,6,7,15,9,8,22,26,23,27,21,25,13,24,32,33)]
-
 # change units of concentration from mgperm3 to mgperL
 brett$tp_in_conc = brett$tp_in_conc/1000
 brett$tp_out_conc = brett$tp_out_conc/1000
@@ -169,7 +167,7 @@ names(brett) <- names(dat)
 # Donald et al 2015 data
 #################################
 
-donald <- read.csv("Donald et al 2015 data.csv", header = TRUE)
+donald <- read.csv("Donald et al 2015 data.csv", header = TRUE, na.strings = c("NA", ""))
 donald$tn_in_mass = ""
 donald$tn_in_conc = ""
 donald$tp_in_mass = ""
@@ -183,8 +181,8 @@ donald$state = ""
 donald$notes = ""
 
 donald <- donald[,c(27,1,3,28,2,4,5,8,9,10,12,11,22,21,13,24,20,19,14,23,15,26,17,25,29)]
-donald$TP_out_ugperL <- 1000*donald$TP_out_ugperL
-donald$TN_out_ugperL <- 1000*donald$TN_out_ugperL
+donald$TP_out_ugperL <- donald$TP_out_ugperL/1000
+donald$TN_out_ugperL <- donald$TN_out_ugperL/1000
 
 names(donald) <- names(dat)
 
@@ -203,6 +201,27 @@ dat.all$Rp <- as.numeric(dat.all$Rp_source)
 dat.all$Rp[is.na(dat.all$Rp)] <- as.numeric(dat.all$Rp_calculated[is.na(dat.all$Rp)])
 dat.all$Rn <- as.numeric(dat.all$Rn_source)
 dat.all$Rn[is.na(dat.all$Rn)] <- as.numeric(dat.all$Rn_calculated[is.na(dat.all$Rn)])
+
+#################################
+# calculate all input/output variables
+###################################
+# calculate volume for all lakes
+dat.all$volume[which(is.na(dat.all$volume))] = (dat.all$mean_depth[which(is.na(dat.all$volume))]/1000)*dat.all$surface_area[which(is.na(dat.all$volume))]
+#calculate Q for all lakes
+dat.all$Q[which(is.na(dat.all$Q))] = (dat.all$volume[which(is.na(dat.all$Q))]/dat.all$res_time[which(is.na(dat.all$Q))])*((60*60*24*365)/10^9)
+#for lakes that have q = 0, recalculate from volume and residence time to get non-zero answer
+dat.all$Q[which(dat.all$Q==0)] = (dat.all$volume[which(dat.all$Q==0)]/dat.all$res_time[which(dat.all$Q==0)])*((60*60*24*365)/10^9)
+
+# calculate in/out nutrients
+# start with out because has fewest missing values
+dat.all$tp_out_conc[is.na(dat.all$tp_out_conc)] = (as.numeric(dat.all$tp_out_mass[is.na(dat.all$tp_out_conc)])/dat.all$Q[is.na(dat.all$tp_out_conc)])*(1/31536)
+
+#tp_in_conc
+dat.all$tp_in_conc[is.na(dat.all$tp_in_conc)] = (as.numeric(dat.all$tp_in_mass[is.na(dat.all$tp_in_conc)])/dat.all$Q[is.na(dat.all$tp_in_conc)])*(1/31536)
+
+for (i in 1:nrow(dat.all)){
+  if dat.all$Q[i]
+}
 
 dat.np <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$Rp),]
 dat.np$relret <- dat.np$Rn/dat.np$Rp
