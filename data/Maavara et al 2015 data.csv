@@ -1,0 +1,182 @@
+Name,Latitude,Longitude,Location,Year of data collection,Year_dammed,Reservoir_age_yr,Surface_area(km2),mean_depth(m),vol(km3),residence_time(yr),discharge_km3/yr,Purpose,TP_Conc_in_(uM),TP_Conc_out_(uM),TPin(mol/yr),TPout(mol/yr),TP_Retention,Catchment dominant lithology (Hartmann and Moosdorf 2012),Outflow_type,2nd_P_species,2nd_p_conc_in_ (uM),2nd_P_conc_out(uM),2nd_P_influx(mol/yr),2nd_P_efflux(mol/yr),2nd_P_retention,Additional notes,References
+Acton_Lake,39.57,-84.74,Ohio (USA),,,55,2.40,3.9,0.01,0.12,0.078,flow,7.90,5.43,6.15E+05,4.23E+05,0.31,Carbonate,,,,,,,,,"Vani et al., 2011"
+Al_Massira,32.47,-7.63,Morocco,1991,1979,12,129.62,18.7,2.42,1.51,1.603,pump,11.55,1.04,1.85E+07,1.67E+06,0.90,Carbonate,Bottom,,,,,,,Hejzlar database,Alaoui-Mhamdi&Aleya 1995
+ALLATOONA,34.16,-84.727,Georgia (USA),1972-1976,1950,24,48.60,9.1,0.44,0.16,2.799,pump,2.47,0.83,6.90E+06,2.32E+06,0.66,Carbonate,Bottom,,,,,,,Hejzlar database,Walker 1985
+ALLEGHENY_(KINZUA),41.84,-79.003,USA,1972-1976,1965,9,85.70,13.2,1.13,0.17,6.815,flow,1.49,1.00,1.01E+07,6.80E+06,0.33,Siliclastic_sed,Mixed,,,,,,,Hejzlar database,Walker 1985
+Amance,48.20,4.47,France,,,4,0.50,4.5,0.00,0.03,0.075,flow,17.51,11.48,1.31E+06,8.61E+05,0.34,Carbonate,,TDP,0.057,0.029,4.25E+03,2.15E+03,0.49,,Garnier et al 1999
+Anarbe,43.22,-1.87,Spain,79-80,1976,3.5,1.32,25.7,0.03,0.41,0.083,pump,0.43,0.29,3.55E+04,2.40E+04,0.32,,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Artikutza,43.20,-1.78,Spain,79-80,1962,17.5,0.11,10.9,0.00,0.07,0.016,pump,0.39,0.42,6.46E+03,6.88E+03,-0.07,Mixed_seds,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+ASHTABULA_(BALDHILL),47.03,-98.083,North_Dakota (USA),1972-1977,1951,23,21.20,3.8,0.08,0.49,0.164,pump,9.94,7.23,1.63E+06,1.19E+06,0.27,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Walker 1985
+ATWOOD,40.53,-81.285,USA,1972-1976,1940,34,8.00,4.4,0.04,0.30,0.117,flow,2.94,0.89,3.43E+05,1.03E+05,0.70,Siliclastic_sed,Surface,,,,,,,Hejzlar database,Walker 1985
+Aube,48.20,4.47,France,1994-95,,4,21.00,8.9,0.19,0.40,0.467,flow,1.88,0.83,5.81E+05,3.55E+05,0.39,Carbonate,,TDP,0.009,0.003,4.25E+03,1.55E+03,0.64,,Garnier et al 1999
+Azután,39.77,-5.08,Spain,80-81,1969,11.5,6.52,9.0,0.06,0.04,1.473,pump,68.34,57.02,1.01E+08,8.40E+07,0.17,Siliclastic_sed or Acid_plutonic,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+BANKHEAD,33.45,-87.349,USA,1972-1976,1915,59,35.48,9.3,0.33,0.04,8.684,flow,2.09,1.69,1.81E+07,1.47E+07,0.19,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Walker 1985
+BARKLEY,37.02,-88.221,USA,1972-1976,1966,8,230.00,5.0,1.15,0.02,50.000,flow,4.30,3.97,2.15E+08,1.99E+08,0.08,"Carbonate,Unconsol_seds",Mixed,,,,,,,Hejzlar database,Walker 1985
+BARREN_RIVER,36.89,-86.124,USA,1972-1976,1964,10,41.00,7.9,0.32,0.16,2.050,flow,2.19,1.51,4.48E+06,3.10E+06,0.31,Carbonate,Bottom,,,,,,,Hejzlar database,Walker 1985
+Bavigne(Lac_de_la_Haute_Sure),49.90,5.87,Luxemberg.,1989-90,,,0.24,7.1,0.00,0.12,0.014,flow,5.71,1.15,7.81E+04,1.57E+04,0.80,Mixed_seds,Surface,,,,,,,Hejzlar database,Salvia-Castelvi et al. 2001
+BEACH_CITY,40.63,-81.558,USA,1972-1976,1936,38,1.70,1.5,0.00,0.01,0.196,flow,8.64,6.74,1.69E+06,1.32E+06,0.22,Siliclastic_sed,Surface,,,,,,,Hejzlar database,Walker 1985
+BEAVER,36.42,-93.847,USA,1972-1976,1966,8,114.10,17.8,2.03,0.96,2.127,flow,2.04,0.52,4.35E+06,1.11E+06,0.74,Carbonate,Mixed,,,,,,,Hejzlar database,Walker 1985
+BELTZVILLE,40.85,-75.638,USA,1972-1976,1972,2,1.56,13.5,0.02,0.25,0.086,pump,0.45,0.36,3.89E+04,3.05E+04,0.21,Siliclastic_sed,Surface,,,,,,,Hejzlar database,Walker 1985
+BERLIN,41.05,-81.002,USA,1972-1976,1943,31,14.53,5.1,0.07,0.22,0.331,pump,12.10,1.86,4.00E+06,6.14E+05,0.85,Siliclastic_sed,Mixed,,,,,,,Hejzlar database,Walker 1985
+BLUES_TONE,37.64,-80.887,USA,1972-1976,1949,25,8.30,9.8,0.08,0.02,3.873,flow,1.50,1.48,5.80E+06,5.71E+06,0.02,Siliclastic_sed,,,,,,,,Hejzlar database,Walker 1985
+Bort-les-orgue,45.40,2.5,France,1996-1997,,44,8.58,33,0.28,0.25,1.133,flow,3.39,1.63,3.91E+06,1.87E+06,0.52,Metamorphic or Basic_volcanic,,TDP,0.051,0.029,5.80E+04,3.30E+04,0.43,,Brigault and Ruban 1999; Ruban and Demare 1998
+Broa,-22.20,-47.87,Brazil,,,64,3.00,3,0.01,0.08,0.110,flow,0.96,0.81,1.05E+05,8.93E+04,0.15,Siliclastic_sed,,,,,,,,,Miranda & Matvienko 2003
+BULL_SHOALS,36.37,-92.572,USA,1972-1976,1951,23,182.70,20.9,3.82,0.44,8.738,flow,0.61,0.40,5.30E+06,3.47E+06,0.35,Carbonate,Mixed,,,,,,,Hejzlar database,Walker 1985
+Burvattnet,64.00,13.33,Sweden,,,59,13.20,43,0.55,3.90,0.141,unknown,0.13,0.13,1.87E+04,1.82E+04,0.02,"Acid_volcanic,Acid_plutonic",,,,,,,,Uses discharge calcuated from retention time and volume,"Rydin et al., 2008"
+Calhan,38.63,-104.65,Colorado,1973-75,,,0.08,2.0,0.00,0.30,0.001,flow,4.21,3.10,2.31E+03,1.70E+03,0.26,,,,,,,,,Hejzlar database,Schreiber&Rausch 1979
+CANYON,29.87,-98.198,USA,1972-1976,1964,10,33.31,13.5,0.45,0.58,0.782,flow,0.64,0.36,5.02E+05,2.83E+05,0.44,Carbonate,Bottom,,,,,,,Hejzlar database,Walker 1985
+CARLYLE,38.62,-89.351,USA,1972-1976,1958,16,105.20,3.6,0.38,0.12,3.079,flow,6.47,3.88,1.99E+07,1.19E+07,0.40,Carbonate,Mixed,,,,,,,Hejzlar database,Walker 1985
+Castrejón,39.85,-4.28,Spain,80-81,1967,13.5,4.85,5.5,0.03,0.02,1.325,pump,81.01,67.06,1.07E+08,8.89E+07,0.17,Metamorphic,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Ceske_udoli_bottom_outlets,49.72,13.35,Czech_Republic,1997,,24,1.04,2.55,0.00,0.04,0.070,flow,11.56,6.91,8.62E+08,5.00E+08,0.42,,Surface,DP,5.460,1.580,3.81E+05,1.10E+05,0.71,annual redox oscillations due to draining/filling regime,Duras and Hejzlar 2001
+Ceske_udoli_surface_outlets,49.72,13.35,Czech_Republic,1998,,25,1.04,2.55,0.00,0.06,0.042,flow,14.72,11.36,5.42E+08,4.52E+08,0.17,,Bottom,DP,8.850,7.100,3.72E+05,2.99E+05,0.20,annual redox oscillations due to draining/filling regime,Duras and Hejzlar 2001
+Champaubert,48.30,4.73,France,,,20,0.50,3.5,0.00,0.11,0.016,flow,16.23,10.15,2.58E+05,1.61E+05,0.38,Carbonate,,TDP,1.094,0.758,1.74E+04,1.21E+04,0.31,,Garnier et al 1999
+CHARLES_MILL,40.74,-82.363,USA,1972-1977,1936,38,5.46,1.7,0.01,0.04,0.265,flow,5.63,5.00,1.49E+06,1.33E+06,0.11,Siliclastic_sed,Surface,,,,,,,Hejzlar database,Walker 1985
+Chatuge,35.02,-83.78,North_Carolina (USA),1974-1976,1942,33,23.90,9.5,0.23,0.44,0.520,flow,0.68,0.52,3.53E+05,2.69E+05,0.23,"Metamorphic,Siliclastic_sed",Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Cherokee,36.15,-83.48,Tennessee (USA),1974-1976,1941,34,77.90,13.9,1.08,0.22,5.002,flow,5.00,1.07,2.50E+07,5.33E+06,0.78,Carbonate,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Chickamauga,35.10,-85.22,Tennessee (USA),1974-1976,1940,35,122.20,5.0,0.61,0.02,36.393,flow,0.84,0.87,3.05E+07,3.17E+07,-0.06,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+CLARK_HILL,33.66,-82.199,USA,1972-1976,1952,22,288.00,10.7,3.08,0.26,11.717,pump,1.84,0.79,2.15E+07,9.27E+06,0.57,Metamorphic,Bottom,,,,,,,Hejzlar database,Walker 1985
+CUMBERLAND_(WOLF_CREEK),36.87,-85.145,USA,1972-1976,1952,22,265.20,22.4,5.94,0.29,20.627,flow,1.87,1.09,3.86E+07,2.26E+07,0.41,Carbonate,Bottom,,,,,,,Hejzlar database,Walker 1985
+DALE_HOLLOW,36.54,-85.441,USA,1972-1976,1943,31,111.40,14.5,1.62,0.68,2.389,flow,0.61,0.27,1.45E+06,6.40E+05,0.56,Carbonate,Bottom,,,,,,,Hejzlar database,Walker 1985
+DEER_CREEK,39.62,-83.216,Ohio (USA),1972-1976,1968,6,12.00,3.1,0.04,0.04,1.063,flow,8.70,5.61,9.25E+06,5.96E+06,0.36,Carbonate,,,,,,,,Hejzlar database,Walker 1985
+DELAWARE,40.36,-83.069,USA,1972-1976,1951,23,5.26,3.5,0.02,0.03,0.736,flow,5.49,4.16,4.04E+06,3.06E+06,0.24,Siliclastic_sed or Carbonate,Surface,,,,,,,Hejzlar database,Walker 1985
+Douglas,35.95,-83.53,Tennessee (USA),1974-1976,1943,32,78.90,10.7,0.85,0.12,7.282,flow,2.16,1.07,1.58E+07,7.76E+06,0.49,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Driss_I,35.00,-5,Morocco,1991-1992,1973,18.5,57.00,6.1,0.35,2.09,0.166,pump,17.72,0.99,2.95E+06,1.64E+05,0.94,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Alaoui-Mhamdi et al. 1996
+DWORSHAK,46.52,-116.299,USA,1972-1976,1973,2,69.20,57.5,3.98,0.60,6.599,flow,0.64,0.54,4.22E+06,3.54E+06,0.16,Unconsol_seds,Mixed,,,,,,,Hejzlar database,Walker 1985
+Eau_Galle,44.70,-92.23,Wisconsin (USA),,,18,0.60,3.2,0.00,0.66,0.003,flow,113.81,62.71,3.33E+05,1.84E+05,0.45,Siliclastic_sed,,,,,,,,,James and Barko 1997
+El_Atazar,40.90,-3.52,Spain,78-81,1972,7.5,9.32,39.0,0.36,1.85,0.197,pump,0.75,0.69,1.48E+05,1.36E+05,0.16,Mixed_seds or Acid_plutonic,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+El_Burguillo,40.42,-4.57,Spain,1978-81,1913,66.5,5.08,23.4,0.12,0.36,0.328,pump,2.62,1.95,8.58E+05,6.39E+05,0.25,"Unconsol_seds,Siliclastic_sed,Acid_plutonic",,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+ENID,34.16,-89.903,USA,1972-1976,1952,22,24.70,5.6,0.14,0.31,0.448,flow,9.36,2.09,4.19E+06,9.34E+05,0.78,Siliclastic_sed,Mixed,,,,,,,Hejzlar database,Walker 1985
+F_J_SAYERs,41.05,-77.604,USA,1972-1976,1971,3,7.00,4.6,0.03,0.05,0.685,flow,7.33,2.69,5.02E+06,1.84E+06,0.63,Siliclastic_sed,Mixed,,,,,,,Hejzlar database,Walker 1985
+Falcon,26.60,-99.23,Texas (USA)/Mexico,,,44,338.50,11.5,3.90,1.00,3.900,pump,NA,NA,NA,NA,NA,,,SRP,,,1.61E+04,6.46E+02,0.96,,Kelly 2001
+Fenéki-Pond,47.05,16.8,Hungary,1985-1990,1984,3.5,51.00,1.2,0.06,0.25,0.243,flow,7.48,7.82,1.81E+06,1.90E+06,-0.05,Unconsol_seds,,,,,,,,Hejzlar database,Pomogyi 1993
+Fontana,35.45,-83.78,North_Carolina (USA),1974-1976,1944,31,31.30,37.8,1.18,0.28,4.207,flow,1.45,0.48,6.11E+06,2.04E+06,0.66,"Metamorphic,Siliclastic_sed",Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Fort_Loudoun,35.78,-84.23,Tennessee (USA),1974-1976,1943,32,54.50,7.3,0.40,0.03,14.822,flow,1.42,1.61,2.11E+07,2.39E+07,-0.13,Carbonate,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+FORT_SUPPLY,36.55,-99.571,USA,1972-1976,1942,32,7.28,2.3,0.02,0.71,0.024,flow,2.69,1.66,6.37E+04,3.92E+04,0.38,Siliclastic_sed,,,,,,,,Hejzlar database,Walker 1985
+Gross,39.95,-105.36,Colorado (USA),,,25,1.68,30.7,0.05,0.29,0.178,flow,0.42,0.49,7.46E+04,8.71E+04,-0.17,Metamorphic or Siliclastic_sed,,,,,,,,as above,LaBaugh and Winter 1984
+Guajaraz,39.78,-4.08,Spain,1978-81,1971,8.5,1.28,10.1,0.01,1.02,0.013,pump,4.70,1.89,5.98E+04,2.41E+04,0.48,Metamorphic,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Guntersville,34.42,-86.38,USA,1974-1976,1939,36,261.30,4.2,1.11,0.02,45.002,flow,1.23,0.94,5.52E+07,4.21E+07,0.24,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+HARLAN_COUNTY,40.07,-99.208,USA,1972-1976,1951,23,53.62,6.9,0.37,1.91,0.194,pump,14.78,3.97,2.87E+06,7.71E+05,0.73,"Siliclastic_sed,Unconsol_seds",Bottom,,,,,,,Hejzlar database,Walker 1985
+Hartbeespoort_Dam,-25.72,27.85,South_Africa,1981-85,1969,14,12.65,9.0,0.11,0.92,0.124,pump,65.27,20.04,8.06E+06,2.47E+06,0.69,"Siliclastic_sed,Carbonate",,,,,,,,Hejzlar database,Thornton&Ashton1989
+HARTWELL,34.36,-82.822,USA,1972-1976,1962,12,91.50,13.8,1.26,0.54,2.351,flow,2.08,0.29,4.90E+06,6.91E+05,0.86,Metamorphic,Bottom,,,,,,,Hejzlar database,Walker 1985
+Hidvégi-Pond,47.00,16.8,Hungary,1985-1990,1985,2.5,18.00,1.1,0.02,0.11,0.188,flow,17.58,7.48,3.30E+06,1.41E+06,0.57,Unconsol_seds,,,,,,,,Hejzlar database,Pomogyi 1993
+HILLS_CREEK,43.71,-122.423,USA,1972-1976,1961,13,11.10,37.2,0.41,0.29,1.434,flow,1.29,1.15,1.85E+06,1.64E+06,0.11,Basic_volcanic,,,,,,,,Hejzlar database,Walker 1985
+Hiwassee,35.15,-84.17,USA,1974-1976,1940,35,17.00,20.2,0.34,0.15,2.258,flow,0.68,0.55,1.53E+06,1.24E+06,0.17,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+HoaBinhReservoir,20.48,105.32,Vietnam,,,9,208.00,45.67,9.50,0.09,108.000,flow,4.42,1.70,4.78E+08,1.84E+08,0.61,Carbonate,,,,,,,,,Le Thi Phuong et al 2010
+HOLT,33.25,-87.45,Alabama (USA),1972-1976,1966,8,13.35,11.0,0.15,0.01,10.489,flow,1.26,1.09,1.32E+07,1.15E+07,0.13,Siliclastic_sed or Unconsol_seds,Bottom,,,,,,,Hejzlar database,Walker 1985
+Iron_Gate,44.40,22.5,Romania,,,29,156.40,17.26,2.70,0.03,89.982,flow,5.35,5.92,4.81E+08,5.33E+08,-0.11,Intermed_plutonic or Siliclastic_sed,,TDP,0.063,0.107,5.70E+06,9.60E+06,-0.68,,Teodoru and Wehrli 2005
+J_PERCY_PRIEST,36.15,-86.617,USA,1972-1976,1968,6,57.50,8.3,0.48,0.21,2.283,flow,4.86,3.30,1.11E+07,7.54E+06,0.32,Mixed_seds,Mixed,,,,,,,Hejzlar database,Walker 1985
+JOHN_H_KERR,36.60,-78.301,USA,1972-1976,1953,21,200.00,9.3,1.86,0.25,7.592,flow,4.36,0.83,3.31E+07,6.30E+06,0.81,Acid_plutonic,Bottom,,,,,,,Hejzlar database,Walker 1985
+John_Mack_Lake,-18.30,29.88,Zimbabwe,,,5,4.85,4.3,0.02,0.20,0.104,pump,,NA,NA,NA,,Metamorphic,,TRP = SRP + PRP,,,4.29E+05,3.58E+05,0.17,,Thornton 1980
+JOHN_REDMOND_1,38.24,-95.768,Kansas (USA),1972-1976,1964,10,32.70,2.5,0.08,0.06,1.486,pump,12.30,5.74,1.83E+07,8.53E+06,0.53,Siliclastic_sed or Carbonate,Mixed,,,,,,,Hejzlar database,Walker 1985
+John_Redmond_2,38.57,-95.77,Kansas (USA),,,27,32.70,1.8,0.06,0.08,0.709,pump,13.74,4.58,9.74E+06,3.25E+06,0.53,Siliclastic_sed or Carbonate,,,,,,,,19% of Q accounted for,Cunha et al 2014; Walker 1985 (Hejzlar)
+JOHN_W_FLANNAGAN,37.23,-82.348,USA,1972-1976,1964,10,4.63,19.5,0.09,0.32,0.286,flow,2.52,0.40,7.20E+05,1.13E+05,0.84,Siliclastic_sed,,,,,,,,Hejzlar database,Walker 1985
+Jordan,49.42,14.67,Czech_Republic,2000,1492,508,0.49,5.2,0.00,0.30,0.008,pump,3.99,4.12,3.36E+04,3.46E+04,-0.03,Metamorphic,Surface,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+Kanopolis,38.62,-97.97,Kansas (USA),,,43,13.80,4.6,0.06,0.25,0.254,pump,7.76,2.72,1.97E+06,6.92E+05,0.67,Unconsol_seds,,,,,,,,88% of Q accounted for,Cunha et al 2014
+Kentucky,37.00,-88.27,USA,1974-1976,1944,31,583.40,5.0,2.90,0.04,75.781,flow,2.39,2.42,1.81E+08,1.83E+08,-0.04,"Unconsol_seds,Carbonate",Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+KEYSTONE,36.15,-96.251,USA,1972-1976,1968,6,105.20,8.1,0.85,0.07,12.911,flow,12.62,3.54,1.63E+08,4.57E+07,0.72,Siliclastic_sed,,,,,,,,Hejzlar database,Walker 1985
+Lake_Diefenbaker,51.00,-106.65,Saskatchewan (Canada),2008-2011,1967,42,394.00,22,9.03,1.10,8.210,pump,NA,NA,1.08E+08,6.50E+06,0.94,Siliclastic_sed,Mixed,TDP,,,4.33E+06,2.42E+06,0.44,SRP also available in reference.,"Donald et al., 2015"
+Lake_McIlwaine,-17.90,30.8,Zimbabwe,,,26,26.30,9.4,0.25,0.90,0.275,pump,,NA,NA,NA,NA,Metamorphic,,TRP = SRP + PRP,,,2.41E+06,1.08E+06,0.55,,Thornton 1980
+Lake_Mead,36.40,-114.39,USA,,,62,640.00,40,25.60,2.60,9.800,pump,NA,NA,NA,NA,NA,Acid_plutonic,,SRP,,,4.84E+03,3.23E+03,0.33,,Kelly 2001
+Lake_Powell,36.90,-111.48,USA,,,29,658.00,40,26.30,2.30,11.400,pump,,NA,NA,NA,NA,Siliclastic_sed,,SRP,,,1.29E+04,2.91E+03,0.77,,Kelly 2001
+Lake_Robertson,-17.80,30.57,Zimbabwe,,,2,81.00,6,0.49,1.10,0.442,pump,,NA,NA,NA,NA,Metamorphic,,TRP = SRP + PRP,,,1.61E+06,4.26E+05,0.74,,Thornton 1980
+LakeAlexandrina,-35.50,139.12,Australia,,,47.5,580.60,2.86,1.66,0.30,5.535,pump,5.14,2.31,2.84E+07,1.28E+07,0.55,"Mixed_seds,Carbonate,Unconsol_seds",,TDP,0.042,0.010,2.34E+05,5.57E+04,0.76,,Cook et al 2010
+LAVON,33.03,-96.482,USA,1972-1976,1953,21,87.00,5.0,0.44,0.29,1.510,flow,7.65,1.58,1.16E+07,2.39E+06,0.79,Unconsol_seds or Carbonate,Surface,,,,,,,Hejzlar database,Walker 1985
+LEWISVILLE,33.07,-96.964,USA,1972-1976,1955,19,119.75,6.6,0.79,0.44,1.809,pump,9.11,2.51,1.65E+07,4.53E+06,0.72,"Unconsol_seds,Carbonate,Siliclastic_sed",Mixed,,,,,,,Hejzlar database,Walker 1985
+Lipno,48.67,14.16666667,Czech_Republic,1967-68,1960,7.5,42.66,5.6,0.24,0.36,0.673,flow,1.41,0.75,9.51E+05,5.03E+05,0.44,Metamorphic,Bottom,,,,,,,Hejzlar database,Brandl 1973
+Lipno,48.67,14.16666667,Czech_Republic,1991-99,1960,35,43.04,5.7,0.25,0.56,0.439,flow,2.35,1.22,1.03E+06,5.36E+05,0.47,Metamorphic,Bottom,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+Lobo-Broa,-22.25,-47.81666667,Brazil,1996,1971,25,6.80,3.2,0.02,0.05,0.402,flow,1.38,1.20,5.54E+05,4.82E+05,0.13,Siliclastic_sed,,,,,,,,Hejzlar database,Chalar&Tundisi 2001
+Marne,48.30,4.72,France,1993-95,,20,48.00,7.2,0.35,0.46,0.751,flow,2.91,0.95,1.31E+06,4.20E+05,0.68,Carbonate,,TDP,0.023,0.005,1.74E+04,3.53E+03,0.80,,Garnier et al 1999
+MENDOCINO,39.20,-123.181,USA,1972-1976,1958,16,7.78,13.5,0.11,0.25,0.429,flow,4.17,2.04,1.79E+06,8.73E+05,0.51,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Walker 1985
+MILFORD_1,39.08,-96.891,Kansas (USA),1972-1976,1962,12,63.60,7.8,0.48,1.10,0.441,pump,17.15,1.95,7.56E+06,8.59E+05,0.89,Mixed_seds,Bottom,,,,,,,Hejzlar database,Walker 1985
+Milford_2,39.10,-96.891,Kansas (USA),,,29,63.60,7.6,0.48,1.00,0.483,pump,13.70,4.82,6.62E+06,2.33E+06,0.80,Mixed_seds,,,,,,,,all Q accounted for,Cunha et al 2014; Walker 1985 (Hejzlar)
+MILLWOOD,33.69,-93.965,USA,1972-1976,1966,8,118.17,2.3,0.27,0.03,10.872,flow,2.02,1.55,2.20E+07,1.68E+07,0.24,Mixed_seds or Unconsol_seds,,,,,,,,Hejzlar database,Walker 1985
+Misere,49.88,5.83,Luxemberg.,1989-90,,,0.20,2.5,0.00,0.00,0.132,flow,7.49,2.96,9.88E+05,3.91E+05,0.60,Mixed_seds,Surface,,,,,,,Hejzlar database,Salvia-Castelvi et al. 2001
+MISSISSINEWA,40.72,-85.956,USA,1972-1976,1967,7,12.57,7.4,0.09,0.09,1.022,pump,10.95,4.26,1.12E+07,4.35E+06,0.61,Carbonate,Bottom,,,,,,,Hejzlar database,Walker 1985
+Mjolkvattnet,63.90,13.32,Sweden,,,59,13.60,31,0.41,1.20,0.342,unknown,0.13,0.13,4.90E+04,4.34E+04,0.11,"Acid_volcanic,Acid_plutonic",,,,,,,,inflow includes atmospheirc deposition. Data for 2001 only,"Rydin et al., 2008"
+MONROE,39.01,-86.512,Indiana (USA),1972-1976,1965,9,43.50,5.2,0.23,0.46,0.495,pump,1.10,0.42,5.43E+05,2.06E+05,0.62,"Carbonate,Siliclastic_sed,Mixed_seds",Mixed,,,,,,,Hejzlar database,Walker 1985
+Nemcice,49.68,15.09166667,Czech_Republic,1997-2000,1980,18.5,0.22,3.9,0.00,0.08,0.010,unknown,4.52,2.02,4.66E+04,2.08E+04,0.55,Metamorphic,Bottom,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+Nickjack,35.00,-85.62,USA,1974-1976,1967,8,42.70,6.7,0.29,0.01,37.938,flow,1.16,1.13,4.41E+07,4.29E+07,0.01,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Norris,36.22,-84.08,USA,1974-1976,1936,39,105.00,16.3,1.72,0.37,4.588,flow,1.23,0.45,5.63E+06,2.07E+06,0.60,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Nyrsko,49.01,13.21666667,Czech_Republic,1992-2003,1969,28.5,1.30,12.4,0.02,0.30,0.053,pump,0.85,0.51,4.53E+04,2.69E+04,0.41,"Metamorphic,Acid_plutonic",Bottom,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+OLD_HICKORY,36.30,-86.655,USA,1972-1976,1957,17,91.00,5.8,0.53,0.02,29.322,flow,3.47,3.01,1.02E+08,8.83E+07,0.13,Mixed_seds,Bottom,,,,,,,Hejzlar database,Walker 1985
+Pickwick,34.90,-88,Alabama (USA),1974-1976,1938,37,162.00,6.5,1.05,0.02,62.126,flow,1.65,2.07,1.02E+08,1.28E+08,-0.26,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+PLEASANT_HILL_2,40.62,-82.325,Ohio (USA),1972-1976,1936,38,3.17,5.8,0.02,0.08,0.222,flow,1.83,1.78,4.05E+05,3.93E+05,0.03,Siliclastic_sed,Surface,,,,,,,Hejzlar database,Walker 1985
+POMONA,38.65,-95.563,USA,1972-1976,1963,11,16.43,5.5,0.09,0.37,0.243,flow,4.61,1.90,1.12E+06,4.62E+05,0.59,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Walker 1985
+Predam_Bavigne,49.75,5.85,Luxemberg.,,,33,0.24,7.1,0.00,0.12,0.014,unknown,5.81,1.07,8.06E+04,1.48E+04,0.82,Mixed_seds,,SRP,0.697,0.325,9.68E+03,4.52E+03,0.53,"outflow = surface open spillweir, water from epilimnion; type of phytoplankton given","Salvi-Castellvi et al., 2001"
+Predam_Misere,49.88,5.83,Luxemberg.,,,33,0.20,2.5,0.00,0.00,0.132,unknown,7.06,2.92,9.35E+05,3.87E+05,0.59,Mixed_seds,,SRP,1.023,0.974,1.35E+05,1.29E+05,0.05,"outflow = surface open spillweir, water from epilimnion; type of phytoplankton given.","Salvi-Castellvi et al., 2001"
+RED_ROCK,41.37,-92.979,USA,1972-1976,1969,5,62.81,3.5,0.22,0.04,6.107,flow,19.96,7.06,1.22E+08,4.31E+07,0.65,Siliclastic_sed,,,,,,,,Hejzlar database,Walker 1985
+REND,38.04,-88.956,USA,1972-1976,1973,2,76.00,3.2,0.24,0.58,0.423,pump,10.15,2.81,4.29E+06,1.19E+06,0.72,Siliclastic_sed,,,,,,,,Hejzlar database,Walker 1985
+Ribarroja,41.32,0.35,Spain,1978-81,1969,10.5,10.52,11.8,0.12,0.01,12.417,pump,4.38,3.13,5.44E+07,3.89E+07,0.29,Carbonate,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Rimov,48.83,14.66666667,Czech_Republic,1999-2001,1978,22,1.78,14.8,0.03,0.27,0.097,pump,2.76,1.21,2.67E+05,1.17E+05,0.55,Metamorphic,Mixed,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+Riosequillo,40.97,-3.65,Spain,1978-81,1956,23.5,1.61,15.8,0.03,0.12,0.204,pump,2.16,1.76,4.41E+05,3.60E+05,0.07,Mixed_seds or Acid_plutonic,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Saguling,-6.55,107.35,Indonesia,,,18,56.00,18.4,1.03,0.23,4.477,flow,45.30,8.56,2.03E+08,3.83E+07,0.81,"Unconsol_seds,Intermed_volcanic,Mixed_seds",Surface,TDP,0.339,0.112,1.52E+06,5.02E+05,0.67,,Hart et al 2002
+SAKAKAWEA_(GARRISON),47.50,-101.431,USA,1972-1976,1956,18,1615.38,18.2,29.40,0.89,32.997,pump,11.52,0.87,3.80E+08,2.87E+07,0.92,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Walker 1985
+San_Pons,41.97,1.6,Spain,1979-81,1957,22.5,0.96,18.8,0.02,0.31,0.058,pump,2.43,2.20,1.41E+05,1.28E+05,0.11,,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Sau,41.97,2.03,Spain,1979-81,1963,16.5,3.95,29.4,0.12,0.30,0.393,pump,19.56,11.32,7.69E+06,4.45E+06,0.44,Siliclastic_sed or Carbonate,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Sedlice,49.53,15.26666667,Czech_Republic,1997-2000,1927,71.5,0.32,5.1,0.00,0.02,0.067,flow,4.68,3.15,3.13E+05,2.11E+05,0.52,Metamorphic,Bottom,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+Seine,48.20,4.7,France,1994-95,,28,23.00,7.6,0.17,0.62,0.282,flow,1.46,0.78,2.58E+05,1.61E+05,0.38,Carbonate,,TDP,0.038,0.013,1.07E+04,3.80E+03,0.64,,Garnier et al 1999
+SEMINOLE_(WOODRUFF),30.71,-84.865,USA,1972-1976,1952,22,152.00,3.0,0.46,0.02,26.824,flow,3.10,2.45,8.31E+07,6.57E+07,0.21,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Walker 1985
+SHELBYVILLE,39.41,-88.783,USA,1972-1976,1970,4,44.90,6.0,0.27,0.20,1.347,flow,5.64,3.38,7.60E+06,4.55E+06,0.40,Siliclastic_sed,Mixed,,,,,,,Hejzlar database,Walker 1985
+SHENANGO_RIVER,41.26,-80.463,USA,1972-1976,1965,9,5.83,3.2,0.02,0.05,0.366,flow,3.17,2.29,1.16E+06,8.36E+05,0.28,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Walker 1985
+SIDNEY_LANIER,34.16,-84.073,USA,1972-1976,1956,18,150.00,15.1,2.27,0.89,2.542,pump,2.83,0.60,7.19E+06,1.53E+06,0.79,Metamorphic,Bottom,,,,,,,Hejzlar database,Walker 1985
+Skipout,35.60,-99.9,USA,,,33,0.19,3.7,0.00,2.80,0.000,flow,7.23,0.52,1.81E+03,1.29E+02,0.93,Unconsol_seds,,,,,,,,Hard water - discussed in report,Wagner 1996
+Slapy,49.80,14.7,Czech_Republic,2004,1954,50,11.86,20.3,0.24,0.10,2.400,flow,2.35,1.84,5.64E+06,4.42E+06,0.21,Acid_plutonic,Bottom,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+SOMERVILLE,30.32,-96.525,USA,1972-1976,1967,7,18.76,4.6,0.09,0.31,0.279,flow,4.05,2.13,1.13E+06,5.96E+05,0.47,Unconsol_seds or Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Walker 1985
+South_Holston,36.50,-82.08,USA,1974-1976,1950,25,26.00,23.4,0.61,0.55,1.107,flow,1.10,0.36,1.22E+06,3.93E+05,0.68,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+STILLHOUSE_HOLLOW_(LAPASAS),31.02,-97.532,USA,1972-1976,1968,6,10.50,12.0,0.29,0.46,0.636,flow,1.65,0.55,1.05E+06,3.49E+05,0.67,Mixed_seds or Carbonate,Bottom,,,,,,,Hejzlar database,Walker 1985
+Sulejow,51.45,19.95,Poland,1985-88,1973,13.5,18.48,3.4,0.06,0.08,0.750,pump,12.25,8.10,9.19E+06,6.07E+06,0.34,Unconsol_seds,,,,,,,,Hejzlar database,Galicka 1992
+SUMMERSVILLE,38.22,-80.891,USA,1972-1976,1966,8,10.93,20.0,0.22,0.06,3.643,flow,0.78,0.49,2.83E+06,1.78E+06,0.37,Siliclastic_sed,,,,,,,,Hejzlar database,Walker 1985
+TABLE_ROCK,36.60,-93.311,USA,1972-1976,1958,16,174.00,19.5,4.27,0.59,7.250,flow,2.84,0.59,2.06E+07,4.26E+06,0.79,Carbonate,Mixed,,,,,,,Hejzlar database,Walker 1985
+Taiquin,30.40,-84.63333333,USA,1972-74,1927,46,39.25,4.1,0.16,0.12,1.306,pump,6.26,3.11,8.18E+06,4.07E+06,0.45,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Turner et al 1983
+TENKILLER_FERRY,35.60,-95.049,USA,1972-1976,1952,22,52.20,15.8,0.84,0.34,2.463,pump,3.24,1.55,7.98E+06,3.81E+06,0.52,Carbonate or Unconsol_seds,Mixed,,,,,,,Hejzlar database,Walker 1985
+TEXONA_(DENNISON),33.82,-96.572,USA,1972-1976,1944,30,360.20,9.8,3.12,0.41,7.666,flow,13.06,2.94,1.00E+08,2.26E+07,0.77,Siliclastic_sed or Unconsol_seds,,,,,,,,Hejzlar database,Walker 1985
+ThacBa_reservoir,21.42,105.03,Vietnam,,,31,235.00,58,13.63,2.18,6.244,flow,59.98,55.32,3.75E+08,3.45E+08,0.08,,,,,,,,,,Le Thi Phuong et al 2010
+Tims_Ford,35.18,-86.27,USA,1974-1976,1970,5,39.60,14.9,0.59,0.56,1.056,flow,0.77,0.71,8.19E+05,7.50E+05,0.03,Mixed_seds,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Trnavka,49.53,15.21666667,Czech_Republic,1997-2000,1981,17,0.77,6.3,0.00,0.09,0.053,unknown,2.86,1.58,1.53E+05,8.41E+04,0.45,Metamorphic,Bottom,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+TUTTLE_CREEK_1,39.25,-96.602,Kansas (USA),1972-1976,1962,12,50.60,7.8,0.39,0.36,1.112,flow,34.02,4.36,3.78E+07,4.84E+06,0.87,"Unconsol_seds,Mixed_seds",Bottom,,,,,,,Hejzlar database,Walker 1985
+Tuttle_Creek_2,39.33,-96.602,Kansas (USA),,,29,50.60,7.6,0.38,0.42,0.916,flow,26.04,6.91,2.38E+07,3.05E+06,0.74,"Unconsol_seds,Mixed_seds",,,,,,,,30% of Q accounted for,Cunha et al 2014
+Valle_de_Bravo,19.36,-100.18,Mexico,2002-2005,1947,56.5,18.55,21.1,0.35,1.37,0.252,pump,15.44,3.35,3.90E+06,8.45E+05,0.78,"Unconsol_seds,Siliclastic_sed,Acid_volcanic",,,,,,,,"highly urbanized, weird downstream to upstream pumping","Ramirez-Zierold et al., 2010"
+Valmayor,40.53,-4.05,Spain,1978-81,1975,4.5,5.33,10.7,0.06,6.45,0.009,pump,56.45,9.16,4.99E+05,8.09E+04,0.76,Unconsol_seds or Acid_plutonic,,,,,,,,Hejzlar database,Ortiz&Pe?a 1984
+Waconda,39.50,-98.37,Kansas (USA),,,28,50.90,7.3,0.37,1.50,0.248,pump,10.89,6.06,2.70E+06,1.50E+06,0.42,Mixed_seds,,,,,,,,36% of Q accounted for,Cunha et al 2014
+Wahnbach_Talsperre_1,51.00,9.0,Germany,1976-77,1958,18.5,1.30,16.0,0.02,1.02,0.020,pump,3.85,0.48,7.86E+04,9.79E+03,0.88,"Unconsol_seds,Siliclastic_sed,Mixed_seds",,,,,,,,Hejzlar database,Sas H.1989
+Wahnbach_Talsperre_2,51.00,9.0,Germany,1978-85,1958,23.5,1.30,16.0,0.02,0.82,0.026,pump,0.92,0.36,2.36E+04,9.09E+03,0.61,"Unconsol_seds,Siliclastic_sed,Mixed_seds",,,,,,,,Hejzlar database,Sas H.1989
+WALTER_F_GEORGE_(EUFAULA),31.60,-85.05,USA,1972-1976,1964,10,182.80,5.9,1.08,0.08,12.994,flow,3.12,2.94,4.05E+07,3.83E+07,0.05,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Walker 1985
+Watauga,36.32,-82,USA,1974-1976,1948,27,22.80,24.5,0.56,0.69,0.810,flow,1.65,0.39,1.33E+06,3.14E+05,0.75,Siliclastic_sed or Metamorphic,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Watts_Bar,35.62,-84.77,Tennessee (USA),1974-1976,1942,33,148.00,7.3,1.08,0.04,30.748,flow,1.29,0.87,3.97E+07,2.68E+07,0.33,Siliclastic_sed,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Wheeler,34.80,-87.37,Tennessee/Alabama (USA),1974-1976,1936,39,227.50,5.3,1.20,0.02,54.904,flow,1.13,1.81,6.20E+07,9.93E+07,-0.60,Water_body,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Williams_Fork_1,40.00,-106.0,Colorado (USA),,,20,6.55,18.2,0.12,0.82,0.145,flow,0.94,0.84,1.37E+05,1.21E+05,0.11,Siliclastic_sed,,,,,,,,"back-calculated effluxes for each year, averaged them, then calculated average retentions from this",LaBaugh and Winter 1984
+Williams_Fork_2,41.00,-106.0,Colorado (USA),1979-1982,1959,21.5,4.13,18.2,0.08,0.77,0.098,pump,0.89,0.74,8.76E+04,7.27E+04,0.17,Siliclastic_sed,,,,,,,,Hejzlar database,LaBaugh 1985
+Wilson_Alabama,34.80,-87.62,Alabama (USA),1974-1976,1924,51,63.40,12.3,0.78,0.01,59.004,flow,1.81,1.68,1.07E+08,9.91E+07,0.07,Carbonate,Bottom,,,,,,,Hejzlar database,Higgins&Kim 1981
+Wilson_Kansas,38.93,-98.55,Kansas (USA),,,27,36.50,7.3,0.27,2.33,0.114,flow,4.00,2.01,4.58E+05,2.30E+05,0.50,"Unconsol_seds,Mixed_seds",,,,,,,,all Q accounted for,Cunha et al 2014
+Wivenhoe,-27.40,152.6,Australia,,,21,109.00,10.8,1.18,20.00,0.059,pump,11.15,2.29,6.56E+05,1.35E+05,0.80,Metamorphic,,,,,,,,,Burford et al 2012
+Zelivka_1,49.67,15.09166667,Czech_Republic,1994,1975,19,10.57,16.3,0.17,1.05,0.165,pump,2.80,0.59,4.62E+05,9.78E+04,0.80,Metamorphic,Bottom,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+Zelivka_2,49.67,15.09166667,Czech_Republic,1995-2000,1975,22,13.74,18.2,0.25,1.23,0.203,pump,2.80,0.49,5.68E+05,1.00E+05,0.86,Metamorphic,Mixed,,,,,,,Hejzlar database,"Hejzlar, unpublished"
+DeGijster,51.72,4.8,Netherlands,1981,,,3.05,13.1,0.04,0.21,0.189,pump,10.65,7.75,2.02E+06,1.47E+06,0.27,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Oskam 1995
+Honderd_(Biesbosch),51.72,4.77,Netherlands,1981,1973,8,2.10,15.7,0.03,0.17,0.189,pump,7.75,7.75,1.47E+06,1.47E+06,0.00,,Bottom,,,,,,,Hejzlar database,Oskam 1995
+Petrusplaat,51.75,4.76,Netherlands,1981,1973,8,1.00,13.0,0.01,0.07,0.189,pump,7.75,4.84,1.47E+06,9.16E+05,0.38,Unconsol_seds,Bottom,,,,,,,Hejzlar database,Oskam 1995
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
