@@ -46,7 +46,6 @@ har$Rp_calculated = har$P_retention
 har$Rn_source = ""
 har$Rp_source = ""
 
-## need to rework harrison
 #convert mass units
 for (i in 1:nrow(har)){
   if (har$mass_units[i] %in% "g m-2 y-1" | har$mass_units[i] %in% "g m-2 yr-1"){
@@ -82,7 +81,7 @@ for (i in 1:nrow(har)){
         
 har$Q <- har$Q_km3.yr*(1/(60*60*24*365))*10^9       
  
-har <- har[,c(1,2,4,5,3,6,7,10,8,11,35,9,19,18,21,20,14,13,16,14,30,28,29,27,26)] 
+har <- har[,c(1,2,4,5,3,6,7,10,8,11,35,9,19,34,21,32,14,33,16,31,30,28,29,27,26)] 
 names(har) <- names(dat)
 
 #har <- har[har$res_time>(1/365), ]
@@ -269,6 +268,97 @@ dat.all[which(dat.all$tp_out_conc>1.2), ]
 
 dat.np <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$Rp),]
 dat.np$relret <- dat.np$Rn/dat.np$Rp
+
+# now create input TN:TP and out TN:TP
+# make ratios molar
+dat.np$np_in <- (dat.np$tn_in_mass/dat.np$tp_in_mass)*(30.97/14)
+dat.np$np_out <- (dat.np$tn_out_mass/dat.np$tp_out_mass)*(30.97/14)
+
+# rank lakes by depth and residence time
+dat.np$rank_restime <- rank(dat.np$res_time)
+dat.np$rank_depth <- rank(dat.np$mean_depth, )
+dat.np$rank_sum = dat.np$rank_restime + (dat.np$rank_depth-796)
+#dat.np$rank_diff = dat.np$rank_restime - dat.np$rank_depth
+
+
+plot(log10(dat.np$res_time)~dat.np$rank_diff)
+
+#################################################
+## create a figure that shows change in TN:TP
+## by rank in res/depth
+#################################################
+# Goal - arrow heads show direction of TN:TP change
+# length of arrow show proportional change
+
+stoich <- dat.np[!is.na(dat.np$np_in)&!is.na(dat.np$np_out), ]
+
+xin <- stoich$rank_sum
+xout <- stoich$rank_sum
+yin <- log10(stoich$np_in)
+yout <- log10(stoich$np_out)
+
+stoich.up <- which(yout>yin)
+stoich.down <- which(yin>yout)
+
+pdf("stoich_change_rank.pdf", height = 8, width = 12)
+par(mar=c(5,5,1,1))
+plot(log10(stoich$np_in)~stoich$rank_sum, pch = 21,
+     bg = rgb(222,222,222,alpha=120,max = 255), cex = 0, cex.lab = 2,
+     xlab = "Rank of Depth and Res Time", ylab = "log TN:TP")
+arrows(x0 = xin[stoich.up], x1 = xout[stoich.up], y0 = yin[stoich.up], y1 = yout[stoich.up],
+       length = 0.0, col = rgb(255,140,0,alpha=200,max =255), lwd = 2)
+arrows(x0 = xin[stoich.down], x1 = xout[stoich.down], y0 = yin[stoich.down], y1 = yout[stoich.down],
+       length = 0.0, col = rgb(148,0,211,alpha=200,max =255), lwd = 2)
+abline(h = log10(16), lty = 2)
+text(x = 200, y = -0.2, cex = 1.3,
+     "TN:TP decreasing, Rn>Rp",col = rgb(148,0,211,alpha=200,max =255))
+text(x = 200, y = -0.5, cex = 1.3,
+     "TN:TP increasing, Rn<Rp",col = rgb(255,140,0,alpha=200,max =255))
+dev.off()
+
+##################################
+## Vince's version of the figure
+## color code by starting TN:TP
+#################################
+# decide stoich cutoffs for N:P in 
+# just diverging colors by decile
+library(RColorBrewer)
+stoich.cols <- brewer.pal(10, "PRGn")
+stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
+
+get.col.bins <- function(stoich.vals) {
+  
+  ii <- cut(log10(stoich.vals), as.numeric(quantile(log10(stoich.vals),probs = seq(0,1,.1))), 
+            include.lowest = TRUE)
+  
+  levels(ii) <- stoich.cols
+  ii = as.character(ii)
+  return(ii)
+}
+
+stoich$colors <- get.col.bins(stoich$np_in)
+
+# calculate stoich change
+# calculate log of change - then make numbers with decreasing TN:TP negative, those with
+# increasing TN:TP positive
+stoich$np_change <- log10(stoich$np_out) - log10(stoich$np_in) 
+#stoich$np_change_log <- log10(stoich$np_change)
+#stoich$np_change_log[stoich$np_out<stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out<stoich$np_in])*-1
+#stoich$np_change_log[stoich$np_out>stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out>stoich$np_in])
+
+# now plot difference as points, with zero in middle
+pdf("diffinout_col.pdf")
+plot(stoich$np_change~stoich$rank_sum, cex.lab = 1.8, cex = 1.6, 
+     xlab = "Res Time & Depth Rank", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors)
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
+dev.off()
+hist(log10(stoich$mean_depth[stoich$Rn>stoich$Rp]), col = rgb(148,0,211,alpha=100,max =255), add = TRUE, breaks = 14)
+hist(log10(stoich$mean_depth[stoich$Rn<stoich$Rp]), col = rgb(255,144,0,alpha=100,max =255), breaks = 14)
+
+hist(log10(stoich$np_in), col =rgb(255,144,0,alpha=100,max =255), breaks=20)
+hist(log10(stoich$np_out), col =rgb(148,0,211,alpha=100,max =255), breaks=20, add = TRUE)
 
 dat.np.pos <- dat.np[dat.np$Rn>0 & dat.np$Rp>0,]
 dat.np.real <- dat.np[dat.np$Rn>-1 & dat.np$Rp>-1, ]
