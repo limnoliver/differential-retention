@@ -65,6 +65,11 @@ for (i in 1:nrow(har)){
         har$tp_out_mass[i] = (har$P_out_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tn_in_mass[i] = (har$N_in_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tp_in_mass[i] = (har$P_in_mass[i]*(har$Area_km2[i]*1000000))/1000000
+      } else if (har$mass_units[i] %in% "mg N m-2 d-1"){
+        har$tn_out_mass[i] = har$N_out_mass[i]*har$Area_km2[i]*365
+        har$tp_out_mass[i] = har$P_out_mass[i]*har$Area_km2[i]*365
+        har$tn_in_mass[i] = har$N_in_mass[i]*har$Area_km2[i]*365
+        har$tp_in_mass[i] = har$P_in_mass[i]*har$Area_km2[i]*365       
       } else {
         har$tn_out_mass[i] = har$N_out_mass[i]
         har$tp_out_mass[i] = har$P_out_mass[i]
@@ -77,7 +82,7 @@ for (i in 1:nrow(har)){
         
 har$Q <- har$Q_km3.yr*(1/(60*60*24*365))*10^9       
  
-har <- har[,c(1,2,4,24,3,25,26,7,5,8,35,6,16,34,18,32,11,33,13,32,30,28,29,27,23)]
+har <- har[,c(1,2,4,5,3,6,7,10,8,11,35,9,19,18,21,20,14,13,16,14,30,28,29,27,26)] 
 names(har) <- names(dat)
 
 #har <- har[har$res_time>(1/365), ]
