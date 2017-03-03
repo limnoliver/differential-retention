@@ -65,6 +65,11 @@ for (i in 1:nrow(har)){
         har$tp_out_mass[i] = (har$P_out_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tn_in_mass[i] = (har$N_in_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tp_in_mass[i] = (har$P_in_mass[i]*(har$Area_km2[i]*1000000))/1000000
+      } else if (har$mass_units[i] %in% "mg N m-2 d-1"){
+        har$tn_out_mass[i] = har$N_out_mass[i]*har$Area_km2[i]*365
+        har$tp_out_mass[i] = har$P_out_mass[i]*har$Area_km2[i]*365
+        har$tn_in_mass[i] = har$N_in_mass[i]*har$Area_km2[i]*365
+        har$tp_in_mass[i] = har$P_in_mass[i]*har$Area_km2[i]*365       
       } else {
         har$tn_out_mass[i] = har$N_out_mass[i]
         har$tp_out_mass[i] = har$P_out_mass[i]
@@ -77,7 +82,7 @@ for (i in 1:nrow(har)){
         
 har$Q <- har$Q_km3.yr*(1/(60*60*24*365))*10^9       
  
-har <- har[,c(1,2,4,24,3,25,26,7,5,8,35,6,16,34,18,32,11,33,13,32,30,28,29,27,23)]
+har <- har[,c(1,2,4,5,3,6,7,10,8,11,35,9,19,18,21,20,14,13,16,14,30,28,29,27,26)] 
 names(har) <- names(dat)
 
 #har <- har[har$res_time>(1/365), ]
@@ -177,22 +182,21 @@ names(brett) <- names(dat)
 #################################
 
 donald <- read.csv("Donald et al 2015 data.csv", header = TRUE, na.strings = c("NA", ""))
-donald$tn_in_mass = ""
 donald$tn_in_conc = ""
-donald$tp_in_mass = ""
 donald$tp_in_conc = ""
-donald$tn_out_mass = ""
-donald$tp_out_mass = ""
 donald$tn_calculated = ""
 donald$tp_calculated = ""
 donald$source = "donald2015"
 donald$state = ""
 donald$notes = ""
 
-donald <- donald[,c(27,1,3,28,2,4,5,8,9,10,12,11,22,21,13,24,20,19,14,23,15,26,17,25,29)]
+donald <- donald[,c(27,1,3,28,2,4,5,8,9,10,12,11,24,19,13,20,23,21,14,22,15,26,17,25,29)]
 donald$TP_out_ugperL <- donald$TP_out_ugperL/1000
 donald$TN_out_ugperL <- donald$TN_out_ugperL/1000
-
+donald$tp_in_mass <- donald$tp_in_mass*1000
+donald$tp_out_mass <- donald$tp_out_mass*1000
+donald$tn_in_mass <- donald$tn_in_mass*1000
+donald$tn_out_mass <- donald$tn_out_mass*1000
 names(donald) <- names(dat)
 
 ##############################
@@ -232,11 +236,11 @@ dat.all$tp_in_conc[is.na(dat.all$tp_in_conc)] = (as.numeric(dat.all$tp_in_mass[i
 
 # tp mass in
 dat.all$tp_in_mass <- as.numeric(dat.all$tp_in_mass)
-dat.all$tp_in_mass <- dat.all$tp_in_conc*dat.all$Q*31536
+dat.all$tp_in_mass[is.na(dat.all$tp_in_mass)] <- dat.all$tp_in_conc[is.na(dat.all$tp_in_mass)]*dat.all$Q[is.na(dat.all$tp_in_mass)]*31536
 
 #tp mass out
 dat.all$tp_out_mass <- as.numeric(dat.all$tp_out_mass)
-dat.all$tp_out_mass <- dat.all$tp_out_conc*dat.all$Q*31536
+dat.all$tp_out_mass[is.na(dat.all$tp_out_mass)] <- dat.all$tp_out_conc[is.na(dat.all$tp_out_mass)]*dat.all$Q[is.na(dat.all$tp_out_mass)]*31536
 
 # tn out conc
 dat.all$tn_out_conc[is.na(dat.all$tn_out_conc)] = (as.numeric(dat.all$tn_out_mass[is.na(dat.all$tn_out_conc)])/dat.all$Q[is.na(dat.all$tn_out_conc)])*(1/31536)
@@ -247,11 +251,11 @@ dat.all$tn_in_conc[is.na(dat.all$tn_in_conc)] = (as.numeric(dat.all$tn_in_mass[i
 
 # tn mass in
 dat.all$tn_in_mass <- as.numeric(dat.all$tn_in_mass)
-dat.all$tn_in_mass <- dat.all$tn_in_conc*dat.all$Q*31536
+dat.all$tn_in_mass[is.na(dat.all$tn_in_mass)] <- dat.all$tn_in_conc[is.na(dat.all$tn_in_mass)]*dat.all$Q[is.na(dat.all$tn_in_mass)]*31536
 
 #tn mass out
 dat.all$tn_out_mass <- as.numeric(dat.all$tn_out_mass)
-dat.all$tn_out_mass <- dat.all$tn_out_conc*dat.all$Q*31536
+dat.all$tn_out_mass[is.na(dat.all$tn_out_mass)] <- dat.all$tn_out_conc[is.na(dat.all$tn_out_mass)]*dat.all$Q[is.na(dat.all$tn_out_mass)]*31536
 
 # in lagos, max TN = 20.57 max TP = 1.22
 summary(dat.all$tn_out_conc)
@@ -261,9 +265,7 @@ summary(dat.all$tp_out_conc)
 dat.all[which(dat.all$tp_out_conc>1.2), ]
 
 
-  for (i in 1:nrow(dat.all)){
-  if dat.all$Q[i]
-}
+# create a data frame where lakes have retention estimates for both N and P
 
 dat.np <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$Rp),]
 dat.np$relret <- dat.np$Rn/dat.np$Rp
@@ -272,6 +274,7 @@ dat.np.pos <- dat.np[dat.np$Rn>0 & dat.np$Rp>0,]
 dat.np.real <- dat.np[dat.np$Rn>-1 & dat.np$Rp>-1, ]
 # rank by depth an residence time
 plot(log10(as.numeric(dat.np.pos$res_time))~log10(as.numeric(dat.np.pos$mean_depth)))
+
 
 # first rank by residence time
 dat.np.pos$rank_restime <- rank(dat.np.pos$res_time)
