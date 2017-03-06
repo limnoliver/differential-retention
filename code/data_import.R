@@ -263,9 +263,27 @@ dat.all[which(dat.all$tn_out_conc>20), ]
 summary(dat.all$tp_out_conc)
 dat.all[which(dat.all$tp_out_conc>1.2), ]
 
+# flag data with impossible out concentrations (from filter above)
 
+################################################
+## calculate retenion for each N and P based
+## on the N and P empirical equations
+################################################
+
+dat.all$Rn_predicted <- 1-(exp((-4.6*(dat.all$res_time/dat.all$mean_depth))))
+dat.all$Rp_predicted <- 1-(1/(1+(1.12*(dat.all$res_time^.47))))
+
+plot(dat.all$Rp~dat.all$Rp_predicted, ylim = c(-1,1))
+abline(0,1,col="red")
+plot(dat.all$Rn~dat.all$Rn_predicted, ylim = c(-1,1))
+abline(0,1,col = "red")
+
+abline(0,1,col = "red")
+exp((-9.92*x)/9.6)
+
+####################################
 # create a data frame where lakes have retention estimates for both N and P
-
+####################################
 dat.np <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$Rp),]
 dat.np$relret <- dat.np$Rn/dat.np$Rp
 
@@ -278,10 +296,28 @@ dat.np$np_out <- (dat.np$tn_out_mass/dat.np$tp_out_mass)*(30.97/14)
 dat.np$rank_restime <- rank(dat.np$res_time)
 dat.np$rank_depth <- rank(dat.np$mean_depth, )
 dat.np$rank_sum = dat.np$rank_restime + (dat.np$rank_depth-796)
+
+# rank by how depth and residence time are used in the predicted Rn/Rp equations
+
+dat.np$rank_rel <- (1-(exp((-9.92*(dat.np$res_time/dat.np$mean_depth)))))/(1-(1/(1+(1.12*(dat.np$res_time^.47)))))
+
+plot(log10(dat.np$res_time)~dat.np$rank_rel)
+
+# calculate the proportion of lakes that are predicted to retain more N than P
+
+length(which(dat.np$Rn_predicted>dat.np$Rp_predicted))/nrow(dat.np)
+
+#calculate the actual number of lakes that have Rn>Rp
+
+length(which(dat.np$Rn>dat.np$Rp))/nrow(dat.np)
+
 #dat.np$rank_diff = dat.np$rank_restime - dat.np$rank_depth
 
+# estimate N:P_out based on model retention estimates
+dat.np$np_out_predicted <- ((dat.np$tn_in_mass*(1-dat.np$Rn_predicted))/((dat.np$tp_in_mass)*(1-dat.np$Rp_predicted)))*(30.97/14)
 
 plot(log10(dat.np$res_time)~dat.np$rank_diff)
+
 
 #################################################
 ## create a figure that shows change in TN:TP
@@ -342,6 +378,7 @@ stoich$colors <- get.col.bins(stoich$np_in)
 # calculate log of change - then make numbers with decreasing TN:TP negative, those with
 # increasing TN:TP positive
 stoich$np_change <- log10(stoich$np_out) - log10(stoich$np_in) 
+stoich$np_change_predicted <- log10(stoich$np_out_predicted) - log10(stoich$np_in)
 #stoich$np_change_log <- log10(stoich$np_change)
 #stoich$np_change_log[stoich$np_out<stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out<stoich$np_in])*-1
 #stoich$np_change_log[stoich$np_out>stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out>stoich$np_in])
@@ -354,11 +391,23 @@ plot(stoich$np_change~stoich$rank_sum, cex.lab = 1.8, cex = 1.6,
 abline(h=0, lty = 2, col = "red", lwd = 2)
 legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
 dev.off()
+
+# now plot difference as points, with zero in middle
+# same plot, but with predicted data
+pdf("diffinout_col.pdf")
+plot(stoich$np_change_predicted~stoich$rank_sum, cex.lab = 1.8, cex = 1.6, 
+     xlab = "Res Time & Depth Rank", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors)
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
+dev.off()
+
 hist(log10(stoich$mean_depth[stoich$Rn>stoich$Rp]), col = rgb(148,0,211,alpha=100,max =255), add = TRUE, breaks = 14)
 hist(log10(stoich$mean_depth[stoich$Rn<stoich$Rp]), col = rgb(255,144,0,alpha=100,max =255), breaks = 14)
 
 hist(log10(stoich$np_in), col =rgb(255,144,0,alpha=100,max =255), breaks=20)
 hist(log10(stoich$np_out), col =rgb(148,0,211,alpha=100,max =255), breaks=20, add = TRUE)
+
 
 dat.np.pos <- dat.np[dat.np$Rn>0 & dat.np$Rp>0,]
 dat.np.real <- dat.np[dat.np$Rn>-1 & dat.np$Rp>-1, ]
