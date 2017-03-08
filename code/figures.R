@@ -126,17 +126,246 @@ text(x = 1/365, y = 30, "Remove more P \nIncrease N:P", cex = 1.3)
 
 dev.off()
 
+########################################################
 # Figure 4: Mass balance lakes - depth vs residence time
+########################################################
+pdf("Depth_v_Restime.pdf")
+par(cex = 1, mar = c(5,5,1,1))
 
-# Figure 5: Mass balance lakes - histograms of N and P retention
+# create a figure that shows depth vs residence time
+plot(log10(dat.all$res_time)~log10(dat.all$mean_depth), cex = 1.3,
+     pch = 21, bg = rgb(200,200,200,alpha=200, max = 255),
+     xlab = "Mean Depth (m)", ylab = "Residence Time", yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+axis(2, labels = c("day", "wk", "mon", "yr", "10 yr", "100 yr"), 
+     at = c(log10(1/365), log10(7/365), log10(30/365), 0, 1, 2), cex.axis=1.25)
+axis(1, labels = c("1", "5", "10","20", "50", "100"), at = c(0,log10(5), 1, log10(20), log10(50), 2),
+     cex.axis=1.25)
+abline(h=log10(1/365), col="gray", lty=2)
+# week
+abline(h=log10(7/365), col="gray", lty=2)
+# month
+abline(h=log10(30/365), col="gray", lty=2)
+# year
+abline(h=0, col = "gray", lty = 2)
+abline(h = 1, col = "gray", lty = 2)
+abline(h = 2, col = "gray", lty = 2)
 
-# Figure 5.123: histograms of broken up by N retention > P retention,
+x = log10(dat.all$mean_depth[!is.na(dat.all$mean_depth)&!is.na(dat.all$res_time)])
+y = log10(dat.all$res_time[!is.na(dat.all$mean_depth)&!is.na(dat.all$res_time)])
+mod <- lm(y ~ x)
+newx <- seq(min(x), max(x), length.out = 100)
+preds <- predict(mod, newdata = data.frame(x=newx), interval = "prediction")
+abline(mod, lwd = 2)
+polygon(c(rev(newx), newx), c(rev(preds[,3]), preds[,2]), col = rgb(200,200,200, alpha = 100, max = 255), border = NA)
+
+dev.off()
+
+## another way to look at depth vs res time is by boxplots
+hist(log10(dat.all$res_time))
+breaks <- hist(log10(dat.all$mean_depth), breaks = 5)
+z <- .bincode(dat.all$mean_depth,breaks = c(0,2,3,5,10,20,50,315), right = FALSE)
+
+png("restime_depth_boxplot.png", height = 600, width = 800, pointsize = 14)
+par(cex = 1.2, mar = c(4,4,1,2))
+boxplot(log10(dat.all$res_time)~z, xaxt = "n", yaxt = "n", cex.lab = 1.5, ylim = c(-3,3.3))
+axis(1, labels = c("<2", "2-3", "3-5", "5-10", "10-20", "20-50", ">50"), 
+     at = c(1,2,3,4,5,6,7), main = "Mean Depth (m)", cex.axis = 1.3, mgp = c(1.5,.7,0))
+title(xlab = "Mean Depth (m)", ylab = "Residence Time (yr)", mgp = c(2.5,.7,0), cex.lab = 2)
+axis(2, labels = c(0.001,0.01, 0.1, 1, 10, 100,1000), 
+     at = c(-3,-2,-1,0,1,2,3), cex.axis = 1.3)
+text(x = c(1,2,3,4,5,6,7), 
+     y= c(1,1.5,1.9,1.5,1.6,1.97,3),
+     c("12%", "10%", "17%", "29%",  "20%", "8%", "3%"),col = "red")
+text(x = c(1,2,3,4,5,6,7), y = as.numeric(tapply(log10(dat.all$res_time), INDEX = c(dat.all$z), median, na.rm = TRUE)), 
+     c("21 d", "50 d", "4 mo", "5 mo", "10 mo", "1.1 yr", "6.6 yr"), col = "blue", pos = 3)
+
+
+dev.off()
+
+# Finally, use EPA data to show relationship between DA:SA ~ restime to 
+# use in LAGOS
+
+#create a relationship between drainage area to residence time
+epa$dasa <- epa$drainage_area_km2/epa$surface_area_km2
+
+png("restime_dasa.png", height = 600, width = 800, pointsize = 14)
+par(cex = 1.2, mar = c(5,5,1,1))
+plot(log10(epa$retention_time_years[epa$type=="reservoir"])~log10(epa$dasa[epa$type=="reservoir"]), cex = 1.5,
+     pch = 21, bg = rgb(200,200,200,alpha=200, max = 255),
+     xlab = "log Drainage Area:Surface Area", 
+     ylab = "log Residence Time", cex.lab = 1.8, cex.axis = 1.3, xlim = c(0,5), ylim=c(-3,3),
+     xaxt = "n", yaxt = "n")
+axis(1,labels=c("1, 100, 1000, 10000"))
+points(log10(epa$retention_time_years[epa$type=="lake"])~log10(epa$dasa[epa$type=="lake"]), cex = 1.5,
+       pch = 21, bg = rgb(100,200,200,alpha=200, max = 255))  
+abline(lm(log10(epa$retention_time_years[epa$type=="reservoir"])~log10(epa$dasa[epa$type=="reservoir"])), col = "gray", lwd = 2)     
+abline(lm(log10(epa$retention_time_years[epa$type=="lake"])~log10(dasa[epa$type=="lake"])), col = rgb(100,200,200,alpha=200,max=255), lwd = 2)     
+abline(lm(log10(epa$retention_time_years)~log10(epa$dasa)), lty = 2, lwd=2)
+text(3.5, 3, expression("Residence Time = 6.9X"^-0.68), col = rgb(150,150,150, max = 255), cex = 1.3)       
+text(3.5, 2.6, expression("Residence Time = 24.5X"^-1.06), col = rgb(100,200,200, max = 255), cex = 1.3)       
+dev.off()
+
+#########################################
+# Figure 5: N and P retention vs H and V
+#########################################
+
+pdf("RvsEq.pdf", height = 6, width = 14)
+par(mar=c(5,5,1,1), mfrow = c(1,2))
+#plot retention vs residence time then add curve of Harrison
+curve(1-(exp((-Vf*x)/9.6)), 0.001,1000,log = "x",
+      ylab = "Rn", xlab = "Residence Time (y)", 
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
+     at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
+
+points(dat.all$Rn~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.5,
+       bg = rgb(222,222,222,max=255,alpha=200))
+curve(1-(exp((-Vf*x)/9.6)), 0.001,1000,log = "x",add = TRUE,
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+
+abline(v=1/365, col="gray", lty=2)
+# week
+abline(v=7/365, col="gray", lty=2)
+# month
+abline(v=30/365, col="gray", lty=2)
+# year
+abline(v=1, col = "gray", lty = 2)
+abline(v=10, col = "gray", lty = 2)
+abline(v=100, col = "gray", lty = 2)
+text(x=2/365, y = .9, labels = "n = 850", cex = 1.3, col = "red")
+
+#plot retention vs residence time then add curve of Brett & Benjamin
+curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
+      ylab = "Rp", xlab = "Residence Time (y)", 
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.2)
+axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
+     at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.2)
+
+points(dat.all$Rp~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.5,
+       bg = rgb(222,222,222,max=255,alpha=200))
+curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",add = TRUE,
+      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+
+abline(v=1/365, col="gray", lty=2)
+# week
+abline(v=7/365, col="gray", lty=2)
+# month
+abline(v=30/365, col="gray", lty=2)
+# year
+abline(v=1, col = "gray", lty = 2)
+abline(v=10, col = "gray", lty = 2)
+abline(v=100, col = "gray", lty = 2)
+text(x=2/365, y = .9, labels = "n = 1030", cex = 1.3, col = "red")
+
+dev.off()
+#########################################
+# Figure 6: N vs P retention + histograms
+#########################################
+
+pdf("Rn_Rp_hist_xy.pdf", height = 6, width = 12)
+par(mar=c(5,5,1,1), mfrow=c(1,2))
+hist(dat.np$Rn[dat.np$Rn>-1], xlim = c(-1,1), col = col.n, main = "", 
+     xlab = "Proportion Retention", cex.lab = 1.8, cex.axis = 1.3)
+hist(dat.np$Rp[dat.np$Rp>-1], add = TRUE, col = col.p)
+legend("topleft", legend = c("Rn", "Rp"), fill = c(col.n, col.p), cex = 1.3)
+
+plot(dat.np.real$Rn~dat.np.real$Rp, pch = 21, 
+     bg = rgb(222,222,222,alpha = 200, max = 255), cex = 1.3, cex.lab = 1.8,
+     xlab = "Rp", ylab = "Rn", cex.axis = 1.3)
+
+abline(0,1,col = "red", lwd = 2)
+text(x=-.6, y = .9, "563 of 784 (72%) \nRp > Rn", col = "red", cex = 1.3)
+
+dev.off()
+
+# Figure 6.123: histograms of broken up by N retention > P retention,
 # histogram of size, input concentrations, etc.
+pdf("R_depth_restime.pdf", height = 6, width = 12)
+par(mar=c(5,5,1,0), mfrow=c(1,2))
+vals = hist(log10(stoich$mean_depth[stoich$Rn>stoich$Rp]), plot = FALSE, breaks = 10)
+vals$counts = vals$counts/length(stoich$mean_depth[stoich$Rn>stoich$Rp])
+breaks.n = vals$breaks
+plot(vals, col = col.n, xlab = "Mean Depth", ylab = "Proportion of Lakes", cex.lab = 1.8,
+     cex.axis = 1.3, main = "", ylim = c(0, .25), xaxt = "n")
+axis(1, labels = c("1", "5", "10","20", "50", "100"), at = c(0,log10(5), 1, log10(20), log10(50), 2),
+     cex.axis=1.2)
+legend("topright", legend = c("Rn > Rp", "Rn < Rp"), fill = c(col.n, col.p), cex = 1.3)
+vals = hist(log10(stoich$mean_depth[stoich$Rn<stoich$Rp]), breaks = breaks.n, plot = FALSE)
+vals$counts = vals$counts/length(stoich$mean_depth[stoich$Rn<stoich$Rp])
+plot(vals, col = col.p, add = TRUE)
 
-# Figure 6: N vs P retention
+vals = hist(log10(stoich$res_time[stoich$Rn>stoich$Rp]), plot = FALSE, breaks = 10)
+vals$counts = vals$counts/length(stoich$res_time[stoich$Rn>stoich$Rp])
+breaks.n = vals$breaks
+plot(vals, col = col.n, xlab = "Residence Time", ylab = "Proportion of Lakes", cex.lab = 1.8,
+     cex.axis = 1.3, main = "", ylim = c(0, .3), xaxt = "n")
+axis(1, labels = c("day", "wk", "mon", "yr", "10 yr", "100 yr"), 
+     at = c(log10(1/365), log10(7/365), log10(30/365), 0, 1, 2), cex.axis=1.2)
+vals = hist(log10(stoich$res_time[stoich$Rn<stoich$Rp]), breaks = breaks.n, plot = FALSE)
+vals$counts = vals$counts/length(stoich$res_time[stoich$Rn<stoich$Rp])
+plot(vals, col = col.p, add = TRUE)
+dev.off()
 
+#####################################################################
 # Figure 7: Differential retention with deciles for depth and retention time + 
 # real N and P retention
+#####################################################################
+
+## create a plot that shows percent change in N:P by depth and residence time
+# create percentiles for depth, and find residence time for the median depth in those bins
+p <- .bincode(stoich$mean_depth, breaks = as.numeric(quantile(stoich$mean_depth, seq(0,1,by=0.1), na.rm = TRUE)), right = FALSE)
+depth = as.numeric(tapply(stoich$mean_depth, INDEX = c(p), median, na.rm = TRUE))
+x = as.numeric(tapply(stoich$res_time, INDEX = c(p), median, na.rm = TRUE))
+res_time_sd = as.numeric(tapply(stoichl$res_time, INDEX = c(p), sd, na.rm = TRUE))
+
+stoich$np_perc = -100*(1-(stoich$np_out * (1/stoich$np_in)))
+np_perc <- as.numeric(tapply(stoich$np_perc, INDEX = c(p), median, na.rm = TRUE))
+
+
+n_outin = exp((-9.92*x)/depth)
+p_outin = 1/(1+(1.12*(x^.47)))
+np_perc_pred = -100*(1-(n_outin/p_outin))
+
+png("PercentChange_restime.png", height = 600, width = 800)
+par(cex = 1, mar = c(5,5,1,1))
+curve(-100*(1-((exp((-9.92*x)/depth[1]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=1000, log="x",
+      n=1000,
+      cex.lab = 2,
+      cex.axis = 1.3,
+      ylab="% Change TN:TP", 
+      xlab = "Residence Time (y)",
+      lwd=4, 
+      ylim=c(-100,100), col=new.cols[1], bty="l", xaxt = "n")
+axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
+     at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
+for (i in 1:length(depth)){
+  curve(-100*(1-((exp((-9.92*x)/depth[i]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=1000, log="x",
+        n=1000,
+        lwd=4, 
+        col=new.cols[i], bty="l", add = TRUE) 
+}
+legend("topright", legend = paste(depth, "m"), col = new.cols, lwd = 3, cex = 1.3)
+box()
+
+abline(h=0, col = "gray")
+abline(v=1/365, col="gray", lty=2)
+# week
+abline(v=7/365, col="gray", lty=2)
+# month
+abline(v=30/365, col="gray", lty=2)
+# year
+abline(v=1, col = "gray", lty = 2)
+abline(v = 10, col = "gray", lty = 2)
+abline(v = 100, col = "gray", lty = 2)
+
+# now add points of where real lakes can be
+points(x, y = np_perc, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), col = "red", pch = 21,cex = 2)
+points(x, y = np_perc_pred, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), col = "red", pch = 21,cex = 1.5)
+
+text(x = 1/365, y = -30, "Remove more N \nDecrease N:P", cex = 1.3)
+text(x = 1/365, y = 30, "Remove more P \nIncrease N:P", cex = 1.3)
+
+dev.off()
 
 # Figure 8: Differential retention as % change in TN:TP vs rank or res time
 # - predicted from models
