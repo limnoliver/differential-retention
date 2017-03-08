@@ -42,8 +42,8 @@ abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
 legend("topleft", legend = c("Nitrogen (1, 10, 20, 50m)", "Phosphorus"), 
        col = c(col.n2, col.p), lty = 1, lwd = 3, cex = 1.7)
-#text(c(1.7/365,3.5/365,8/365,18/365), .65, c("1m", "10m", "20m", "50m"), cex = 1.3, col = new.cols[c(3,5,7,9)])
 dev.off()
+
 ########################################################
 # Figure 2: Differential retention according to V & H
 #######################################################
@@ -73,8 +73,58 @@ abline(v=100, col = "gray", lty = 2)
 legend("topleft", legend = c("1m", "10m", "20m", "50m"), 
        col = new.cols[c(3,5,7,9)], lty = 1, lwd = 3, cex = 1.7)
 dev.off()
+
+##########################################################################
 # Figure 3: Differential retention with realistic depth and residence time
-# plotted on figure - deciles from mass balance lakes?
+##########################################################################
+## create a plot that shows percent change in N:P by depth and residence time
+# create percentiles for depth, and find residence time for the median depth in those bins
+p <- .bincode(dat.all$mean_depth, breaks = as.numeric(quantile(dat.all$mean_depth, seq(0,1,by=0.1), na.rm = TRUE)), right = FALSE)
+depth = as.numeric(tapply(dat.all$mean_depth, INDEX = c(p), median, na.rm = TRUE))
+x = as.numeric(tapply(dat.all$res_time, INDEX = c(p), median, na.rm = TRUE))
+res_time_sd = as.numeric(tapply(dat.all$res_time, INDEX = c(p), sd, na.rm = TRUE))
+n_outin = exp((-9.92*x)/depth)
+p_outin = 1/(1+(1.12*(x^.47)))
+np_perc = -100*(1-(n_outin/p_outin))
+
+png("PercentChange_restime.png", height = 600, width = 800)
+par(cex = 1, mar = c(5,5,1,1))
+curve(-100*(1-((exp((-9.92*x)/depth[1]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=1000, log="x",
+      n=1000,
+      cex.lab = 2,
+      cex.axis = 1.3,
+      ylab="% Change TN:TP", 
+      xlab = "Residence Time (y)",
+      lwd=4, 
+      ylim=c(-100,100), col=new.cols[1], bty="l", xaxt = "n")
+axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
+     at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
+for (i in 1:length(depth)){
+  curve(-100*(1-((exp((-9.92*x)/depth[i]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=1000, log="x",
+        n=1000,
+        lwd=4, 
+        col=new.cols[i], bty="l", add = TRUE) 
+}
+legend("topright", legend = paste(depth, "m"), col = new.cols, lwd = 3, cex = 1.3)
+box()
+
+abline(h=0, col = "gray")
+abline(v=1/365, col="gray", lty=2)
+# week
+abline(v=7/365, col="gray", lty=2)
+# month
+abline(v=30/365, col="gray", lty=2)
+# year
+abline(v=1, col = "gray", lty = 2)
+abline(v = 10, col = "gray", lty = 2)
+abline(v = 100, col = "gray", lty = 2)
+
+# now add points of where real lakes can be
+points(x, y = np_perc, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), pch = 21,cex = 2)
+text(x = 1/365, y = -30, "Remove more N \nDecrease N:P", cex = 1.3)
+text(x = 1/365, y = 30, "Remove more P \nIncrease N:P", cex = 1.3)
+
+dev.off()
 
 # Figure 4: Mass balance lakes - depth vs residence time
 
