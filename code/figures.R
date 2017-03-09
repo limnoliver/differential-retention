@@ -321,10 +321,11 @@ res_time_sd = as.numeric(tapply(stoichl$res_time, INDEX = c(p), sd, na.rm = TRUE
 stoich$np_perc = -100*(1-(stoich$np_out * (1/stoich$np_in)))
 np_perc <- as.numeric(tapply(stoich$np_perc, INDEX = c(p), median, na.rm = TRUE))
 
-
 n_outin = exp((-9.92*x)/depth)
 p_outin = 1/(1+(1.12*(x^.47)))
 np_perc_pred = -100*(1-(n_outin/p_outin))
+
+
 
 png("PercentChange_restime.png", height = 600, width = 800)
 par(cex = 1, mar = c(5,5,1,1))
@@ -359,9 +360,9 @@ abline(v = 10, col = "gray", lty = 2)
 abline(v = 100, col = "gray", lty = 2)
 
 # now add points of where real lakes can be
-points(x, y = np_perc, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), col = "red", pch = 21,cex = 2)
-points(x, y = np_perc_pred, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), col = "red", pch = 21,cex = 1.5)
-
+#points(x, y = np_perc, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), col = "red", pch = 21,cex = 2)
+points(x, y = np_perc_pred, xlog = TRUE, bg = c(brewer.pal(n = 9, name = "Blues"), "black"), col = "red", pch = 21,cex = 1.)
+arrows(x0 = x, x1 = x, y0 = np_perc_pred, y1 = np_perc, lwd=2, col = "red", length = .1)
 text(x = 1/365, y = -30, "Remove more N \nDecrease N:P", cex = 1.3)
 text(x = 1/365, y = 30, "Remove more P \nIncrease N:P", cex = 1.3)
 
@@ -369,6 +370,8 @@ dev.off()
 
 # Figure 8: Differential retention as % change in TN:TP vs rank or res time
 # - predicted from models
+
+plot(stoich$np_out_predicted)
 
 # Figure 9: Differential retention as % change in TN:TP vs rank or res time
 # - observed
