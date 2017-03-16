@@ -270,8 +270,11 @@ dat.all[which(dat.all$tp_out_conc>1.2), ]
 ## on the N and P empirical equations
 ################################################
 
-dat.all$Rn_predicted <- 1-(exp((-4.6*(dat.all$res_time/dat.all$mean_depth))))
+dat.all$Rn_predicted <- 1-(exp((-Vf*(dat.all$res_time/dat.all$mean_depth))))
 dat.all$Rp_predicted <- 1-(1/(1+(1.12*(dat.all$res_time^.47))))
+
+# calculate Vf for each lake
+dat.all$Vf <- (-1*dat.all$mean_depth/dat.all$res_time)*log(1-dat.all$Rn)
 
 plot(dat.all$Rp~dat.all$Rp_predicted, ylim = c(-1,1))
 abline(0,1,col="red")
@@ -280,6 +283,7 @@ abline(0,1,col = "red")
 
 abline(0,1,col = "red")
 exp((-9.92*x)/9.6)
+
 
 ####################################
 # create a data frame where lakes have retention estimates for both N and P
@@ -318,6 +322,7 @@ dat.np$np_out_predicted <- ((dat.np$tn_in_mass*(1-dat.np$Rn_predicted))/((dat.np
 
 plot(log10(dat.np$res_time)~dat.np$rank_diff)
 
+# calculate Vf for each lake observation
 
 #################################################
 ## create a figure that shows change in TN:TP
