@@ -5,6 +5,8 @@ col.n1 <- rgb(.955, .7975, .27625,.7)
 col.n2 <- rgb(.94,.73,0.035,.7)
 col.n3 <- rgb(.705,.5475,.02625,.7)
 col.n4 <- rgb(.47, .365, .0175, .7)
+col.n5 <- rgb(.313, .243, .0117, .7)
+
 col.p = rgb(.07,.57,.45,0.7)
 # gradient of blues for depth where appropriate
 new.cols = c(brewer.pal(n = 9, name = "Blues"), "black")
@@ -13,6 +15,13 @@ new.cols = c(brewer.pal(n = 9, name = "Blues"), "black")
 # set model parameters
 Vf = 6.68
 
+# depth min, max, quartiles
+# data from hydrolakes
+z.mean = c(0.1, 2.3, 3.3, 4.5, 739)
+
+# Rp equation with depth
+Rp.depth <= 1-(1/(1+((5.1/z)*x)))
+
 ##################################################################
 # Figure 1: N and P retention according to Vollenweider & Harrison
 ##################################################################
@@ -20,8 +29,15 @@ png("R_restime.png", height = 600, width = 800)
 # plot N and P lines together 
 par(mar=c(5,5,1,1))
 curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
-      ylab = "Retention", xlab = "Residence Time (y)", 
-      col = col.p, ylim = c(0, 1.1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+     ylab = "Retention", xlab = "Residence Time (y)",
+     col = col.p, ylim = c(0, 1.1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+
+curve(1-(1/(1+((5.1/10)*x))), 0.001,1000,log = "x",
+      col = col.p, lwd = 4, add = TRUE)
+curve(1-(1/(1+((5.1/20)*x))), 0.001,1000,log = "x",
+      col = col.p, lwd = 4, add = TRUE)
+curve(1-(1/(1+((5.1/50)*x))), 0.001,1000,log = "x",
+      col = col.p, lwd = 4, add = TRUE)
 axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
 
@@ -31,6 +47,7 @@ curve(1-(exp((-Vf*x)/1)), .001, 1000,
 curve(1-(exp((-Vf*x)/10)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = col.n2, lwd = 4, add = TRUE)
 curve(1-(exp((-Vf*x)/20)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = col.n3, lwd = 4, add = TRUE)
 curve(1-(exp((-Vf*x)/50)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = col.n4, lwd = 4, add = TRUE)
+
 abline(v=1/365, col="gray", lty=2)
 # week
 abline(v=7/365, col="gray", lty=2)
@@ -72,6 +89,9 @@ abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
 legend("topleft", legend = c("1m", "10m", "20m", "50m"), 
        col = new.cols[c(3,5,7,9)], lty = 1, lwd = 3, cex = 1.7)
+text(x=100, y=1.5, "Remove more N \nDecrease N:P", cex = 1.7)
+text(x=100, y=0.5, "Remove more P \nIncrease N:P", cex = 1.7)
+
 dev.off()
 
 ##########################################################################
@@ -383,3 +403,9 @@ plot(stoich$np_out_predicted)
 
 # Figure 12: calculate Vf and sedimentation coefficient and summarize by lake type. 
 # show how sed coef or Vf changes with nutrient input concentration
+
+##
+plot(log10(dat.np$mean_depth)~log10(dat.np$res_time))
+points(log10(dat.np$mean_depth[dat.np$Rn>2*dat.np$Rp])~log10(dat.np$res_time[dat.np$Rn>2*dat.np$Rp]), pch = 21,bg = col.n)
+points(log10(dat.np$mean_depth[dat.np$Rp>2*dat.np$Rn])~log10(dat.np$res_time[dat.np$Rp>2*dat.np$Rn]), pch = 21,bg = col.p)
+
