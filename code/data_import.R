@@ -331,15 +331,7 @@ plot(log10(dat.np$res_time)~dat.np$rank_diff)
 # Goal - arrow heads show direction of TN:TP change
 # length of arrow show proportional change
 
-stoich <- dat.np[!is.na(dat.np$np_in)&!is.na(dat.np$np_out), ]
 
-xin <- stoich$rank_sum
-xout <- stoich$rank_sum
-yin <- log10(stoich$np_in)
-yout <- log10(stoich$np_out)
-
-stoich.up <- which(yout>yin)
-stoich.down <- which(yin>yout)
 
 pdf("stoich_change_rank.pdf", height = 8, width = 12)
 par(mar=c(5,5,1,1))
@@ -357,55 +349,7 @@ text(x = 200, y = -0.5, cex = 1.3,
      "TN:TP increasing, Rn<Rp",col = rgb(255,140,0,alpha=200,max =255))
 dev.off()
 
-##################################
-## Vince's version of the figure
-## color code by starting TN:TP
-#################################
-# decide stoich cutoffs for N:P in 
-# just diverging colors by decile
-library(RColorBrewer)
-stoich.cols <- brewer.pal(10, "PRGn")
-stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
 
-get.col.bins <- function(stoich.vals) {
-  
-  ii <- cut(log10(stoich.vals), as.numeric(quantile(log10(stoich.vals),probs = seq(0,1,.1))), 
-            include.lowest = TRUE)
-  
-  levels(ii) <- stoich.cols
-  ii = as.character(ii)
-  return(ii)
-}
-
-stoich$colors <- get.col.bins(stoich$np_in)
-
-# calculate stoich change
-# calculate log of change - then make numbers with decreasing TN:TP negative, those with
-# increasing TN:TP positive
-stoich$np_change <- log10(stoich$np_out) - log10(stoich$np_in) 
-stoich$np_change_predicted <- log10(stoich$np_out_predicted) - log10(stoich$np_in)
-#stoich$np_change_log <- log10(stoich$np_change)
-#stoich$np_change_log[stoich$np_out<stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out<stoich$np_in])*-1
-#stoich$np_change_log[stoich$np_out>stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out>stoich$np_in])
-
-# now plot difference as points, with zero in middle
-pdf("diffinout_col.pdf")
-plot(stoich$np_change~stoich$rank_sum, cex.lab = 1.8, cex = 1.6, 
-     xlab = "Res Time & Depth Rank", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors)
-abline(h=0, lty = 2, col = "red", lwd = 2)
-legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
-dev.off()
-
-# now plot difference as points, with zero in middle
-# same plot, but with predicted data
-pdf("diffinout_col.pdf")
-plot(stoich$np_change_predicted~stoich$rank_sum, cex.lab = 1.8, cex = 1.6, 
-     xlab = "Res Time & Depth Rank", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors)
-abline(h=0, lty = 2, col = "red", lwd = 2)
-legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
-dev.off()
 
 
 
