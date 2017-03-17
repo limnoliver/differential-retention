@@ -278,6 +278,11 @@ abline(v=100, col = "gray", lty = 2)
 text(x=2/365, y = .9, labels = "n = 1030", cex = 1.3, col = "red")
 
 dev.off()
+
+## need to: optimize models and plot new model lines
+## optimize with 1) only positive values, 2) only "realistic" values,
+## 3) all values
+
 #########################################
 # Figure 6: N vs P retention + histograms
 #########################################
@@ -388,10 +393,158 @@ text(x = 1/365, y = 30, "Remove more P \nIncrease N:P", cex = 1.3)
 
 dev.off()
 
+#############################################################################
 # Figure 8: Differential retention as % change in TN:TP vs rank or res time
 # - predicted from models
+#############################################################################
+stoich <- dat.np[!is.na(dat.np$np_in)&!is.na(dat.np$np_out)&!is.na(dat.np$mean_depth), ]
 
-plot(stoich$np_out_predicted)
+xin <- stoich$rank_sum
+xout <- stoich$rank_sum
+yin <- log10(stoich$np_in)
+yout <- log10(stoich$np_out)
+
+stoich.up <- which(yout>yin)
+stoich.down <- which(yin>yout)
+
+# decide stoich cutoffs for N:P in 
+# just diverging colors by decile
+library(RColorBrewer)
+stoich.cols <- brewer.pal(10, "PRGn")
+stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
+
+get.col.bins <- function(stoich.vals) {
+  
+  ii <- cut(log10(stoich.vals), as.numeric(quantile(log10(stoich.vals),probs = seq(0,1,.1))), 
+            include.lowest = TRUE)
+  
+  levels(ii) <- stoich.cols
+  ii = as.character(ii)
+  return(ii)
+}
+
+stoich$colors <- get.col.bins(stoich$mean_depth)
+
+# calculate stoich change
+# calculate log of change - then make numbers with decreasing TN:TP negative, those with
+# increasing TN:TP positive
+stoich$np_change <- log10(stoich$np_out) - log10(stoich$np_in) 
+stoich$np_change_predicted <- log10(stoich$np_out_predicted) - log10(stoich$np_in)
+#stoich$np_change_log <- log10(stoich$np_change)
+#stoich$np_change_log[stoich$np_out<stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out<stoich$np_in])*-1
+#stoich$np_change_log[stoich$np_out>stoich$np_in] <- abs(stoich$np_change_log[stoich$np_out>stoich$np_in])
+
+# now plot difference as points, with zero in middle
+pdf("diffinout_col.pdf")
+plot(stoich$np_change~stoich$rank_sum, cex.lab = 1.8, cex = 1.6, 
+     xlab = "Res Time & Depth Rank", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors)
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
+dev.off()
+
+# now create a 2x2 plot that each contains a residence time quartile (remove residence time
+# effect), and plot depth on the x axis
+par(mfrow=c(2,2))
+plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$mean_depth[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$mean_depth[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$mean_depth[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$mean_depth[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+
+# now create a 2x2 plot that each contains a residence time quartile (remove residence time
+# effect), and plot P concentration on the x axis
+par(mfrow=c(2,2))
+plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$tp_in_conc[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-2,1))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_conc[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-2,1))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_conc[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-2,1))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_conc[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-2,1))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+# now create a 2x2 plot that each contains a residence time quartile (remove residence time
+# effect), and plot TN:TP concentration on the x axis
+par(mfrow=c(2,2))
+plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TN:TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TN:TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+# now create a 2x2 plot that each contains a residence time quartile (remove residence time
+# effect), and plot TN:TP concentration on the x axis -- predicted % change
+par(mfrow=c(2,2))
+plot(stoich$np_change_predicted[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change_predicted[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change_predicted[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$np_change_predicted[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.6, 
+     xlab = "log TP in", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+# now plot difference as points, with zero in middle
+# same plot, but with predicted data
+pdf("diffinout_col.pdf")
+plot(stoich$np_change_predicted~stoich$rank_sum, cex.lab = 1.8, cex = 1.6, 
+     xlab = "Res Time & Depth Rank", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors)
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
+dev.off()
 
 # Figure 9: Differential retention as % change in TN:TP vs rank or res time
 # - observed
