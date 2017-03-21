@@ -410,12 +410,12 @@ stoich.down <- which(yin>yout)
 # decide stoich cutoffs for N:P in 
 # just diverging colors by decile
 library(RColorBrewer)
-stoich.cols <- brewer.pal(10, "PRGn")
+stoich.cols <- brewer.pal(6, "PRGn")[c(1,3,4,6)]
 stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
 
 get.col.bins <- function(stoich.vals) {
   
-  ii <- cut(log10(stoich.vals), as.numeric(quantile(log10(stoich.vals),probs = seq(0,1,.1))), 
+  ii <- cut(log10(stoich.vals), as.numeric(quantile(log10(stoich.vals),probs = c(0,.2,.5,.8,1))), 
             include.lowest = TRUE)
   
   levels(ii) <- stoich.cols
@@ -424,6 +424,20 @@ get.col.bins <- function(stoich.vals) {
 }
 
 stoich$colors <- get.col.bins(stoich$mean_depth)
+
+# create function for stoich cutoffs
+get.col.bins.limiting <- function(stoich.vals) {
+  
+  ii <- cut(stoich.vals, c(0, 44, 110, 9000), 
+            include.lowest = TRUE)
+  
+  levels(ii) <- stoich.cols
+  ii = as.character(ii)
+  return(ii)
+}
+stoich.cols <- c(col.p, "white", col.n)
+stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
+stoich$colors <- get.col.bins.limiting(stoich$np_in)
 
 # calculate stoich change
 # calculate log of change - then make numbers with decreasing TN:TP negative, those with
@@ -443,29 +457,72 @@ abline(h=0, lty = 2, col = "red", lwd = 2)
 legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
 dev.off()
 
-# now create a 2x2 plot that each contains a residence time quartile (remove residence time
-# effect), and plot depth on the x axis
-par(mfrow=c(2,2))
-plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$mean_depth[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+#  2x2 plot; panels = residence time quartile (remove residence time
+# effect), x axis = depth, colors = input N:P
+
+stoich.cols <- c(col.p, "white", col.n)
+stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
+stoich$colors <- get.col.bins.limiting(stoich$np_in)
+
+
+pdf("PerChange_depth_stoich.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$mean_depth[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Limiting Nutrient", legend = c("N", "N and/or P", "P"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$mean_depth[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
-plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$mean_depth[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$mean_depth[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
-plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$mean_depth[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$mean_depth[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("Change in Stoichiometry", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Mean Depth (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+#  2x2 plot; panels = residence time quartile (remove residence time
+# effect), x axis = depth, colors = input P
+stoich.cols <- brewer.pal(6, "PRGn")[c(1,3,4,6)]
+stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
+
+stoich$colors <- get.col.bins(stoich$tp_in_conc)
+
+pdf("PerChange_depth_Pin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$mean_depth[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "[P]in Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$mean_depth[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
-plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$mean_depth[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log Mean depth (m)", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors, ylim = c(-1.3, 2))
+plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$mean_depth[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
+plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$mean_depth[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("Change in Stoichiometry", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Mean Depth (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
 
 # now create a 2x2 plot that each contains a residence time quartile (remove residence time
 # effect), and plot P concentration on the x axis
