@@ -457,7 +457,8 @@ abline(h=0, lty = 2, col = "red", lwd = 2)
 legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
 dev.off()
 
-#  2x2 plot; panels = residence time quartile (remove residence time
+###################################################
+#  Fig. 8.2: 2x2 plot; panels = residence time quartile (remove residence time
 # effect), x axis = depth, colors = input N:P
 
 stoich.cols <- c(col.p, "white", col.n)
@@ -490,8 +491,8 @@ mtext("Change in Stoichiometry", side = 2,cex=1.7, outer = TRUE, line=1.5)
 mtext("log Mean Depth (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
-
-#  2x2 plot; panels = residence time quartile (remove residence time
+########################################################################
+#  Fig. 8.3 2x2 plot; panels = residence time quartile (remove residence time
 # effect), x axis = depth, colors = input P
 stoich.cols <- brewer.pal(6, "PRGn")[c(1,3,4,6)]
 stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
@@ -524,28 +525,77 @@ mtext("log Mean Depth (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
-# now create a 2x2 plot that each contains a residence time quartile (remove residence time
-# effect), and plot P concentration on the x axis
-par(mfrow=c(2,2))
-plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$tp_in_conc[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log TP in", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-2,1))
-abline(h=0, lty = 2, col = "red", lwd = 2)
+########################################################################
+#  Fig 8.4: 2x2 plot; panels = residence time quartile (remove residence time
+# effect), x axis = depth, colors = input P
+stoich.cols <- brewer.pal(6, "PRGn")[c(1,3,4,6)]
+stoich.cols <- adjustcolor(stoich.cols, alpha.f = .7)
+stoich$colors <- get.col.bins(stoich$mean_depth)
 
-plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_conc[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log TP in", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-2,1))
+col.vals = quantile(stoich$mean_depth, c(0,.2,.5,.8,1))
+pdf("PerChange_stoichin_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(0,4))
 abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+text(x = 0, y= -1.2, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -1.2, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -1.2, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
 
-plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_conc[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log TP in", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-2,1))
+plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(0,4))
 abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("Change in Stoichiometry", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input TN:TP (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+text(x = 0, y= -1.2, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
 
-plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_conc[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.6, 
-     xlab = "log TP in", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-2,1))
+dev.off()
+
+################################################
+# Fig 8.5 - exact same fig but for predicted change in stoich
+
+pdf("PerChangePred_stoichin_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$np_change_predicted[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(0,4))
 abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+text(x = 0, y= -1.2, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+plot(stoich$np_change_predicted[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -1.2, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+plot(stoich$np_change_predicted[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= 1.8, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+
+plot(stoich$np_change_predicted[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(0,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("Change in Stoichiometry", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input TN:TP (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+text(x = 0, y= 1.8, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+
+dev.off()
+
+
+
 
 # now create a 2x2 plot that each contains a residence time quartile (remove residence time
 # effect), and plot TN:TP concentration on the x axis
@@ -602,14 +652,74 @@ plot(stoich$np_change_predicted~stoich$rank_sum, cex.lab = 1.8, cex = 1.6,
 abline(h=0, lty = 2, col = "red", lwd = 2)
 legend("topleft", col = stoich.cols[c(1,10)], pch = 16, cex = 1.8, legend = c("low TN:TP", "high TN:TP"))
 dev.off()
+##################################
+# Figure 9: load N:P vs out N:P
+##################################
+plot(log10(stoich$np_out)~log10(stoich$np_in),xlim = c(-1,4),ylim=c(-1,4))
+abline(0,1,col = "red")
 
-# Figure 9: Differential retention as % change in TN:TP vs rank or res time
-# - observed
+plot(log10(stoich$np_out)~log10(stoich$np_in), cex.lab = 1.8, cex = 1.6, 
+     xlab = "N:P in", ylab = "N:P out",
+     pch = 21, bg = stoich$colors)
+abline(0,1,col = "red", lwd = 2, lty = 2)
 
-# Figure 10: Same as Figure 9, but with color = rank or res time and x = start concentration
+pdf("Stoich_in_out_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$np_out)[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+text(x = 4, y= -1, expression(paste(tau, " < 1 month")), col = "red", pos = 2)
+plot(log10(stoich$np_out)[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+text(x = 4, y= -1, expression(paste(tau, " = 1-5 months")), col = "red", pos = 2)
+plot(log10(stoich$np_out)[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+text(x = 4, y= -1, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 2)
 
-# figure 11: Same as figure 9, but broken up into 3 - each panel represents low, medium
-# high res time/rank, and x = start ratio or start P concentration (to test Finlay hypothesis?)
+plot(log10(stoich$np_out)[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+mtext("log TN:TP out", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log TN:TP in", side = 1,cex=1.7, outer = TRUE, line=1.5)
+text(x = 4, y= -1, expression(paste(tau, " > 1.2 years")), col = "red", pos = 2)
+dev.off()
+
+# same fig but with predicted N:P out
+pdf("Stoich_in_outpred_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$np_out_predicted)[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+text(x = 4, y= -1, expression(paste(tau, " < 1 month")), col = "red", pos = 2)
+plot(log10(stoich$np_out_predicted)[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+text(x = 4, y= -1, expression(paste(tau, " = 1-5 months")), col = "red", pos = 2)
+plot(log10(stoich$np_out_predicted)[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+text(x = 4, y= -1, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 2)
+
+plot(log10(stoich$np_out_predicted)[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1, 4), xlim = c(-1, 4))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+mtext("log TN:TP in", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log TN:TP out", side = 1,cex=1.7, outer = TRUE, line=1.5)
+text(x = 4, y= -1, expression(paste(tau, " > 1.2 years")), col = "red", pos = 2)
+dev.off()
+
 
 # Figure 12: calculate Vf and sedimentation coefficient and summarize by lake type. 
 # show how sed coef or Vf changes with nutrient input concentration
