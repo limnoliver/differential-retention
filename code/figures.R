@@ -28,25 +28,29 @@ Rp.depth <= 1-(1/(1+((5.1/z)*x)))
 png("R_restime.png", height = 600, width = 800)
 # plot N and P lines together 
 par(mar=c(5,5,1,1))
-curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
+
+# plot new P curve + Brett & Benjamin curve
+curve(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2]))))), 0.001,1000,log = "x",
      ylab = "Retention", xlab = "Residence Time (y)",
      col = col.p, ylim = c(0, 1.1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
+         col = col.p, lwd = 2, lty = 2, add = TRUE)
 
-curve(1-(1/(1+((5.1/10)*x))), 0.001,1000,log = "x",
-      col = col.p, lwd = 4, add = TRUE)
-curve(1-(1/(1+((5.1/20)*x))), 0.001,1000,log = "x",
-      col = col.p, lwd = 4, add = TRUE)
-curve(1-(1/(1+((5.1/50)*x))), 0.001,1000,log = "x",
-      col = col.p, lwd = 4, add = TRUE)
 axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
-
-curve(1-(exp((-Vf*x)/1)), .001, 1000, 
-      log = "x", ylab="N Retention", xlab = "Residence Time (y)", 
+# Harrison N curves + new fit N curves
+#curve(1-(exp((-Fit.N.real$par[1]*x)/3)), .001, 1000, 
       col = col.n1, add = TRUE, lwd = 4)
-curve(1-(exp((-Vf*x)/10)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = col.n2, lwd = 4, add = TRUE)
-curve(1-(exp((-Vf*x)/20)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = col.n3, lwd = 4, add = TRUE)
-curve(1-(exp((-Vf*x)/50)), .001, 1000, log = "x", ylab="N Retention", xlab = "Residence Time (y)", col = col.n4, lwd = 4, add = TRUE)
+#curve(1-(exp((-8.91*x)/3)), .001, 1000, 
+      col = col.n1, add = TRUE, lwd = 2, lty =2)
+curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), .001, 1000, 
+      col = col.n3, add = TRUE, lwd = 4)
+curve(1-(exp((-8.91*x)/5.9)), .001, 1000, 
+      col = col.n3, add = TRUE, lwd = 2, lty =2)
+#curve(1-(exp((-Fit.N.real$par[1]*x)/11.1)), .001, 1000, 
+      col = col.n5, add = TRUE, lwd = 4)
+#curve(1-(exp((-8.91*x)/11.1)), .001, 1000, 
+      col = col.n5, add = TRUE, lwd = 2, lty =2)
 
 abline(v=1/365, col="gray", lty=2)
 # week
@@ -57,8 +61,8 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-legend("topleft", legend = c("Nitrogen (1, 10, 20, 50m)", "Phosphorus"), 
-       col = c(col.n2, col.p), lty = 1, lwd = 3, cex = 1.7)
+legend("topleft", legend = c("Nitrogen", "Phosphorus"), 
+       col = c(col.n3, col.p), lty = 1, lwd = 3, cex = 1.7)
 dev.off()
 
 ########################################################
