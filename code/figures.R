@@ -22,6 +22,38 @@ z.mean = c(0.1, 2.3, 3.3, 4.5, 739)
 # Rp equation with depth
 Rp.depth <= 1-(1/(1+((5.1/z)*x)))
 
+############################################
+# Calculate summary statistics for Table 2
+############################################
+vars <- c("volume", "surface_area", "mean_depth", "res_time", "tp_in_conc", "tp_out_conc",
+          "Rp", "tn_in_conc", "tn_out_conc", "Rn", "RnRpdiff")
+sum.stats <- function(input.dat, percentile) {
+  d <- input.dat
+  d$RnRpdiff <- d$Rn-d$Rp
+  summ <- c()
+  for (i in 1:length(vars)){
+  summ[i] <- as.numeric(quantile(d[,vars[i]], probs = percentile, na.rm = TRUE))
+  }
+  return(as.data.frame(t(summ)))
+}
+
+r1 <- sum.stats(dat.np, percentile = 0.9)
+r2 <- sum.stats(dat.np, percentile = 0.5)
+r3 <- sum.stats(dat.np, percentile = 0.1)
+r4 <- sum.stats(dat.n, percentile = .5)
+r5 <- sum.stats(dat.n.real, percentile = 0.5)
+r6 <- sum.stats(dat.n.pos, percentile = 0.5)
+r7 <- sum.stats(dat.p, percentile = .5)
+r8 <- sum.stats(dat.p.real, percentile = 0.5)
+r9 <- sum.stats(dat.p.pos, percentile = 0.5)
+
+dat.sum <- rbind(r1, r2, r3, r4, r5, r6, r7, r8, r9)
+names(dat.sum) <- vars
+
+write.csv(dat.sum, "table2.csv")
+
+sum.stats <- 
+
 ##################################################################
 # Figure 1: N and P retention according to Vollenweider & Harrison
 ##################################################################
