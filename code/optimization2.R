@@ -75,6 +75,8 @@ Fit.Rp <- P.ret.mod.fit(dat.in = dat.p, type = "retention")
 Fit.Rp.real <- P.ret.mod.fit(dat.in = dat.p.real, type = "retention")
 Fit.Rp.pos <- P.ret.mod.fit(dat.in = dat.p.pos, type = "retention")
 
+Fit.np.p <- P.ret.mod.fit(dat.in = stoich, type = "concentration")
+
 Vf.start = 8.91
 lowerBound = 0
 upperBound = 1000
@@ -108,6 +110,7 @@ Fit.N.pos <- N.ret.mod.fit(dat.n.pos)
 har.all <- har[!is.na(har$Rn_calculated)&!is.na(har$res_time)&!is.na(har$mean_depth), ]
 har.all$Rn <- har.all$Rn_calculated
 Fit.N.harrison <- N.ret.mod.fit(har.all)
+Fit.N.np <- N.ret.mod.fit(stoich)
 
 curve(1-(1/(1+(Fit.Rp.real$par[1]*(x^(1+Fit.Rp.real$par[2]))))), 0.001, 1000, log = "x",
       ylab = "Retention", xlab = "Residence Time (y)", 
