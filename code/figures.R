@@ -102,17 +102,16 @@ dev.off()
 #######################################################
 png("RnRp_restime.png", height = 600, width = 800)
 par(mar=c(5,5,1,1))
-curve((1-(exp((-Vf*x)/1)))/(1-(1/(1+(1.12*(x^.47))))), 0.001,1000,log = "x",
+curve((1-(exp((-Fit.N.real$par[1]*x)/1.8)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
       ylab = "Rn:Rp", xlab = "Residence Time (y)", 
-      col = new.cols[3], ylim = c(0, 3), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+      col = new.cols[3], ylim = c(0, 1.5), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
-curve((1-(exp((-Vf*x)/10)))/(1-(1/(1+(1.12*(x^.47))))), 0.001,1000,
-      log = "x",add=TRUE, col = new.cols[5], lwd = 4)
-curve((1-(exp((-Vf*x)/20)))/(1-(1/(1+(1.12*(x^.47))))), 0.001,1000,
-      log = "x",add=TRUE, col = new.cols[7], lwd = 4)
-curve((1-(exp((-Vf*x)/50)))/(1-(1/(1+(1.12*(x^.47))))), 0.001,1000,
-      log = "x",add=TRUE, col = new.cols[9], lwd = 4)
+curve((1-(exp((-Fit.N.real$par[1]*x)/5.9)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
+      col = new.cols[6], lwd = 4, add = TRUE)
+curve((1-(exp((-Fit.N.real$par[1]*x)/18.9)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
+      col = new.cols[9], lwd = 4, add = TRUE)
+
 abline(h=1, col = "red", lwd = 2, lty = 2)
 abline(v=1/365, col="gray", lty=2)
 # week
@@ -123,10 +122,10 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-legend("topleft", legend = c("1m", "10m", "20m", "50m"), 
-       col = new.cols[c(3,5,7,9)], lty = 1, lwd = 3, cex = 1.7)
-text(x=100, y=1.5, "Remove more N \nDecrease N:P", cex = 1.7)
-text(x=100, y=0.5, "Remove more P \nIncrease N:P", cex = 1.7)
+legend("topleft", legend = c("1.8", "5.9", "18.9"), title = "Depth (m)", 
+       col = new.cols[c(3,6,9)], lty = 1, lwd = 3, cex = 1.7)
+text(x=100, y=1.3, "Remove more N \nDecrease N:P", cex = 1.7)
+text(x=100, y=0.7, "Remove more P \nIncrease N:P", cex = 1.7)
 
 dev.off()
 
@@ -268,15 +267,15 @@ dev.off()
 pdf("RvsEq.pdf", height = 6, width = 14)
 par(mar=c(5,5,1,1), mfrow = c(1,2))
 #plot retention vs residence time then add curve of Harrison
-curve(1-(exp((-Vf*x)/9.6)), 0.001,1000,log = "x",
+curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), 0.001,1000,log = "x",
       ylab = "Rn", xlab = "Residence Time (y)", 
-      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+      col = "red", ylim = c(-1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
 
-points(dat.all$Rn~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.5,
+points(dat.n$Rn~dat.n$res_time, xlog = TRUE, pch = 21, cex = 1.1,
        bg = rgb(222,222,222,max=255,alpha=200))
-curve(1-(exp((-Vf*x)/9.6)), 0.001,1000,log = "x",add = TRUE,
+curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), 0.001,1000,log = "x",add = TRUE,
       col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 
 abline(v=1/365, col="gray", lty=2)
@@ -288,18 +287,18 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-text(x=2/365, y = .9, labels = "n = 850", cex = 1.3, col = "red")
+text(x=2/365, y = .9, labels = "n = 838", cex = 1.3, col = "red")
 
 #plot retention vs residence time then add curve of Brett & Benjamin
-curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
+curve(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2]))))), 0.001,1000,log = "x",
       ylab = "Rp", xlab = "Residence Time (y)", 
-      col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.2)
+      col = "red", ylim = c(-1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.2)
 axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.2)
 
-points(dat.all$Rp~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.5,
+points(dat.all$Rp~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.1,
        bg = rgb(222,222,222,max=255,alpha=200))
-curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",add = TRUE,
+curve(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2]))))), 0.001,1000,log = "x",add = TRUE,
       col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 
 abline(v=1/365, col="gray", lty=2)
@@ -311,7 +310,7 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-text(x=2/365, y = .9, labels = "n = 1030", cex = 1.3, col = "red")
+text(x=2/365, y = .9, labels = "n = 1001", cex = 1.3, col = "red")
 
 dev.off()
 
@@ -377,31 +376,31 @@ dev.off()
 p <- .bincode(stoich$mean_depth, breaks = as.numeric(quantile(stoich$mean_depth, seq(0,1,by=0.1), na.rm = TRUE)), right = FALSE)
 depth = as.numeric(tapply(stoich$mean_depth, INDEX = c(p), median, na.rm = TRUE))
 x = as.numeric(tapply(stoich$res_time, INDEX = c(p), median, na.rm = TRUE))
-res_time_sd = as.numeric(tapply(stoichl$res_time, INDEX = c(p), sd, na.rm = TRUE))
+res_time_sd = as.numeric(tapply(stoich$res_time, INDEX = c(p), sd, na.rm = TRUE))
 
 stoich$np_perc = -100*(1-(stoich$np_out * (1/stoich$np_in)))
 np_perc <- as.numeric(tapply(stoich$np_perc, INDEX = c(p), median, na.rm = TRUE))
 
-n_outin = exp((-9.92*x)/depth)
-p_outin = 1/(1+(1.12*(x^.47)))
+n_outin = exp((-Fit.N.real$par[1]*x)/depth)
+p_outin = 1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2]))))
 np_perc_pred = -100*(1-(n_outin/p_outin))
 
 
 
 png("PercentChange_restime.png", height = 600, width = 800)
 par(cex = 1, mar = c(5,5,1,1))
-curve(-100*(1-((exp((-9.92*x)/depth[1]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=1000, log="x",
+curve(-100*(1-((exp((-Fit.N.real$par[1]*x)/depth[1]))/(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2]))))))), from=.001,to=1000, log="x",
       n=1000,
       cex.lab = 2,
       cex.axis = 1.3,
       ylab="% Change TN:TP", 
       xlab = "Residence Time (y)",
       lwd=4, 
-      ylim=c(-100,100), col=new.cols[1], bty="l", xaxt = "n")
+      ylim=c(-100,200), col=new.cols[1], bty="l", xaxt = "n")
 axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
 for (i in 1:length(depth)){
-  curve(-100*(1-((exp((-9.92*x)/depth[i]))/(1/(1+(1.12*(x^.47)))))), from=.001,to=1000, log="x",
+  curve(-100*(1-((exp((-Fit.N.real$par[1]*x)/depth[i]))/(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2]))))))), from=.001,to=1000, log="x",
         n=1000,
         lwd=4, 
         col=new.cols[i], bty="l", add = TRUE) 
@@ -433,7 +432,12 @@ dev.off()
 # Figure 8: Differential retention as % change in TN:TP vs rank or res time
 # - predicted from models
 #############################################################################
-stoich <- dat.np[!is.na(dat.np$np_in)&!is.na(dat.np$np_out)&!is.na(dat.np$mean_depth), ]
+stoich <- dat.np[!is.na(dat.np$np_in)&
+                 !is.na(dat.np$np_out)&
+                 !is.na(dat.np$mean_depth)&
+                 !is.na(dat.np$res_time)&
+                !is.na(dat.np$tp_in_conc)&
+                  !is.na(dat.np$tp_out_conc), ]
 
 xin <- stoich$rank_sum
 xout <- stoich$rank_sum
@@ -764,4 +768,61 @@ dev.off()
 plot(log10(dat.np$mean_depth)~log10(dat.np$res_time))
 points(log10(dat.np$mean_depth[dat.np$Rn>2*dat.np$Rp])~log10(dat.np$res_time[dat.np$Rn>2*dat.np$Rp]), pch = 21,bg = col.n)
 points(log10(dat.np$mean_depth[dat.np$Rp>2*dat.np$Rn])~log10(dat.np$res_time[dat.np$Rp>2*dat.np$Rn]), pch = 21,bg = col.p)
+
+
+## Figure - depth dependence of Rn
+stoich$colors <- get.col.bins(stoich$np_in)
+
+pdf("Rp_restime_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$mean_depth[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "N:P in Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$mean_depth[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$mean_depth[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$mean_depth[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Mean Depth (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+stoich$colors <- get.col.bins(stoich$mean_depth)
+pdf("Rp_restime_stoichin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
 
