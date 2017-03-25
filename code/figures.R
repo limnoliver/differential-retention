@@ -826,3 +826,20 @@ mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
+#############################################
+# Fig. - recreate Finlays N retention vs trophic status
+#################################################
+
+dat.np$trophic <- "mesotrophic"
+dat.np$trophic[dat.np$tp_out_conc < .010] <- "oligotrophic"
+dat.np$trophic[dat.np$tp_out_conc > .030] <- "eutrophic"
+
+palette(c(rgb(166,217,106,200, max = 255), rgb(222,222,222,200, max=255), rgb(5,113,176,200,max=255)))
+shapes <- as.factor(dat.np$trophic)
+levels(shapes) = c(24,21,25)
+shapes <- as.numeric(as.character(shapes))
+plot(dat.np$Rn~log10(dat.np$res_time), bg = as.factor(dat.np$trophic), 
+     ylim = c(-1,1), cex = 1.2, pch = shapes)
+plot(dat.np$Rp~log10(dat.np$res_time), bg = as.factor(dat.np$trophic), 
+     ylim = c(-1,1), cex = 1.2, pch = shapes)
+
