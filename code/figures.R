@@ -843,3 +843,70 @@ plot(dat.np$Rn~log10(dat.np$res_time), bg = as.factor(dat.np$trophic),
 plot(dat.np$Rp~log10(dat.np$res_time), bg = as.factor(dat.np$trophic), 
      ylim = c(-1,1), cex = 1.2, pch = shapes)
 
+##################################################
+# Fig plot aerial mass remval vs aerial load
+# similar to Finlay plot
+##################################################
+
+dat.np$tn_in_mass_aerial <- dat.np$tn_in_mass/dat.np$surface_area
+dat.np$tp_in_mass_aerial <- dat.np$tp_in_mass/dat.np$surface_area
+dat.np$tn_r_mass_aerial <- (dat.np$tn_in_mass-dat.np$tn_out_mass)/dat.np$surface_area
+dat.np$tp_r_mass_aerial <- (dat.np$tp_in_mass-dat.np$tp_out_mass)/dat.np$surface_area
+
+dat.np$np_r <- dat.np$tn_r_mass_aerial/dat.np$tp_r_mass_aerial
+png("R_restime.png", height = 600, width = 800)
+par(mar=c(5,5,1,1), mfrow=c(1,2))
+plot(log10(dat.np$tn_r_mass_aerial)~log10(dat.np$tn_in_mass_aerial),
+     cex = 1.2, xlab = "TN in (kg/m2 y)", ylab = "TN removed (kg/m2 y)",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1,col = "red", lwd = 2)
+
+plot(log10(dat.np$tp_r_mass_aerial)~log10(dat.np$tp_in_mass_aerial),
+     cex = 1.2, xlab = "TN in (kg/m2 y)", ylab = "TN removed (kg/m2 y)",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1,col = "red", lwd = 2)
+
+plot(log10(dat.np$np_out)~log10(dat.np$np_in),
+     cex = 1.2, xlab = "TN:TP in", ylab = "TN:TP out",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1,col = "red", lwd = 2)
+
+plot(log10(dat.np$np_r)~log10(dat.np$tp_in_mass_aerial),
+     cex = 1.2, ylab = "N:P removal", xlab = "P in",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+plot(log10(dat.np$np_r)~log10(dat.np$np_in),
+     cex = 1.2, ylab = "N:P removal", xlab = "N:P in",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1,col = "red", lwd = 2)
+
+plot(dat.np$Rp~log10(dat.np$tp_in_mass_aerial), ylim = c(-1,1))
+plot(dat.np$Rn~log10(dat.np$tn_in_mass_aerial), ylim = c(-1,1))
+
+plot(dat.np$Rp~log10(dat.np$tn_in_mass_aerial), ylim = c(-1,1))
+plot(dat.np$Rn~log10(dat.np$tp_in_mass_aerial), ylim = c(-1,1))
+
+# at high input N:P, it appears P limitation limits P removal, but not N
+#
+plot(log10(dat.np$np_in)~log10(dat.np$tp_in_mass_aerial))
+plot(log10(dat.np$np_in)~log10(dat.np$tn_in_mass_aerial))
+
+plot(dat.np$Rp~log10(dat.np$np_in), ylim = c(-1,1))
+abline(0,1,col = "red", lwd = 2)
+
+# create a residuals column for each N and P
+dat.np$Rp_res <- dat.np$Rp - dat.np$Rp_predicted
+dat.np$Rn_res <- dat.np$Rn - dat.np$Rn_predicted
+
+plot(dat.np$Rn_res[dat.np$Rp>0] ~ log10(dat.np$np_in[dat.np$Rp>0]), ylim = c(-1,1))
+plot(dat.np$Rp_res[dat.np$Rp>0] ~ log10(dat.np$np_in[dat.np$Rp>0]), ylim = c(-1,1))
+fit.lm <-  lm(dat.np$Rp_res[dat.np$Rp>0] ~ log10(dat.np$np_in[dat.np$Rp>0]))
+
+plot(dat.np$Rn_res[dat.np$Rn>0] ~ log10(dat.np$np_out[dat.np$Rn>0]), ylim = c(-1,1))
+plot(dat.np$Rp_res[dat.np$Rp>0] ~ log10(dat.np$np_out[dat.np$Rp>0]), ylim = c(-1,1))
+
+plot(dat.np$Rn_res[dat.np$Rn>0] ~ log10(dat.np$tp_out_conc[dat.np$Rn>0]), ylim = c(-1,1))
+plot(dat.np$Rp_res[dat.np$Rp>0] ~ log10(dat.np$np_in[dat.np$Rp>0]), ylim = c(-1,1))
+
+abline(fit.lm, col = "red")
+abline(h = 0, col = "blue", lty = 2)
+abline(v = log10(40), col = "green", lwd = 2)
