@@ -271,7 +271,7 @@ dat.all[which(dat.all$tp_out_conc>1.2), ]
 ################################################
 
 dat.all$Rn_predicted <- 1-(exp((-Fit.N.np$par[1]*(dat.all$res_time/dat.all$mean_depth))))
-dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.p$par[1]*(dat.all$res_time^(1+Fit.np.p$par[2])))))
+dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp$par[2])))))
 
 # calculate Vf for each lake
 dat.all$Vf <- (-1*dat.all$mean_depth/dat.all$res_time)*log(1-dat.all$Rn)
