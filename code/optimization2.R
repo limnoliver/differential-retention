@@ -76,6 +76,7 @@ Fit.Rp.real <- P.ret.mod.fit(dat.in = dat.p.real, type = "retention")
 Fit.Rp.pos <- P.ret.mod.fit(dat.in = dat.p.pos, type = "retention")
 
 Fit.np.p <- P.ret.mod.fit(dat.in = stoich, type = "concentration")
+Fit.np.Rp <- P.ret.mod.fit(dat.in = stoich, type = "retention")
 
 Vf.start = 8.91
 lowerBound = 0
