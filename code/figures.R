@@ -858,6 +858,7 @@ stoich$tn_r_mass_aerial <- (stoich$tn_in_mass-stoich$tn_out_mass)/stoich$surface
 stoich$tp_r_mass_aerial <- (stoich$tp_in_mass-stoich$tp_out_mass)/stoich$surface_area
 
 stoich$np_r <- stoich$tn_r_mass_aerial/stoich$tp_r_mass_aerial
+
 pdf("out_in.pdf", height = 5, width = 12)
 par(mar=c(5,5,1,1), mfrow=c(1,3))
 plot(log10(stoich$tn_r_mass_aerial)~log10(stoich$tn_in_mass_aerial),
@@ -875,14 +876,213 @@ plot(log10(stoich$np_r)~log10(stoich$np_in),
      cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
 abline(0,1,col = "red", lwd = 2)
 dev.off()
-plot(log10(stoich$np_r)~log10(stoich$tp_in_mass_aerial),
+
+####################################################
+# Figs aerial mass removed vs aerial mass in x panels of res time
+####################################################
+pdf("N_out_in_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time<0.0872])~log10(stoich$tn_in_mass_aerial[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(1,7), ylim = c(1,7),
+     xaxt = "n", cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(1, labels = FALSE)
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025])~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     xaxt = "n", yaxt = "n",cex = 1.2, xlab = "", ylab = "", xlim = c(1,7), ylim = c(1,7),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2])~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(1,7), ylim = c(1,7),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time>=1.2])~log10(stoich$tn_in_mass_aerial[stoich$res_time>=1.2]),
+     yaxt = "n", cex = 1.2, xlab = "", ylab = "", xlim = c(1,7), ylim = c(1,7),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(2, labels = FALSE)
+mtext("TN removed (kg/m2 y)", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("TN in (kg/m2 y)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("P_out_in_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time<0.0872])~log10(stoich$tp_in_mass_aerial[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(-1,6), ylim = c(-1,6),
+     xaxt = "n", cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(1, labels = FALSE)
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025])~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     xaxt = "n", yaxt = "n",cex = 1.2, xlab = "", ylab = "", xlim = c(-1,6), ylim = c(-1,6),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2])~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(-1,6), ylim = c(-1,6),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time>=1.2])~log10(stoich$tp_in_mass_aerial[stoich$res_time>=1.2]),
+     yaxt = "n", cex = 1.2, xlab = "", ylab = "TP removed (kg/m2 y)", xlim = c(-1,6), ylim = c(-1,6),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(2, labels = FALSE)
+mtext("TP removed (kg/m2 y)", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("TP in (kg/m2 y)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("NP_r_in_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$np_r[stoich$res_time<0.0872])~log10(stoich$np_in[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(-1.5,3), ylim = c(-1.5,3),
+     xaxt = "n", cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(1, labels = FALSE)
+plot(log10(stoich$np_r[stoich$res_time>=.0872&stoich$res_time<.4025])~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     xaxt = "n", yaxt = "n",cex = 1.2, xlab = "", ylab = "", xlim = c(-1.5,3), ylim = c(-1.5,3),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+plot(log10(stoich$np_r[stoich$res_time>=.4025&stoich$res_time<1.2])~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(-1.5,3), ylim = c(-1.5,3),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+plot(log10(stoich$np_r[stoich$res_time>=1.2])~log10(stoich$np_in[stoich$res_time>=1.2]),
+     yaxt = "n", cex = 1.2, xlab = "", ylab = "TP removed (kg/m2 y)", xlim = c(-1.5,3), ylim = c(-1.5,3),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+abline(0,1, lty = 2, col = "red", lwd = 2)
+axis(2, labels = FALSE)
+mtext("N:P retained", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("N:P in", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+###############################################################
+# Fig R vs aerial loading of same nutrient x panels of res time
+###############################################################
+
+pdf("Rp_in_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp[stoich$res_time<0.0872]~log10(stoich$tp_in_mass_aerial[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,6), ylim = c(-1,1), xaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,6), ylim = c(-1,1), xaxt = "n", yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,6), ylim = c(-1,1),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+plot(stoich$Rp[stoich$res_time>=1.2]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=1.2]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,6), ylim = c(-1,1),yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+axis(2, labels = FALSE)
+mtext("Rp", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("P in (kg m-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+dev.off()
+
+pdf("Rn_in_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn[stoich$res_time<0.0872]~log10(stoich$tn_in_mass_aerial[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "tn in (kg/m2 y)", ylab = "Rn", xlim = c(1,7), ylim = c(-1,1), xaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = 1, y= -.9, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+plot(stoich$Rn[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     cex = 1.2, xlab = "tn in (kg/m2 y)", ylab = "Rn", xlim = c(1,7), ylim = c(-1,1), xaxt = "n", yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x =1, y= -.9, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+plot(stoich$Rn[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "tn in (kg/m2 y)", ylab = "Rn", xlim = c(1,7), ylim = c(-1,1),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = 1, y= -.9, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+plot(stoich$Rn[stoich$res_time>=1.2]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=1.2]),
+     cex = 1.2, xlab = "tn in (kg/m2 y)", ylab = "Rn", xlim = c(1,7), ylim = c(-1,1),yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = 1, y= -.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+axis(2, labels = FALSE)
+mtext("Rn", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("N in (kg m-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+dev.off()
+
+####################################################
+# Fig Relationship between  R and loading characteristics
+###################################################
+pdf("Rp_NPin_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp[stoich$res_time<0.0872]~log10(stoich$np_in[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,3), ylim = c(-1,1), xaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,3), ylim = c(-1,1), xaxt = "n", yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,3), ylim = c(-1,1),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+plot(stoich$Rp[stoich$res_time>=1.2]~log10(stoich$np_in[stoich$res_time>=1.2]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rp", xlim = c(-1,3), ylim = c(-1,1),yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+axis(2, labels = FALSE)
+mtext("Rp", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log TN:TP in", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("Rn_NPin_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn[stoich$res_time<0.0872]~log10(stoich$np_in[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rn", xlim = c(-1,3), ylim = c(-1,1), xaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+plot(stoich$Rn[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rn", xlim = c(-1,3), ylim = c(-1,1), xaxt = "n", yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+plot(stoich$Rn[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rn", xlim = c(-1,3), ylim = c(-1,1),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+plot(stoich$Rn[stoich$res_time>=1.2]~log10(stoich$np_in[stoich$res_time>=1.2]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "Rn", xlim = c(-1,3), ylim = c(-1,1),yaxt = "n",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= -.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+axis(2, labels = FALSE)
+mtext("Rn", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log TN:TP in", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+
+plot(log10(stoich$Rp)~log10(stoich$tp_in_mass_aerial),
      cex = 1.2, ylab = "N:P removal", xlab = "P in",
      cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
 plot(log10(stoich$np_r)~log10(stoich$np_in),
      cex = 1.2, ylab = "N:P removal", xlab = "N:P in",
      cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
 abline(0,1,col = "red", lwd = 2)
-
+dev.off()
 plot(stoich$Rp~log10(stoich$tp_in_mass_aerial), ylim = c(-1,1))
 plot(stoich$Rn~log10(stoich$tn_in_mass_aerial), ylim = c(-1,1))
 
