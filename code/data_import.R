@@ -256,6 +256,8 @@ dat.all$tn_in_mass[is.na(dat.all$tn_in_mass)] <- dat.all$tn_in_conc[is.na(dat.al
 dat.all$tn_out_mass <- as.numeric(dat.all$tn_out_mass)
 dat.all$tn_out_mass[is.na(dat.all$tn_out_mass)] <- dat.all$tn_out_conc[is.na(dat.all$tn_out_mass)]*dat.all$Q[is.na(dat.all$tn_out_mass)]*31536
 
+# H
+dat.all$h <- dat.all$mean_depth/dat.all$res_time
 # in lagos, max TN = 20.57 max TP = 1.22
 summary(dat.all$tn_out_conc)
 dat.all[which(dat.all$tn_out_conc>20), ]
