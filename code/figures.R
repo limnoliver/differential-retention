@@ -1201,7 +1201,37 @@ mtext("N:P in", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
+###############################################################
+# Fig out or R vs TN:TP in x
+###############################################################
+pdf("P_out_stoichin_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$tp_out_mass_aerial[stoich$res_time<.0872])~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -.9, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+plot(log10(stoich$tp_out_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025])~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -.9, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+plot(log10(stoich$tp_out_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2])~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -.9, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
 
+plot(log10(stoich$tp_out_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478])~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P out (kg", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input TN:TP (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+text(x = 0, y= -.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+legend("topright", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+
+dev.off()
 
 ###############################################################
 # Fig R vs aerial loading of same nutrient x panels of res time
@@ -1457,3 +1487,48 @@ Rdiffnp <- wilcox.test(x = stoich$Rn, y = stoich$Rp, paired = TRUE,
                        conf.int = TRUE)
 Rdiffnpstoich <- t.test(x = log10(stoich$np_in), y = log10(stoich$np_out), paired = TRUE)
 Rdiffnpstoichnp <- wilcox.test(x = stoich$np_in, y = stoich$np_out, paired = TRUE, conf.int = TRUE)
+
+###################################
+# Fig N:P change vs N:P input
+###################################
+pdf("ChangeNP_npin_all.pdf")
+par(mar = c(5,5,1,1))
+plot(stoich$np_change~log10(stoich$np_in), xlab = "log N:P in", ylab = "Change in Stoichiometry",
+     cex = 1.2, pch = 16, col = rgb(122,122,122,max = 255,100), cex.lab =1.5)
+change.lm <- lm(stoich$np_change~log10(stoich$np_in))
+abline(change.lm, col = "red", lwd = 2)
+abline(h=0, lty = 2)
+abline(v = log10(44), col = col.n, lty = 2, lwd = 2)
+abline(v = log10(110), col = col.p, lty = 2, lwd = 2)
+text(2.2, 2, "P-limited", col = col.p, pos = 4, cex = 1.5)
+text(1.45, 2, "N-limited", col = col.n3, pos = 2, cex = 1.5)
+text(4, 3, pos = 2, expression(paste(R^2, " = 0.37")), col = "red")
+dev.off
+
+pdf("P_r_npin_all.pdf")
+par(mar = c(5,5,1,1))
+plot(log10(stoich$tp_r_mass_aerial)~log10(stoich$np_in), xlab = "log N:P in", ylab = "log P removed (kg/ha y)",
+     cex = 1.2, pch = 16, col = rgb(122,122,122,max = 255,100), cex.lab =1.5)
+#change.lm <- lm(log10(stoich$tp_r_mass_aerial[stoich$tp_r_mass_aerial>0&stoich$np_in])~log10(stoich$np_in[stoich$tp_r_mass_aerial>0]))
+#abline(change.lm, col = "red", lwd = 2)
+#abline(h=0, lty = 2)
+abline(v = log10(44), col = col.n, lty = 2, lwd = 2)
+abline(v = log10(110), col = col.p, lty = 2, lwd = 2)
+#text(2.2, 2, "P-limited", col = col.p, pos = 4, cex = 1.5)
+#text(1.45, 2, "N-limited", col = col.n3, pos = 2, cex = 1.5)
+#text(4, 3, pos = 2, expression(paste(R^2, " = 0.37")), col = "red")
+dev.off()
+
+pdf("N_r_npin_all.pdf")
+par(mar = c(5,5,1,1))
+plot(log10(stoich$tn_r_mass_aerial)~log10(stoich$np_in), xlab = "log N:P in", ylab = "log N removed (kg/ha y)",
+     cex = 1.2, pch = 16, col = rgb(122,122,122,max = 255,100), cex.lab =1.5)
+#change.lm <- lm(log10(stoich$tp_r_mass_aerial[stoich$tp_r_mass_aerial>0&stoich$np_in])~log10(stoich$np_in[stoich$tp_r_mass_aerial>0]))
+#abline(change.lm, col = "red", lwd = 2)
+#abline(h=0, lty = 2)
+abline(v = log10(44), col = col.n, lty = 2, lwd = 2)
+abline(v = log10(110), col = col.p, lty = 2, lwd = 2)
+#text(2.2, 2, "P-limited", col = col.p, pos = 4, cex = 1.5)
+#text(1.45, 2, "N-limited", col = col.n3, pos = 2, cex = 1.5)
+#text(4, 3, pos = 2, expression(paste(R^2, " = 0.37")), col = "red")
+dev.off()
