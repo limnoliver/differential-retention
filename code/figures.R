@@ -865,6 +865,7 @@ mtext("log Mean Depth (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
 dev.off()
 
 stoich$colors <- get.col.bins(stoich$mean_depth)
+
 pdf("Rp_restime_stoichin.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
 plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
@@ -888,6 +889,110 @@ plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoi
 abline(h=0, lty = 2, col = "red", lwd = 2)
 mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
 mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("Rp_restime_pin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$tp_in_mass_aerial[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("Rn_restime_pin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn[stoich$res_time<.0872]~log10(stoich$tp_in_mass_aerial[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rn[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("N Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("Rp_restime_nin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$tn_in_mass_aerial[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log N in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("Rn_restime_nin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn[stoich$res_time<.0872]~log10(stoich$tn_in_mass_aerial[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rn[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tn_in_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("N Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log N in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
@@ -921,18 +1026,45 @@ dev.off()
 # Fig. - recreate Finlays N retention vs trophic status
 #################################################
 
-dat.np$trophic <- "mesotrophic"
-dat.np$trophic[dat.np$tp_out_conc < .010] <- "oligotrophic"
-dat.np$trophic[dat.np$tp_out_conc > .030] <- "eutrophic"
+stoich$trophic <- "mesotrophic"
+stoich$trophic[stoich$tp_out_conc < .010] <- "oligotrophic"
+stoich$trophic[stoich$tp_out_conc > .030] <- "eutrophic"
 
 palette(c(rgb(166,217,106,200, max = 255), rgb(222,222,222,200, max=255), rgb(5,113,176,200,max=255)))
-shapes <- as.factor(dat.np$trophic)
+shapes <- as.factor(stoich$trophic)
 levels(shapes) = c(24,21,25)
 shapes <- as.numeric(as.character(shapes))
-plot(dat.np$Rn~log10(dat.np$res_time), bg = as.factor(dat.np$trophic), 
+plot(stoich$Rn~log10(stoich$res_time), bg = as.factor(stoich$trophic), 
      ylim = c(-1,1), cex = 1.2, pch = shapes)
-plot(dat.np$Rp~log10(dat.np$res_time), bg = as.factor(dat.np$trophic), 
+plot(stoich$Rp~log10(stoich$res_time), bg = as.factor(stoich$trophic), 
      ylim = c(-1,1), cex = 1.2, pch = shapes)
+
+plot(log10(stoich$tn_r_mass_aerial)~log10(stoich$tn_in_mass_aerial),
+     bg = as.factor(stoich$trophic), 
+      cex = 1.2, pch = shapes)
+plot(stoich$Rn~log10(stoich$res_time),
+     bg = as.factor(stoich$trophic), 
+     cex = 1.2, pch = shapes)
+plot(log10(stoich$tn_r_mass_aerial[stoich$trophic == "eutrophic"])~log10(stoich$tn_in_mass_aerial[stoich$trophic == "eutrophic"]),
+     cex = 1.2, pch = 16, col = "darkgreen")
+temp <- stoich[stoich$Rn > 0,]
+plot(log10(temp$tn_r_mass_aerial[temp$trophic == "eutrophic"])~log10(temp$tn_in_mass_aerial[temp$trophic == "eutrophic"]))
+lm.eutrophic <- lm(log10(temp$tn_r_mass_aerial[temp$trophic == "eutrophic"])~log10(temp$tn_in_mass_aerial[temp$trophic == "eutrophic"]))
+lm.mesotrophic <- lm(log10(temp$tn_r_mass_aerial[temp$trophic == "mesotrophic"])~log10(temp$tn_in_mass_aerial[temp$trophic == "mesotrophic"]))
+lm.oligotrophic <- lm(log10(temp$tn_r_mass_aerial[temp$trophic == "oligotrophic"])~log10(temp$tn_in_mass_aerial[temp$trophic == "oligotrophic"]))
+
+lm.r.eutrophic <- lm(stoich$Rn[stoich$trophic == "eutrophic"]~log10(stoich$res_time[stoich$trophic == "eutrophic"]))
+lm.r.mesotrophic <- lm(stoich$Rn[stoich$trophic == "mesotrophic"]~log10(stoich$res_time[stoich$trophic == "mesotrophic"]))
+lm.r.oligotrophic <- lm(stoich$Rn[stoich$trophic == "oligotrophic"]~log10(stoich$res_time[stoich$trophic == "oligotrophic"]))
+
+lm.h.eutrophic <- lm(stoich$Rn[stoich$trophic == "eutrophic"]~log10(stoich$h[stoich$trophic == "eutrophic"]))
+lm.h.mesotrophic <- lm(stoich$Rn[stoich$trophic == "mesotrophic"]~log10(stoich$h[stoich$trophic == "mesotrophic"]))
+lm.h.oligotrophic <- lm(stoich$Rn[stoich$trophic == "oligotrophic"]~log10(stoich$h[stoich$trophic == "oligotrophic"]))
+
+plot(log10(stoich$tn_r_mass_aerial[stoich$trophic == "mesotrophic"])~log10(stoich$tn_in_mass_aerial[stoich$trophic == "mesotrophic"]),
+     cex = 1.2, pch = 16, col = "orange")
+plot(log10(stoich$tn_r_mass_aerial[stoich$trophic == "mesotrophic"])~log10(stoich$tn_in_mass_aerial[stoich$trophic == "mesotrophic"]),
+     cex = 1.2, pch = 16, col = "darkblue")
 
 ##################################################
 # Fig plot aerial mass remval vs aerial load
@@ -1067,7 +1199,8 @@ mtext(expression(paste("log TN in (kg ",m^-2," ", y^-1,")")), side = 1,cex=1.7, 
 
 dev.off()
 
-
+stoich$n_out_in <- stoich$tn_out_mass/stoich$tn_in_mass
+stoich$p_out_in <- stoich$tp_out_mass/stoich$tp_in_mass
 
 pdf("N_out_in_restime.pdf", height = 8, width = 8)
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
@@ -1103,6 +1236,7 @@ mtext(expression(paste("log TN out (kg ",m^-2," ", y^-1,")")), side = 2,cex=1.7,
 mtext(expression(paste("log TN in (kg ",m^-2," ", y^-1,")")), side = 1,cex=1.7, outer = TRUE, line=1.7)
 
 dev.off()
+
 
 pdf("P_r_in_restime.pdf", height = 8, width = 8)
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
@@ -1232,6 +1366,67 @@ text(x = 0, y= -.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4
 legend("topright", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
 
 dev.off()
+
+pdf("P_r_stoichin_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time<.0872])~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -.9, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025])~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -.9, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2])~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= -.9, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478])~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1, 6), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P removed (kg ha-1 y-1)", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input TN:TP (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+text(x = 0, y= -.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+legend("topright", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+
+dev.off()
+
+pdf("N_r_stoichin_depth.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time<.0872])~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(1, 7), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= 1, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025])~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(1, 7), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= 1, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2])~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(1, 7), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+text(x = 0, y= 1, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478])~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.3, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(1, 7), xlim = c(0,4))
+#abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("N removed (kg ha-1 y-1)", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input TN:TP (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+text(x = 0, y= 1, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+legend("topright", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+
+dev.off()
+
+
 
 ###############################################################
 # Fig R vs aerial loading of same nutrient x panels of res time
@@ -1373,7 +1568,38 @@ axis(2, labels = FALSE)
 text(x = -1, y= 0.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
 
 mtext(expression(paste("log TN removed (kg ",m^-2," ", y^-1,")")), side = 2,cex=1.7, outer = TRUE, line=1.7)
-mtext(expression(paste("log TN in (kg ",m^-2," ", y^-1,")")), side = 1,cex=1.7, outer = TRUE, line=1.7)
+mtext(expression(paste("log TP in (kg ",m^-2," ", y^-1,")")), side = 1,cex=1.7, outer = TRUE, line=1.7)
+
+dev.off()
+
+#pdf("RnR_Pin_restime.pdf", height = 8, width = 8)
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn[stoich$res_time<0.0872]~log10(stoich$tp_in_conc[stoich$res_time<0.0872]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(-4,4), ylim = c(-1,1),
+     xaxt = "n", cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+axis(1, labels = FALSE)
+text(x = -1, y= 0.9, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+
+plot(stoich$Rn[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_conc[stoich$res_time>=.0872&stoich$res_time<.4025]),
+     xaxt = "n", yaxt = "n",cex = 1.2, xlab = "", ylab = "", xlim = c(-4,4), ylim = c(-1,1),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
+text(x = -1, y= 0.9, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+
+plot(stoich$Rn[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_conc[stoich$res_time>=.4025&stoich$res_time<1.2]),
+     cex = 1.2, xlab = "", ylab = "", xlim = c(-4,4), ylim = c(-1,1),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+text(x = -1, y= 0.9, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+
+plot(stoich$Rn[stoich$res_time>=1.2]~log10(stoich$tp_in_conc[stoich$res_time>=1.2]),
+     yaxt = "n", cex = 1.2, xlab = "", ylab = "", xlim = c(-4,4), ylim = c(-1,1),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
+axis(2, labels = FALSE)
+text(x = -1, y= 0.9, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+
+mtext(expression(paste("log TN removed (kg ",m^-2," ", y^-1,")")), side = 2,cex=1.7, outer = TRUE, line=1.7)
+mtext(expression(paste("log TP in (kg ",m^-2," ", y^-1,")")), side = 1,cex=1.7, outer = TRUE, line=1.7)
 
 dev.off()
 
@@ -1505,6 +1731,23 @@ text(1.45, 2, "N-limited", col = col.n3, pos = 2, cex = 1.5)
 text(4, 3, pos = 2, expression(paste(R^2, " = 0.37")), col = "red")
 dev.off
 
+temp <- stoich[log10(stoich$np_in)>0.5& log10(stoich$np_in)<2.5, ]
+pdf("ChangeNP_npin_noout.pdf")
+par(mar = c(5,5,1,1))
+plot(temp$np_change~log10(temp$np_in), xlab = "log N:P in", ylab = "Change in Stoichiometry",
+     cex = 1.2, pch = 16, col = rgb(122,122,122,max = 255,100), cex.lab =1.5)
+change.lm2 <- lm(temp$np_change~log10(temp$np_in))
+
+abline(change.lm2, col = "red", lwd = 2)
+#abline(change.lm, col = "blue", lwd = 2)
+abline(h=0, lty = 2)
+abline(v = log10(44), col = col.n, lty = 2, lwd = 2)
+abline(v = log10(110), col = col.p, lty = 2, lwd = 2)
+text(2.1, 1.1, "P-limited", col = col.p, pos = 4, cex = 1.3)
+text(1.55, 1.1, "N-limited", col = col.n3, pos = 2, cex = 1.3)
+text(4, 3, pos = 2, expression(paste(R^2, " = 0.37")), col = "red")
+dev.off()
+
 pdf("P_r_npin_all.pdf")
 par(mar = c(5,5,1,1))
 plot(log10(stoich$tp_r_mass_aerial)~log10(stoich$np_in), xlab = "log N:P in", ylab = "log P removed (kg/ha y)",
@@ -1599,7 +1842,7 @@ dev.off()
 
 # contour plot of depth, res time, and differential retention
 require(akima)
-temp.m = interp(x = log10(stoich$res_time), y = log10(stoich$mean_depth), z = stoich$R_diff, linear = TRUE, 
+temp.m = interp(x = log10(stoich$mean_depth), y = log10(stoich$res_time), z = stoich$R_diff, linear = TRUE, 
                 extrap = FALSE, duplicate = "mean")
 pdf("Rdiff_depth_restime_contour.pdf")
 par(mar=c(5,5,3,0),cex = 1.2, cex.lab = 1.7, cex.axis = 1.2,oma=c(0,1,0,0))
@@ -1609,13 +1852,13 @@ filled.contour(x = temp.m$x,
                levels = c(-1.5,-1,-.5,0,0.5,1,1.5),
                col = c(rev(brewer.pal(6, name = "Spectral"))),
                #color.palette = colorRampPalette(c(rgb(5,48,97,max=255), rgb(255,255,255,max=255),rgb(103,0,31,max=255))), 
-               xlab = "log Residence Time (y)",
-               ylab = "log Mean Depth (m)", 
+               xlab = "log Mean Depth (m)",
+               ylab = "log Residence time (y)", 
                key.title = title(main = "Rn - Rp", cex.main = 1.1))
 dev.off()
 
 # contour plot with change in stoich as z axis
-temp.m = interp(x = log10(stoich$res_time), y = log10(stoich$mean_depth), z = stoich$np_change, linear = TRUE, 
+temp.m = interp(y = log10(stoich$res_time), x = log10(stoich$mean_depth), z = stoich$np_change, linear = TRUE, 
                 extrap = FALSE, duplicate = "mean")
 pdf("NPchange_depth_restime_contour.pdf")
 par(mar=c(5,5,3,0),cex = 1.2, cex.lab = 1.7, cex.axis = 1.2,oma=c(0,1,0,0))
@@ -1631,9 +1874,39 @@ filled.contour(x = temp.m$x,
 dev.off()
 
 plot(stoich$R_diff ~ log10(stoich$np_in))
+diff.in.lm <- lm(stoich$R_diff ~ log10(stoich$np_in))
 plot(stoich$R_diff ~ log10(stoich$mean_depth))
+diff.lm <- lm(stoich$R_diff ~ log10(stoich$mean_depth))
 plot(stoich$R_diff ~ log10(stoich$res_time))
 stoich$R_diff <- stoich$Rn - stoich$Rp
+
+plot(stoich$np_change~log10(stoich$np_in))
+abline(lm(stoich$np_change~log10(stoich$np_in))
+       
+plot(stoich$np_change~log10(stoich$mean_depth))
+##############################################
+# change in N:P in to out vs residence time
+############################################
+pdf("NPchange_restime_all.pdf")
+par(mar=c(5,5,1,1))
+plot(stoich$np_change~log10(stoich$res_time), xlab = "Residence Time (y)",
+     ylab = "Change in Stoichiometry", cex = .8, pch = 16, col = "white", xaxt = "n")
+axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
+
+# add rectangles that show where doubling or halving of stoichiometry occurs
+rect(-3.5, 0, 3, 0.3, col = rgb(200, 200, 200, max = 255, 122), border = NA)
+rect(-3.5, 0, 3, -0.3, col = rgb(200, 200, 200, max = 255, 122), border = NA)
+points(stoich$np_change~log10(stoich$res_time), cex = .8, pch = 16, col = rgb(122,122,122,max=250,122))
+abline(h=0)
+abline(h = median(stoich$np_change), col = "red", lty = 2, lwd = 2)
+abline(h = quantile(stoich$np_change, 0.90), col = "red", lty = 2)
+abline(h = quantile(stoich$np_change, 0.1), col = "red", lty =2)
+dev.off()
+
+library(ggplot2)
+ggplot(stoich, aes(log10(res_time), np_change))+
+  geom_point()+
+  geom_smooth()
 #######################################################
 # Figure showing how lakes changed the limiting nutrient
 # from input to output
@@ -1666,3 +1939,37 @@ text(30, -1.5,"44%", cex = 2)
 text(45, -1.5,"16%", cex = 2)
 dev.off()
 
+x.start = log10(stoich$np_in)
+x.end = log10(stoich$np_out)
+y.start = 1
+y.end = -1
+p <- .bincode(log10(stoich$np_in), breaks = as.numeric(quantile(log10(stoich$np_in), seq(0,1,by=0.05), na.rm = TRUE)), right = FALSE, include.lowest = TRUE)
+np_quart_in = as.numeric(tapply(log10(stoich$np_in), INDEX = c(p), median, na.rm = TRUE))
+np_quart_out = as.numeric(tapply(log10(stoich$np_out), INDEX = c(p), median, na.rm = TRUE))
+
+pdf("ChangeNP_lines_percentiles.pdf", height = 7, width = 10)
+plot(x = 1, y = 2, xlim = c(-1, 4), ylim = c(-2,2), xaxt = "n", yaxt = "n", col = "white",
+     type = "n", axes = FALSE, ylab = "", xlab = "")
+
+rect(-1.1, -2, log10(44), 2, col = col.n, border = NA)
+rect(log10(110), -2, 4, 2, col = col.p, border = NA)
+rect(log10(44), -2, log10(110), 2, col = rgb(122,122,122,max=255,122), border = NA)
+text(-1, 1.2, "Inlet Stoichiometry", pos = 4, cex = 1.5)
+text(-1, -1.2, "Outlet Stoichiometry", pos = 4, cex = 1.5)
+text(log10(44), 1.2, "N:P < 44", pos = 2, cex = 1.2)
+text(log10(110), 1.2, "N:P > 110", pos = 4, cex = 1.2)
+text(log10(44), 1.5, "N-limited", pos = 2, cex = 1.2)
+text(log10(110), 1.5, "P-limited", pos = 4, cex = 1.2)
+arrows(x0 = -1, y0 = -1.8, x1 = 3.8, y1 = -1.8, length = 0, lwd = 2)
+arrows(x0 = log10(44), y0 = -1.85, x1 = log10(44), y1 = -1.75, length = 0, lwd = 2)
+arrows(x0 = log10(110), y0 = -1.85, x1 = log10(110), y1 = -1.75, length = 0, lwd = 2)
+arrows(x0 = log10(500), y0 = -1.85, x1 = log10(500), y1 = -1.75, length = 0, lwd = 2)
+arrows(x0 = log10(1000), y0 = -1.85, x1 = log10(1000), y1 = -1.75, length = 0, lwd = 2)
+arrows(x0 = log10(20), y0 = -1.85, x1 = log10(20), y1 = -1.75, length = 0, lwd = 2)
+arrows(x0 = log10(5), y0 = -1.85, x1 = log10(5), y1 = -1.75, length = 0, lwd = 2)
+text(x = log10(c(5,20,44,110,500,1000)), y = -1.65, labels = c("5", "20", "44", "110", "500", "1000"))
+text(-1, -1.7, "N:P (moles)", pos = 4)
+arrows(x0 = x.start, y0 = y.start, x1 = x.end, y1 = y.end, length = 0,
+       col = rgb(250,250,250,max = 255, 122))
+arrows(x0 = np_quart_in, y0 = y.start, x1 = np_quart_out, y1 = y.end, lwd=5, length = 0, col = rgb(10,10,10,max=255,122))
+dev.off()
