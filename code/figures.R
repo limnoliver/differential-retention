@@ -1532,3 +1532,137 @@ abline(v = log10(110), col = col.p, lty = 2, lwd = 2)
 #text(1.45, 2, "N-limited", col = col.n3, pos = 2, cex = 1.5)
 #text(4, 3, pos = 2, expression(paste(R^2, " = 0.37")), col = "red")
 dev.off()
+
+#########################################################
+# Fig. Create gridded res time ~ depth boxes
+#########################################################
+n.mod <- function(depth, restime){
+  r.out <- 1-exp(-Fit.N.np$par[1]*(restime/depth))
+  return(r.out)
+}
+
+p.mod <- function(restime){
+  r.out <- 1-(1/(1+(Fit.np.Rp$par[1]*restime^(1+Fit.np.Rp$par[2]))))
+  return(r.out)
+}
+depth <- as.numeric(quantile(stoich$mean_depth, probs = c(.25,.5,.75)))
+restime <- as.numeric(quantile(stoich$res_time, probs = c(.25,.5,.75)))
+depth.max <- log10(max(stoich$mean_depth))
+depth.min <- log10(min(stoich$mean_depth))
+restime.max <- log10(max(stoich$res_time))
+restime.min <- log10(min(stoich$res_time))
+
+depth.1 <- median(stoich$mean_depth[stoich$mean_depth<depth[1]])
+depth.2 <- median(stoich$mean_depth[stoich$mean_depth>=depth[1]&stoich$mean_depth<depth[2]])
+depth.3 <- median(stoich$mean_depth[stoich$mean_depth>=depth[2]&stoich$mean_depth<depth[3]])
+depth.4 <- median(stoich$mean_depth[stoich$mean_depth>=depth[3]])
+
+restime.1 <- median(stoich$res_time[stoich$res_time<restime[1]])
+restime.2 <- median(stoich$res_time[stoich$res_time>=restime[1]&stoich$res_time<restime[2]])
+restime.3 <- median(stoich$res_time[stoich$res_time>=restime[2]&stoich$res_time<restime[3]])
+restime.4 <- median(stoich$res_time[stoich$res_time>=restime[3]])
+
+n.mod(depth, restime)
+p.mod(restime)
+
+###############################################################
+# Differential retention plotted over depth and residence time
+# first plot with points
+# second plot as a contour plot
+###############################################################
+pdf("Diff_ret_depth_restime.pdf")
+par(mar=c(5,5,1,1))
+plot(log10(stoich$res_time)~log10(stoich$mean_depth), col = "white",
+     xlab = "log Mean Depth (m)", ylab = "log Residence Time (y)", cex.lab = 1.5, cex.axis = 1.2)
+abline(v = log10(min(stoich$mean_depth)), lty = 2)
+abline(v = log10(depth[1]), lty = 2)
+abline(v = log10(depth[2]), lty = 2)
+abline(v = log10(depth[3]), lty = 2)
+abline(v = log10(max(stoich$mean_depth)), lty = 2)
+
+abline(h = log10(min(stoich$res_time)), lty = 2)
+abline(h = log10(restime[1]), lty = 2)
+abline(h = log10(restime[2]), lty = 2)
+abline(h = log10(restime[3]), lty = 2)
+abline(h = log10(max(stoich$res_time)), lty = 2)
+#n.mod(depth.2, restime.4)
+#p.mod(restime.4)
+rect(depth.min, restime.min, depth.max, log10(restime[2]), col = col.p, border = NA)
+rect(depth.min, log10(restime[2]), log10(depth[1]), log10(restime[3]), col = rgb(122,122,122,max=255,122), border = NA)
+rect(log10(depth[1]), log10(restime[2]), depth.max, log10(restime[3]), col =col.p, border = NA)
+rect(depth.min, log10(restime[3]), log10(depth[2]), restime.max, col = col.n, border = NA)
+rect(log10(depth[2]), log10(restime[3]), depth.max, restime.max, col = col.p, border = NA)
+points(log10(stoich$res_time[stoich$R_diff>0.2])~log10(stoich$mean_depth[stoich$R_diff>0.2]),pch = 21, cex = 1.1, bg = col.n)
+points(log10(stoich$res_time[stoich$R_diff< -0.2])~log10(stoich$mean_depth[stoich$R_diff< -0.2]),pch = 21, cex = 1.1, bg = col.p)
+points(log10(stoich$res_time[stoich$R_diff> -0.2&stoich$R_diff<0.2])~log10(stoich$mean_depth[stoich$R_diff> -0.2&stoich$R_diff<0.2]),pch = 21, cex = 1.1, bg = rgb(200,200,200,max=255,200))
+dev.off()
+
+# contour plot of depth, res time, and differential retention
+require(akima)
+temp.m = interp(x = log10(stoich$res_time), y = log10(stoich$mean_depth), z = stoich$R_diff, linear = TRUE, 
+                extrap = FALSE, duplicate = "mean")
+pdf("Rdiff_depth_restime_contour.pdf")
+par(mar=c(5,5,3,0),cex = 1.2, cex.lab = 1.7, cex.axis = 1.2,oma=c(0,1,0,0))
+filled.contour(x = temp.m$x,
+               y = temp.m$y, 
+               z = temp.m$z,
+               levels = c(-1.5,-1,-.5,0,0.5,1,1.5),
+               col = c(rev(brewer.pal(6, name = "Spectral"))),
+               #color.palette = colorRampPalette(c(rgb(5,48,97,max=255), rgb(255,255,255,max=255),rgb(103,0,31,max=255))), 
+               xlab = "log Residence Time (y)",
+               ylab = "log Mean Depth (m)", 
+               key.title = title(main = "Rn - Rp", cex.main = 1.1))
+dev.off()
+
+# contour plot with change in stoich as z axis
+temp.m = interp(x = log10(stoich$res_time), y = log10(stoich$mean_depth), z = stoich$np_change, linear = TRUE, 
+                extrap = FALSE, duplicate = "mean")
+pdf("NPchange_depth_restime_contour.pdf")
+par(mar=c(5,5,3,0),cex = 1.2, cex.lab = 1.7, cex.axis = 1.2,oma=c(0,1,0,0))
+filled.contour(x = temp.m$x,
+               y = temp.m$y, 
+               z = temp.m$z,
+               levels = c(-1.5,-1,-.5,0,0.5,1,1.5,2,2.5,3),
+               col = c(rev(brewer.pal(11, name = "Spectral"))[2:11]),
+               #color.palette = colorRampPalette(c(rgb(5,48,97,max=255), rgb(255,255,255,max=255),rgb(103,0,31,max=255))), 
+               xlab = "log Residence Time (y)",
+               ylab = "log Mean Depth (m)", 
+               key.title = title(main = "NPout - NPin", cex.main = 1.1))
+dev.off()
+
+plot(stoich$R_diff ~ log10(stoich$np_in))
+plot(stoich$R_diff ~ log10(stoich$mean_depth))
+plot(stoich$R_diff ~ log10(stoich$res_time))
+stoich$R_diff <- stoich$Rn - stoich$Rp
+#######################################################
+# Figure showing how lakes changed the limiting nutrient
+# from input to output
+#######################################################
+
+pdf("Change_limiting.pdf")
+dot.vals <- c(19*(453/756), 19*(236/756), 19*(67/756))
+dot.vals2 <- c(19*(306/756), 19*(330/756), 19*(119/756))
+plot(c(15, 30, 45), c(8,8,8), xlim = c(0, 60), ylim = c(-2,11), xaxt = "n", yaxt = "n", col = "white",
+     type = "n", axes = FALSE, ylab = "", xlab = "")
+rect(7.5, -6, 22.5, 15, col = col.n, border = NA)
+rect(37.5, -6, 52.5, 15, col = col.p, border = NA)
+rect(22.5, -6, 37.5, 15, col = rgb(122,122,122,max=255,122), border = NA)
+points(c(15, 30, 45), c(8,8,8), xlim = c(0, 40), ylim = c(0,10), cex = dot.vals, pch = 22, bg = "darkgray")
+points(c(15, 30, 45), c(1,1,1), xlim = c(0, 40), ylim = c(0,10), cex = dot.vals2, pch = 22, bg = "darkgray")
+arrows(15, 6.5, 15, 2.1, lwd = 40*(275/765), col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(15, 6.5, 30, 2.1,lwd = 40*(162/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(15, 6.5, 45, 2.1, lwd = 40*(16/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(30, 6.5, 30, 2.1,lwd = 40*(158/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(30, 6.5, 15, 2.1,lwd = 40*(27/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(30, 6.5, 45, 2.1, lwd = 40*(51/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(45, 6.5, 45, 2.1, lwd = 40*(53/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(45, 6.5, 30, 2.1,lwd = 40*(10/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+arrows(45, 6.5, 15, 2.1,lwd = 40*(4/765),col = rgb(80,80,80,max=255,220), length = 0.1)
+text(15, 10.5,"60%", cex = 2)
+text(30, 10.5,"31%", cex = 2)
+text(45, 10.5,"9%", cex = 2)
+text(15, -1.5,"40%", cex = 2)
+text(30, -1.5,"44%", cex = 2)
+text(45, -1.5,"16%", cex = 2)
+dev.off()
+
