@@ -892,29 +892,255 @@ mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
+pdf("Rp_restime_stoichin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp_res[stoich$res_time<.0872]~log10(stoich$tp_in_conc[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.1, 1.1), xlim = c(-4,3.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+#legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rp_res[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_conc[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.1, 1.1), xlim = c(-4,3.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp_res[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_conc[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.1, 1.1), xlim = c(-4,3.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp_res[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_conc[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.1, 1.1), xlim = c(-4,3.5))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+#######################################################
+# 4x4 plots with concentration as panels
+#######################################################
+conc.q <- quantile(stoich$tp_in_conc, c(0.25,.5,.75))
+
+pdf("Rpr_bypc_pin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp_res[stoich$tp_in_conc<conc.q[1]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc<conc.q[1]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc<conc.q[1]], ylim = c(-1.5, .5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+#legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rp_res[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]], ylim = c(-1.5,.5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp_res[stoich$tp_in_conc >=conc.q[2] & stoich$tp_in_conc<conc.q[3]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]], ylim = c(-1.5,0.5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp_res[stoich$tp_in_conc>=conc.q[3]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc>=conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[3]&stoich$tp_in_conc<478], ylim = c(-1.5, 0.5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+dev.off()
+
+pdf("Rpr_bypc_pin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rp_res[stoich$tp_in_conc<conc.q[1]]~log10(stoich$np_in[stoich$tp_in_conc<conc.q[1]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc<conc.q[1]], ylim = c(-1.5, .5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+#legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rp_res[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]~log10(stoich$np_in[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]], ylim = c(-1.5,.5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp_res[stoich$tp_in_conc >=conc.q[2] & stoich$tp_in_conc<conc.q[3]]~log10(stoich$np_in[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]], ylim = c(-1.5,0.5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rp_res[stoich$tp_in_conc>=conc.q[3]]~log10(stoich$np_in[stoich$tp_in_conc>=conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[3]&stoich$tp_in_conc<478], ylim = c(-1.5, 0.5), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+dev.off()
+
+
+pdf("Npr_bypc_pin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn_res[stoich$tp_in_conc<conc.q[1]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc<conc.q[1]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc<conc.q[1]], ylim = c(-1.3, 1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+#legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rn_res[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]], ylim = c(-1.3,1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn_res[stoich$tp_in_conc >=conc.q[2] & stoich$tp_in_conc<conc.q[3]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]], ylim = c(-1.3,1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn_res[stoich$tp_in_conc>=conc.q[3]]~log10(stoich$tp_in_mass_aerial[stoich$tp_in_conc>=conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[3]&stoich$tp_in_conc<478], ylim = c(-1.3, 1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+dev.off()
+
+pdf("Npr_bypc_nin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn_res[stoich$tp_in_conc<conc.q[1]]~log10(stoich$tn_in_mass_aerial[stoich$tp_in_conc<conc.q[1]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc<conc.q[1]], ylim = c(-1.3, 1), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+#legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rn_res[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]~log10(stoich$tn_in_mass_aerial[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[1]&stoich$tp_in_conc<conc.q[2]], ylim = c(-1.3,1), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn_res[stoich$tp_in_conc >=conc.q[2] & stoich$tp_in_conc<conc.q[3]]~log10(stoich$tn_in_mass_aerial[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[2]&stoich$tp_in_conc<conc.q[3]], ylim = c(-1.3,1), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn_res[stoich$tp_in_conc>=conc.q[3]]~log10(stoich$tn_in_mass_aerial[stoich$tp_in_conc>=conc.q[3]]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$tp_in_conc>=conc.q[3]&stoich$tp_in_conc<478], ylim = c(-1.3, 1), xlim = c(1,7))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log N in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+dev.off()
+
 pdf("Rp_restime_pin.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
 plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$tp_in_mass_aerial[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 1.3), xlim = c(-1,6))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
 plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 1.3), xlim = c(-1,6))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
 plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 1.3), xlim = c(-1,6))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
 plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 1.3), xlim = c(-1,6))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
 mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+dat.p.real$tp_in_mass_aerial <- dat.p.real$tp_in_mass/dat.p.real$surface_area
+dat.p.real$trophic <- "mesotrophic"
+dat.p.real$trophic[dat.p.real$tp_out_conc < .010] <- "oligotrophic"
+dat.p.real$trophic[dat.p.real$tp_out_conc > .030] <- "eutrophic"
+
+palette(c(rgb(215,25,28,100,max=255), rgb(255,255,191,250, max=255), rgb(44,123,182,200, max = 255)))
+shapes <- as.factor(dat.p.real$trophic)
+levels(shapes) = c(24,21,22)
+shapes <- as.numeric(as.character(shapes))
+
+dat1 <- dat.p.real[dat.p.real$res_time<.0872&!is.na(dat.p.real$Rp)&!is.na(dat.p.real$tp_in_mass_aerial)&dat.p.real$tp_in_mass_aerial!= Inf & !is.na(dat.p.real$trophic), ]
+dat2 <- dat.p.real[dat.p.real$res_time>=.0872&dat.p.real$res_time<.4025&!is.na(dat.p.real$Rp)&!is.na(dat.p.real$tp_in_mass_aerial)&dat.p.real$tp_in_mass_aerial!= Inf & !is.na(dat.p.real$trophic), ]
+dat3 <- dat.p.real[dat.p.real$res_time>=.4025&dat.p.real$res_time<1.2&!is.na(dat.p.real$Rp)&!is.na(dat.p.real$tp_in_mass_aerial)&dat.p.real$tp_in_mass_aerial!= Inf & !is.na(dat.p.real$trophic), ]
+
+test.1 <- aov(Rp~log10(tp_in_mass_aerial)*trophic, data = dat1)
+test.12 <- aov(Rp~log10(tp_in_mass_aerial) + trophic, data = dat1)
+test.1.e <- lm(Rp~log10(tp_in_mass_aerial), data = dat1[dat1$trophic == "eutrophic",])
+test.1.m <- lm(Rp~log10(tp_in_mass_aerial), data = dat1[dat1$trophic == "mesotrophic",])
+test.1.o <- lm(Rp~log10(tp_in_mass_aerial), data = dat1[dat1$trophic == "oligotrophic",])
+
+test.2 <- aov(Rp~log10(tp_in_mass_aerial)*trophic, data = dat2)
+#test.22 <- aov(Rp~log10(tp_in_mass_aerial) + trophic, data = dat2)
+test.2.e <- lm(Rp~log10(tp_in_mass_aerial), data = dat2[dat2$trophic == "eutrophic",])
+test.2.m <- lm(Rp~log10(tp_in_mass_aerial), data = dat2[dat2$trophic == "mesotrophic",])
+test.2.o <- lm(Rp~log10(tp_in_mass_aerial), data = dat2[dat2$trophic == "oligotrophic",])
+
+test.3 <- aov(Rp~log10(tp_in_mass_aerial)*trophic, data = dat3)
+test.32 <- aov(Rp~log10(tp_in_mass_aerial) + trophic, data = dat3)
+test.3.e <- lm(Rp~log10(tp_in_mass_aerial), data = dat3[dat3$trophic == "eutrophic",])
+test.3.m <- lm(Rp~log10(tp_in_mass_aerial), data = dat3[dat3$trophic == "mesotrophic",])
+test.3.o <- lm(Rp~log10(tp_in_mass_aerial), data = dat3[dat3$trophic == "oligotrophic",])
+
+dat.p.real$Rp_res = dat.p.real$Rp - dat.p.real$Rp_predicted
+
+dat.0 <- dat.p.real[!is.na(dat.p.real$Rp)&!is.na(dat.p.real$tp_in_mass_aerial)&dat.p.real$tp_in_mass_aerial!= Inf & !is.na(dat.p.real$trophic), ]
+
+test.all <- aov(Rp_res~log10(tp_in_mass_aerial)*trophic, data = dat.0)
+test.all.2 <- aov(Rp_res~log10(tp_in_mass_aerial) + trophic, data = dat.0)
+test.all.e <- lm(Rp_res~log10(tp_in_mass_aerial), data = dat.0[dat.0$trophic == "eutrophic",])
+test.all.m <- lm(Rp_res~log10(tp_in_mass_aerial), data = dat.0[dat.0$trophic == "mesotrophic",])
+test.all.o <- lm(Rp_res~log10(tp_in_mass_aerial), data = dat.0[dat.0$trophic == "oligotrophic",])
+
+pdf("Rp_restime_pin_trophic.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(dat.p.real$Rp[dat.p.real$res_time<.0872]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time<.0872]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.1, 1.1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Trophic Status", legend = c("Eutrophic", "Mesotrophic", "Oligotrophic"), pch = c(24,21,22),pt.bg = c(1,2,3), cex = 1, pt.cex = 1.3)
+plot(dat.p.real$Rp[dat.p.real$res_time>=.0872&dat.p.real$res_time<.4025]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time>=.0872&dat.p.real$res_time<.4025]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.1, 1.1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(dat.p.real$Rp[dat.p.real$res_time>=.4025&dat.p.real$res_time<1.2]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time>=.4025&dat.p.real$res_time<1.2]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.1, 1.1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(dat.p.real$Rp[dat.p.real$res_time>=1.2&dat.p.real$res_time<478]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time>=1.2&dat.p.real$res_time<478]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.1, 1.1), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext(expression(paste("log P in (kg ", h^-1, y^-1, " )")), side = 1,cex=1.7, outer = TRUE, line=1.7)
+
+dev.off()
+
+
+pdf("RpR_restime_pin_trophic.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(dat.p.real$Rp_res[dat.p.real$res_time<.0872]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time<.0872]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.5, .7), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Trophic Status", legend = c("Eutrophic", "Mesotrophic", "Oligotrophic"), pch = c(24,21,22),pt.bg = c(1,2,3), cex = 1, pt.cex = 1.3)
+plot(dat.p.real$Rp_res[dat.p.real$res_time>=.0872&dat.p.real$res_time<.4025]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time>=.0872&dat.p.real$res_time<.4025]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.5, .7), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(dat.p.real$Rp_res[dat.p.real$res_time>=.4025&dat.p.real$res_time<1.2]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time>=.4025&dat.p.real$res_time<1.2]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.5, .7), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(dat.p.real$Rp_res[dat.p.real$res_time>=1.2&dat.p.real$res_time<478]~log10(dat.p.real$tp_in_mass_aerial[dat.p.real$res_time>=1.2&dat.p.real$res_time<478]), cex.lab = 1.8, cex = 1.1, 
+     xlab = "", ylab = "",
+     pch = shapes, bg = as.factor(dat.p.real$trophic), ylim = c(-1.5, .7), xlim = c(-1,6))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("Rp Residual", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext(expression(paste("log P in (kg ", h^-1, y^-1, " )")), side = 1,cex=1.7, outer = TRUE, line=1.7)
 
 dev.off()
 
