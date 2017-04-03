@@ -3,6 +3,32 @@
 
 setwd("data")
 
+# get NLA lake data to show population estimate of depth and 
+# residence time
+# residence time data from Renee Brooks, weights from EPA NLA online
+# repository
+
+library(data.table)
+
+nla.wgts <- fread('https://www.epa.gov/sites/production/files/2014-01/nla2007_sampledlakeinformation_20091113.csv')
+names(nla.wgts)
+nla.wgts<- as.data.frame(nla.wgts)
+nla.wgts <- nla.wgts[,c(1,31)]
+nla.wgts <- unique(nla.wgts)
+nla.res <- read.csv('Brooks_NLA_data.csv', header = TRUE, skip = 1)
+
+nla.wgts <-data.table(nla.wgts, key = "SITE_ID")
+nla.res <-data.table(nla.res, key = "SITE_ID")
+
+nla <- merge(nla.res, nla.wgts)
+
+# get global depth/res time estimates
+library(rgdal)
+#read in shape file
+setwd("C:/Users/Samantha/Dropbox/Differential Retention/Data/HydroLAKES_points_v10_shp")
+lakes = readOGR(dsn = ".", layer = "HydroLAKES_points_v10")
+
+
 ###################
 # epa data
 ###################
