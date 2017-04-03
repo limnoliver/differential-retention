@@ -23,6 +23,48 @@ z.mean = c(0.1, 2.3, 3.3, 4.5, 739)
 Rp.depth <= 1-(1/(1+((5.1/z)*x)))
 
 ############################################
+# create a histogram that shows distribution of 
+# depth and residence time of our lakes, global lakes,
+# and NLA lakes
+
+library(ggplot2)
+
+nla.u <- aggregate(nla$RT, by=list(nla$SITE_ID), data = nla, FUN=mean)
+names(nla.u) <- c("SITE_ID", "RT")
+nla.merge <- as.data.frame(nla)
+nla.merge <- nla.merge[,c(1,13)]
+
+nla.dat <- merge(nla.u, nla.merge, by = "SITE_ID", all.x = TRUE)
+nla.dat <- nla.dat[nla.dat$RT>0, ]
+ggplot(nla.dat, aes(log10(RT), weight = WGT_NLA)) +
+  geom_histogram()
+
+library(plotrix)
+weighted.hist(log10(nla.dat$RT), nla.dat$WGT_NLA)
+h2 <- hist(log10(nla.dat$RT), plot = FALSE)
+h2$breaks <- h$breaks
+h2$density <- h$counts/sum(h$counts)*100
+plot(h2, freq=FALSE)
+
+h1 <- hist(log10(stoich$res_time), breaks = c(-3:8), plot = FALSE)
+h1$density <- h1$counts/sum(h1$counts)*100
+
+h <- weighted.hist(log10(nla.dat$RT), nla.dat$WGT_NLA, breaks = h1$breaks,  plot = FALSE)
+h3 <- hist(log10(nla.dat$RT), breaks = h1$breaks,  plot = FALSE)
+h3$counts <- h$counts
+h3$density <- h3$counts/sum(h3$counts)*100
+
+lakes$Res_time[lakes$Res_time==-9999] = NA
+lakes$Res_time[lakes$Res_time==-1] = NA
+
+h4 <- hist(log10(lakes$Res_time), breaks = h1$breaks, plot = FALSE)
+h4$density <- h4$counts/sum(h4$counts)*100
+plot(h3, freq = FALSE, col = rgb(122,122,122,max=255,122))
+plot(h1, freq = FALSE, ylim = c(0,40), add = TRUE, col = col.n)
+plot(h4, freq = FALSE, add = TRUE, col = col.p)
+
+
+############################################
 # Calculate summary statistics for Table 2
 ############################################
 vars <- c("volume", "surface_area", "mean_depth", "res_time", "tp_in_conc", "tp_out_conc",
