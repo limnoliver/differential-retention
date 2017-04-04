@@ -1238,6 +1238,32 @@ mtext("log N in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
+pdf("Rn_restime_nc.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$Rn[stoich$res_time<.0872]~log10(stoich$tn_in_conc[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-3,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$Rn[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tn_in_conc[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-3,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tn_in_conc[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-3,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$Rn[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tn_in_conc[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-3,4))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("N Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log N in (ug/L)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
 pdf("Rn_restime_nin.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
 plot(stoich$Rn[stoich$res_time<.0872]~log10(stoich$tn_in_mass_aerial[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
@@ -2241,3 +2267,11 @@ arrows(x0 = x.start, y0 = y.start, x1 = x.end, y1 = y.end, length = 0,
        col = rgb(250,250,250,max = 255, 122))
 arrows(x0 = np_quart_in, y0 = y.start, x1 = np_quart_out, y1 = y.end, lwd=5, length = 0, col = rgb(10,10,10,max=255,122))
 dev.off()
+
+# calculate sedimentation coefficients for stoich.pos
+stoich.pos <- stoich[stoich$Rn>0&stoich$Rp>0,]
+stoich.pos$pcoef <- ((1/(1-stoich.pos$Rp))-1)/(stoich.pos$res_time)
+
+dum.in <- c(1,2,5,7,8,10,12)
+dum.r <- c(.5,1,4,4,5,9,11)
+dum.e <- c()
