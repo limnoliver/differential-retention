@@ -28,7 +28,13 @@ library(rgdal)
 setwd("C:/Users/Samantha/Dropbox/Differential Retention/Data/HydroLAKES_points_v10_shp")
 lakes = readOGR(dsn = ".", layer = "HydroLAKES_points_v10")
 
+##########################
+# Finlay data
+#########################
 
+finlay <-read.csv("FromFinlay_Pextraction.csv", header = TRUE, skip = 1)
+
+finlay <- finlay[,c(4,3,)]
 ###################
 # epa data
 ###################
@@ -303,7 +309,7 @@ dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp
 
 # calculate Vf for each lake
 dat.all$Vf <- (-1*dat.all$mean_depth/dat.all$res_time)*log(1-dat.all$Rn)
-dat.p.pos$Vf <- 
+
 plot(dat.all$Rp~dat.all$Rp_predicted, ylim = c(-1,1))
 abline(0,1,col="red")
 plot(dat.all$Rn~dat.all$Rn_predicted, ylim = c(-1,1))
