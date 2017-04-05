@@ -1379,16 +1379,30 @@ plot(log10(stoich$tn_r_mass_aerial)~log10(stoich$tn_in_mass_aerial),
      cex = 1.2, xlab = "TN in (kg/m2 y)", ylab = "TN removed (kg/m2 y)",
      cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
 abline(0,1,col = "red", lwd = 2)
-
+abline(-0.72, 0.95, col = "lightskyblue", lwd = 2, lty = 2)
+abline(-0.43, 0.95, col = "lightskyblue3", lwd = 2, lty = 2)
+abline(-0.39, 0.95, col = "lightskyblue4", lwd = 2, lty = 2)
+abline(-0.21, 0.95, col = "black", lwd = 2, lty = 2)
+legend("topleft", legend = c("< 1 month", "1-5 months", "0.4-1.2 yrs", "> 1.2 yrs"), 
+       title = "Residence time",bty = "n", lty = 2, col = c("lightskyblue", "lightskyblue3", "lightskyblue4", "black"), cex = 1.4, lwd = 2)
 plot(log10(stoich$tp_r_mass_aerial)~log10(stoich$tp_in_mass_aerial),
      cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "TP removed (kg/m2 y)",
      cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
 abline(0,1,col = "red", lwd = 2)
+abline(-0.79, 1.03, col = "lightskyblue", lwd = 2, lty = 2)
+abline(-1.04, 1.17, col = "lightskyblue3", lwd = 2, lty = 2)
+abline(-1.08, 1.24, col = "lightskyblue4", lwd = 2, lty = 2)
+abline(-0.43, 1.07, col = "black", lwd = 2, lty = 2)
 
-plot(log10(stoich$np_r)~log10(stoich$np_in),
-     cex = 1.2, xlab = "TN:TP in", ylab = "TN:TP removed",
+plot(log10(stoich$np_out)~log10(stoich$np_in),
+     cex = 1.2, xlab = "TN:TP in", ylab = "TN:TP out",
      cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
 abline(0,1,col = "red", lwd = 2)
+abline(.3, 0.85, col = "lightskyblue", lwd = 2, lty = 2)
+abline(.73, 0.65, col = "lightskyblue3", lwd = 2, lty = 2)
+abline(1.31, 0.31, col = "lightskyblue4", lwd = 2, lty = 2)
+abline(1.17, 0.38, col = "black", lwd = 2, lty = 2)
+
 dev.off()
 
 #####################################################
