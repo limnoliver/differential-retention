@@ -1373,35 +1373,64 @@ stoich$tn_out_mass_aerial <- stoich$tn_out_mass/stoich$surface_area
 stoich$tp_out_mass_aerial <- stoich$tp_out_mass/stoich$surface_area
 stoich$np_r <- stoich$tn_r_mass_aerial/stoich$tp_r_mass_aerial
 
+restime.cols <- brewer.pal(7, "PuBu")[c(2,4,6,7)]
+restime.cols.a <- adjustcolor(restime.cols, alpha = 0.7)
 pdf("out_in.pdf", height = 5, width = 12)
-par(mar=c(5,5,1,1), mfrow=c(1,3))
-plot(log10(stoich$tn_r_mass_aerial)~log10(stoich$tn_in_mass_aerial),
+par(mar=c(5,4.5,1,.5), mfrow=c(1,3), cex =1)
+plot(log10(stoich$tn_r_mass_aerial[stoich$res_time<0.0850])~log10(stoich$tn_in_mass_aerial[stoich$res_time<0.0850]),
      cex = 1.2, xlab = "TN in (kg/m2 y)", ylab = "TN removed (kg/m2 y)",
-     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
-abline(0,1,col = "red", lwd = 2)
-abline(-0.72, 0.95, col = "lightskyblue", lwd = 2, lty = 2)
-abline(-0.43, 0.95, col = "lightskyblue3", lwd = 2, lty = 2)
-abline(-0.39, 0.95, col = "lightskyblue4", lwd = 2, lty = 2)
-abline(-0.21, 0.95, col = "black", lwd = 2, lty = 2)
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
+points(log10(stoich$tn_r_mass_aerial[stoich$res_time>=1.2])~log10(stoich$tn_in_mass_aerial[stoich$res_time>=1.2]),
+       col = restime.cols.a[4], pch = 16, cex = 1.2)
+points(log10(stoich$tn_r_mass_aerial[stoich$res_time>=0.3975 & stoich$res_time<1.2])~log10(stoich$tn_in_mass_aerial[stoich$res_time>=0.3975 & stoich$res_time<1.2]),
+       col = restime.cols.a[3], pch = 16, cex = 1.2) 
+points(log10(stoich$tn_r_mass_aerial[stoich$res_time>=0.0850 & stoich$res_time<.3975])~log10(stoich$tn_in_mass_aerial[stoich$res_time>=0.0850 & stoich$res_time<.3975]),
+       col = restime.cols.a[2], pch = 16,cex = 1.2) 
+points(log10(stoich$tn_r_mass_aerial[stoich$res_time<.085])~log10(stoich$tn_in_mass_aerial[stoich$res_time<.085]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
+                                                                                
+abline(0,1,col = "red", lwd = 2, lty = 2)
+abline(-0.72, 0.95, col = restime.cols[1], lwd = 2, lty = 1)
+abline(-0.43, 0.95, col = restime.cols[2], lwd = 2, lty = 1)
+abline(-0.39, 0.95, col = restime.cols[3], lwd = 2, lty = 1)
+abline(-0.21, 0.95, col = restime.cols[4], lwd = 2, lty = 1)
 legend("topleft", legend = c("< 1 month", "1-5 months", "0.4-1.2 yrs", "> 1.2 yrs"), 
-       title = "Residence time",bty = "n", lty = 2, col = c("lightskyblue", "lightskyblue3", "lightskyblue4", "black"), cex = 1.4, lwd = 2)
-plot(log10(stoich$tp_r_mass_aerial)~log10(stoich$tp_in_mass_aerial),
-     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "TP removed (kg/m2 y)",
-     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
-abline(0,1,col = "red", lwd = 2)
-abline(-0.79, 1.03, col = "lightskyblue", lwd = 2, lty = 2)
-abline(-1.04, 1.17, col = "lightskyblue3", lwd = 2, lty = 2)
-abline(-1.08, 1.24, col = "lightskyblue4", lwd = 2, lty = 2)
-abline(-0.43, 1.07, col = "black", lwd = 2, lty = 2)
+       title = "Residence time",bty = "n", pch = 16, col = c(restime.cols[1], restime.cols[2], restime.cols[3], restime.cols[4]), cex = 1, pt.cex = 1.4)
 
-plot(log10(stoich$np_out)~log10(stoich$np_in),
-     cex = 1.2, xlab = "TN:TP in", ylab = "TN:TP out",
-     cex.lab = 1.5, cex.axis = 1.2, pch = 21, col = rgb(160,160,160,200,max=255),bg =rgb(200,200,200,150,max=255))
-abline(0,1,col = "red", lwd = 2)
-abline(.3, 0.85, col = "lightskyblue", lwd = 2, lty = 2)
-abline(.73, 0.65, col = "lightskyblue3", lwd = 2, lty = 2)
-abline(1.31, 0.31, col = "lightskyblue4", lwd = 2, lty = 2)
-abline(1.17, 0.38, col = "black", lwd = 2, lty = 2)
+plot(log10(stoich$tp_r_mass_aerial[stoich$res_time<0.0850])~log10(stoich$tp_in_mass_aerial[stoich$res_time<0.0850]),
+     cex = 1.2, xlab = "TP in (kg/m2 y)", ylab = "TP removed (kg/m2 y)",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
+points(log10(stoich$tp_r_mass_aerial[stoich$res_time>=1.2])~log10(stoich$tp_in_mass_aerial[stoich$res_time>=1.2]),
+       col = restime.cols.a[4], pch = 16, cex = 1.2)
+points(log10(stoich$tp_r_mass_aerial[stoich$res_time>=0.3975 & stoich$res_time<1.2])~log10(stoich$tp_in_mass_aerial[stoich$res_time>=0.3975 & stoich$res_time<1.2]),
+       col = restime.cols.a[3], pch = 16, cex = 1.2) 
+points(log10(stoich$tp_r_mass_aerial[stoich$res_time>=0.0850 & stoich$res_time<.3975])~log10(stoich$tp_in_mass_aerial[stoich$res_time>=0.0850 & stoich$res_time<.3975]),
+       col = restime.cols.a[2], pch = 16,cex = 1.2) 
+points(log10(stoich$tp_r_mass_aerial[stoich$res_time<.085])~log10(stoich$tp_in_mass_aerial[stoich$res_time<.085]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
+
+abline(0,1,col = "red", lwd = 2, lty = 2)
+abline(-0.79, 1.03, col = restime.cols[1], lwd = 2, lty = 1)
+abline(-1.04, 1.17, col = restime.cols[2], lwd = 2, lty = 1)
+abline(-1.08, 1.24, col = restime.cols[3], lwd = 2, lty = 1)
+abline(-0.43, 1.07, col = restime.cols[4], lwd = 2, lty = 1)
+
+plot(log10(stoich$np_r[stoich$res_time<0.0850])~log10(stoich$np_in[stoich$res_time<0.0850]),
+     cex = 1.2, xlab = "N:P in", ylab = "N:P removed",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white", xlim = c(-1,4), ylim = c(-1,4))
+points(log10(stoich$np_r[stoich$res_time>=1.2])~log10(stoich$np_in[stoich$res_time>=1.2]),
+       col = restime.cols.a[4], pch = 16, cex = 1.2)
+points(log10(stoich$np_r[stoich$res_time>=0.3975 & stoich$res_time<1.2])~log10(stoich$np_in[stoich$res_time>=0.3975 & stoich$res_time<1.2]),
+       col = restime.cols.a[3], pch = 16, cex = 1.2) 
+points(log10(stoich$np_r[stoich$res_time>=0.0850 & stoich$res_time<.3975])~log10(stoich$np_in[stoich$res_time>=0.0850 & stoich$res_time<.3975]),
+       col = restime.cols.a[2], pch = 16,cex = 1.2) 
+points(log10(stoich$np_r[stoich$res_time<.085])~log10(stoich$np_in[stoich$res_time<.085]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
+abline(0,1,col = "red", lwd = 2, lty = 2)
+abline(-1.15, 1.27, col = restime.cols[1], lwd = 2, lty = 1)
+abline(-0.95, 1.27, col = restime.cols[2], lwd = 2, lty = 1)
+abline(-1.04, 1.27, col = restime.cols[3], lwd = 2, lty = 1)
+abline(-0.89, 1.27, col = restime.cols[4], lwd = 2, lty = 1)
 
 dev.off()
 
