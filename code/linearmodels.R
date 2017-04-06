@@ -77,6 +77,23 @@ aov.npin.npout <- aov(np_out~np_in*res_time_cat, data = dat.mod.np)
 lm.np <- lm(np_out~np_in*res_time_cat, data = dat.mod.np)
 lm.np <- lm(np_out~res_time_cat/np_in-1, data = dat.mod.np)
 
+## same thing but with retention
+stoich.pos <- stoich[!is.na(stoich$np_in) & !is.na(stoich$np_r)& stoich$np_r != Inf & stoich$np_r != -Inf & stoich$np_r>0, ]
+dat.mod.np <- stoich.pos[,c(33,48,12)]
+dat.mod.np <- log10(dat.mod.np)
+
+cutoffs <- quantile(stoich$res_time, c(0.25, .5, .75))
+dat.mod.np$res_time_cat <- "b"
+dat.mod.np$res_time_cat[dat.mod.np$res_time < log10(cutoffs[1])] = "a"
+dat.mod.np$res_time_cat[dat.mod.np$res_time < log10(cutoffs[3]) & dat.mod.np$res_time >= log10(cutoffs[2])] = "c"
+dat.mod.np$res_time_cat[dat.mod.np$res_time >= log10(cutoffs[3])] = "d"
+dat.mod.np$res_time_cat <- as.factor(dat.mod.np$res_time_cat)
+
+aov.npin.npout <- aov(np_r~np_in*res_time_cat, data = dat.mod.np)
+lm.np <- lm(np_r ~ res_time_cat + np_in, data = dat.mod.np)
+lm.np <- lm(np_out~res_time_cat/np_in-1, data = dat.mod.np)
+
+
 library(interplot)
 interplot(m = lm.nin.nout, var1 = 'tn_in_mass_areal', var2 = 'res_time', hist = TRUE) +
   xlab("Residence Time (y)") +
