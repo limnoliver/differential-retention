@@ -226,36 +226,6 @@ dev.off()
 ########################################################
 # Figure 4: Mass balance lakes - depth vs residence time
 ########################################################
-pdf("Depth_v_Restime.pdf")
-par(cex = 1, mar = c(5,5,1,1))
-
-# create a figure that shows depth vs residence time
-plot(log10(dat.all$res_time)~log10(dat.all$mean_depth), cex = 1.3,
-     pch = 21, bg = rgb(200,200,200,alpha=200, max = 255),
-     xlab = "Mean Depth (m)", ylab = "Residence Time", yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 1.3)
-axis(2, labels = c("day", "wk", "mon", "yr", "10 yr", "100 yr"), 
-     at = c(log10(1/365), log10(7/365), log10(30/365), 0, 1, 2), cex.axis=1.25)
-axis(1, labels = c("1", "5", "10","20", "50", "100"), at = c(0,log10(5), 1, log10(20), log10(50), 2),
-     cex.axis=1.25)
-abline(h=log10(1/365), col="gray", lty=2)
-# week
-abline(h=log10(7/365), col="gray", lty=2)
-# month
-abline(h=log10(30/365), col="gray", lty=2)
-# year
-abline(h=0, col = "gray", lty = 2)
-abline(h = 1, col = "gray", lty = 2)
-abline(h = 2, col = "gray", lty = 2)
-
-x = log10(dat.all$mean_depth[!is.na(dat.all$mean_depth)&!is.na(dat.all$res_time)])
-y = log10(dat.all$res_time[!is.na(dat.all$mean_depth)&!is.na(dat.all$res_time)])
-mod <- lm(y ~ x)
-newx <- seq(min(x), max(x), length.out = 100)
-preds <- predict(mod, newdata = data.frame(x=newx), interval = "prediction")
-abline(mod, lwd = 2)
-polygon(c(rev(newx), newx), c(rev(preds[,3]), preds[,2]), col = rgb(200,200,200, alpha = 100, max = 255), border = NA)
-
-dev.off()
 
 ## another way to look at depth vs res time is by boxplots
 hist(log10(dat.all$res_time))
@@ -1092,6 +1062,8 @@ mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
 dev.off()
 
 dat.p.real$tp_in_mass_aerial <- dat.p.real$tp_in_mass/dat.p.real$surface_area
+dat.p.real$tp_out_mass_aerial <- dat.p.real$tp_out_mass/dat.p.real$surface_area
+dat.p.real$tp_r_mass_aerial <- dat.p.real$tp_in_mass_aerial-dat.p.real$tp_out_mass_aerial
 dat.p.real$trophic <- "mesotrophic"
 dat.p.real$trophic[dat.p.real$tp_out_conc < .010] <- "oligotrophic"
 dat.p.real$trophic[dat.p.real$tp_out_conc > .030] <- "eutrophic"
@@ -1365,13 +1337,13 @@ plot(log10(stoich$tn_r_mass_aerial[stoich$trophic == "mesotrophic"])~log10(stoic
 # similar to Finlay plot
 ##################################################
 
-stoich$tn_in_mass_aerial <- stoich$tn_in_mass/stoich$surface_area
-stoich$tp_in_mass_aerial <- stoich$tp_in_mass/stoich$surface_area
-stoich$tn_r_mass_aerial <- (stoich$tn_in_mass-stoich$tn_out_mass)/stoich$surface_area
-stoich$tp_r_mass_aerial <- (stoich$tp_in_mass-stoich$tp_out_mass)/stoich$surface_area
-stoich$tn_out_mass_aerial <- stoich$tn_out_mass/stoich$surface_area
-stoich$tp_out_mass_aerial <- stoich$tp_out_mass/stoich$surface_area
-stoich$np_r <- stoich$tn_r_mass_aerial/stoich$tp_r_mass_aerial
+stoich$tn_in_mass_aerial <- (stoich$tn_in_mass*1000)/(stoich$surface_area*1000000)
+stoich$tp_in_mass_aerial <- (stoich$tp_in_mass*1000)/(stoich$surface_area*1000000)
+stoich$tn_r_mass_aerial <- (stoich$tn_in_mass-stoich$tn_out_mass)/stoich$surface_area*(1/1000)
+stoich$tp_r_mass_aerial <- (stoich$tp_in_mass-stoich$tp_out_mass)/stoich$surface_area*(1/1000)
+stoich$tn_out_mass_aerial <- stoich$tn_out_mass/stoich$surface_area*(1/1000)
+stoich$tp_out_mass_aerial <- stoich$tp_out_mass/stoich$surface_area*(1/1000)
+stoich$np_r <- (stoich$tn_r_mass_aerial/14)/(stoich$tp_r_mass_aerial/30.97)
 
 restime.cols <- brewer.pal(7, "PuBu")[c(2,4,6,7)]
 restime.cols.a <- adjustcolor(restime.cols, alpha = 0.7)
@@ -2210,17 +2182,6 @@ filled.contour(x = temp.m$x,
                key.title = title(main = "NPout - NPin", cex.main = 1.1))
 dev.off()
 
-plot(stoich$R_diff ~ log10(stoich$np_in))
-diff.in.lm <- lm(stoich$R_diff ~ log10(stoich$np_in))
-plot(stoich$R_diff ~ log10(stoich$mean_depth))
-diff.lm <- lm(stoich$R_diff ~ log10(stoich$mean_depth))
-plot(stoich$R_diff ~ log10(stoich$res_time))
-stoich$R_diff <- stoich$Rn - stoich$Rp
-
-plot(stoich$np_change~log10(stoich$np_in))
-abline(lm(stoich$np_change~log10(stoich$np_in))
-       
-plot(stoich$np_change~log10(stoich$mean_depth))
 ##############################################
 # change in N:P in to out vs residence time
 ############################################
@@ -2240,10 +2201,7 @@ abline(h = quantile(stoich$np_change, 0.90), col = "red", lty = 2)
 abline(h = quantile(stoich$np_change, 0.1), col = "red", lty =2)
 dev.off()
 
-library(ggplot2)
-ggplot(stoich, aes(log10(res_time), np_change))+
-  geom_point()+
-  geom_smooth()
+
 #######################################################
 # Figure showing how lakes changed the limiting nutrient
 # from input to output
@@ -2318,3 +2276,10 @@ stoich.pos$pcoef <- ((1/(1-stoich.pos$Rp))-1)/(stoich.pos$res_time)
 dum.in <- c(1,2,5,7,8,10,12)
 dum.r <- c(.5,1,4,4,5,9,11)
 dum.e <- c()
+
+####################################
+# supplemental figs
+####################################
+
+
+
