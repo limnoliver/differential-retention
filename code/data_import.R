@@ -87,10 +87,10 @@ for (i in 1:nrow(har)){
     har$tp_in_mass[i] = (har$P_in_mass[i]*(har$Area_km2[i]*1000000))/1000
     
       } else if (har$mass_units[i] %in% "kt y-1"){
-        har$tn_out_mass[i] = har$N_out_mass[i]*1000
-        har$tp_out_mass[i] = har$P_out_mass[i]*1000
-        har$tn_in_mass[i] = har$N_in_mass[i]*1000
-        har$tp_in_mass[i] = har$P_in_mass[i]*1000
+        har$tn_out_mass[i] = har$N_out_mass[i]*1000000
+        har$tp_out_mass[i] = har$P_out_mass[i]*1000000
+        har$tn_in_mass[i] = har$N_in_mass[i]*1000000
+        har$tp_in_mass[i] = har$P_in_mass[i]*1000000
       } else if (har$mass_units[i] %in% "mg m-2 y-1"){
         har$tn_out_mass[i] = (har$N_out_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tp_out_mass[i] = (har$P_out_mass[i]*(har$Area_km2[i]*1000000))/1000000
@@ -100,7 +100,12 @@ for (i in 1:nrow(har)){
         har$tn_out_mass[i] = har$N_out_mass[i]*har$Area_km2[i]*365
         har$tp_out_mass[i] = har$P_out_mass[i]*har$Area_km2[i]*365
         har$tn_in_mass[i] = har$N_in_mass[i]*har$Area_km2[i]*365
-        har$tp_in_mass[i] = har$P_in_mass[i]*har$Area_km2[i]*365       
+        har$tp_in_mass[i] = har$P_in_mass[i]*har$Area_km2[i]*365
+      } else if (har$mass_units[i] %in% "t y-1"){
+        har$tn_out_mass[i] = har$N_out_mass[i]*1000
+        har$tp_out_mass[i] = har$P_out_mass[i]*1000
+        har$tn_in_mass[i] = har$N_in_mass[i]*1000
+        har$tp_in_mass[i] = har$P_in_mass[i]*1000
       } else {
         har$tn_out_mass[i] = har$N_out_mass[i]
         har$tp_out_mass[i] = har$P_out_mass[i]
@@ -290,6 +295,75 @@ dat.all$tn_out_mass[is.na(dat.all$tn_out_mass)] <- dat.all$tn_out_conc[is.na(dat
 
 # H
 dat.all$h <- dat.all$mean_depth/dat.all$res_time
+
+#aerial mass
+dat.all$tn_in_mass_areal <- (dat.all$tn_in_mass*1000)/(dat.all$surface_area*1000000)
+dat.all$tn_out_mass_areal <- (dat.all$tn_out_mass*1000)/(dat.all$surface_area*1000000)
+dat.all$tn_r_mass_areal <- dat.all$tn_in_mass_areal-dat.all$tn_out_mass_areal
+
+dat.all$tp_in_mass_areal <- (dat.all$tp_in_mass*1000)/(dat.all$surface_area*1000000)
+dat.all$tp_out_mass_areal <- (dat.all$tp_out_mass*1000)/(dat.all$surface_area*1000000)
+dat.all$tp_r_mass_areal <- dat.all$tp_in_mass_areal-dat.all$tp_out_mass_areal
+
+# predicted retention
+dat.all$Rn_predicted <- 1-(exp((-Fit.N.np$par[1]*(dat.all$res_time/dat.all$mean_depth))))
+dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp$par[2])))))
+
+# calculate np in and out
+dat.all$np_in <- (dat.all$tn_in_mass/dat.all$tp_in_mass)*(30.97/14)
+dat.all$np_out <- (dat.all$tn_out_mass/dat.all$tp_out_mass)*(30.97/14)
+
+# flag outliers based on relationship between areal loading and restime
+mod <- lm(log10(tn_in_mass_areal)~log10(res_time), data=dat.all)
+cooksd <- cooks.distance(mod)
+influential.n <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers
+#verified all EPA cites, remove those from potential outliers
+influential.n <- influential.n[13:30]
+dat.all$outlier <- 0
+dat.all$outlier[influential.n] = 1
+
+mod <- lm(log10(tp_in_mass_areal)~log10(res_time), data=dat.all)
+cooksd <- cooks.distance(mod)
+influential.p <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers
+#validated epa data
+influential.p <- influential.p[c(18:45)]
+dat.all$outlier[influential.p] = 1
+
+
+# make subsets of data
+# all lakes with N budgets
+dat.p <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$res_time)&dat.all$outlier == 0, ]
+dat.p.real <- dat.p[dat.p$Rp>-1, ]
+dat.p.pos <- dat.p[dat.p$Rp>0, ]
+
+dat.n <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth)&dat.all$outlier ==0, ]
+dat.n.real <-dat.n[dat.n$Rn>=-1,]
+dat.n.pos <-dat.n[dat.n$Rn>=0,]
+
+# dataframe for lakes with both N and P data
+dat.np <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn)&dat.all$outlier==0,]
+dat.np.real <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn) & dat.all$Rn>-1 &
+                         dat.all$Rp>-1&dat.all$outlier==0,]
+
+stoich <- dat.all[!is.na(dat.all$np_in)&
+                   !is.na(dat.all$np_out)&
+                   !is.na(dat.all$mean_depth)&
+                   !is.na(dat.all$res_time)&
+                   !is.na(dat.all$tn_in_mass)&
+                   !is.na(dat.all$tp_in_mass)&
+                   dat.all$Rn>-1 &
+                   dat.all$Rp>-1 &
+                   dat.all$outlier == 0, ]
+
+# calculate stoich change
+# calculate log of change - then make numbers with decreasing TN:TP negative, those with
+# increasing TN:TP positive
+stoich$np_out_predicted <- ((stoich$tn_in_mass*(1-stoich$Rn_predicted))/((stoich$tp_in_mass)*(1-stoich$Rp_predicted)))*(30.97/14)
+stoich$np_change <- log10(stoich$np_out) - log10(stoich$np_in) 
+stoich$np_change_predicted <- log10(stoich$np_out_predicted) - log10(stoich$np_in)
+stoich$np_r <- (stoich$tn_r_mass_areal/14)/(stoich$tp_r_mass_areal/30.97)
+
+
 # in lagos, max TN = 20.57 max TP = 1.22
 summary(dat.all$tn_out_conc)
 dat.all[which(dat.all$tn_out_conc>20), ]
@@ -327,8 +401,6 @@ dat.np$relret <- dat.np$Rn/dat.np$Rp
 
 # now create input TN:TP and out TN:TP
 # make ratios molar
-dat.np$np_in <- (dat.np$tn_in_mass/dat.np$tp_in_mass)*(30.97/14)
-dat.np$np_out <- (dat.np$tn_out_mass/dat.np$tp_out_mass)*(30.97/14)
 
 # rank lakes by depth and residence time
 dat.np$rank_restime <- rank(dat.np$res_time)
@@ -352,7 +424,6 @@ length(which(dat.np$Rn>dat.np$Rp))/nrow(dat.np)
 #dat.np$rank_diff = dat.np$rank_restime - dat.np$rank_depth
 
 # estimate N:P_out based on model retention estimates
-dat.np$np_out_predicted <- ((dat.np$tn_in_mass*(1-dat.np$Rn_predicted))/((dat.np$tp_in_mass)*(1-dat.np$Rp_predicted)))*(30.97/14)
 
 plot(log10(dat.np$res_time)~dat.np$rank_diff)
 

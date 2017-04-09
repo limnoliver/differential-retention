@@ -1,10 +1,10 @@
 ## S1
 pdf("loading_restime.pdf", height = 4, width = 8)
 par(mfrow=c(1,2), mar=c(2,5,1,1), oma=c(2,1,1,1))
-plot(log10(stoich$tn_in_mass_aerial)~log10(stoich$res_time), pch = 16, col = rgb(122,122,122,max=255,122), 
+plot(log10(stoich$tn_in_mass_areal)~log10(stoich$res_time), pch = 16, col = rgb(122,122,122,max=255,122), 
      xlab = "", ylab  = expression(paste("log N load (g ",m^-2," ",y^-1,")", sep = "")), cex = 1.2,
      cex.lab = 1.5, cex.axis = 1.2)
-plot(log10(stoich$tp_in_mass_aerial)~log10(stoich$res_time), pch = 16, col = rgb(122,122,122,max=255,122), 
+plot(log10(stoich$tp_in_mass_areal)~log10(stoich$res_time), pch = 16, col = rgb(122,122,122,max=255,122), 
      xlab = "", ylab  = expression(paste("log P load (g ",m^-2," ",y^-1,")", sep = "")), cex = 1.2,
      cex.lab = 1.5, cex.axis = 1.2)
 mtext("log Residence time (y)", side = 1, outer = TRUE, cex = 1.4, line = .5)
@@ -24,8 +24,8 @@ axis(2, labels = c("day", "wk", "mon", "yr", "10 yr", "100 yr"),
      at = c(log10(1/365), log10(7/365), log10(30/365), 0, 1, 2), cex.axis=1.25)
 axis(1, labels = c("1", "5", "10","20", "50", "100"), at = c(0,log10(5), 1, log10(20), log10(50), 2),
      cex.axis=1.25)
-text(-.4,2.6, "y = -1.15x + 0.89", col = "red", cex = 1.2, pos=4)
-text(-.4,2.2, expression(paste(R^2," = 0.20", sep = "")), col = "red", cex = 1.2, pos=4)
+text(-.4,2.6, "y = -1.16x + 0.90", col = "red", cex = 1.2, pos=4)
+text(-.4,2.2, expression(paste(R^2," = 0.22", sep = "")), col = "red", cex = 1.2, pos=4)
 
 abline(h=log10(1/365), col="gray", lty=2)
 # week

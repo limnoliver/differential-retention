@@ -7,14 +7,6 @@ a.start = 1.12
 b.start = -0.52
 
 # use all values where res time and retention are available for Rp
-dat.p <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$res_time)&!is.na(dat.all$tp_in_conc)&!is.na(dat.all$tp_out_conc), ]
-dat.p.real <- dat.p[dat.p$Rp>-1, ]
-dat.p.pos <- dat.p[dat.p$Rp>0, ]
-
-dat.n <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth), ]
-dat.n.real <-dat.n[dat.n$Rn>=-1,]
-dat.n.pos <-dat.n[dat.n$Rn>=0,]
-
 
 # a.start = start value for par a (educated guess; 1.12 from Brett & Benjamin)
 # b.start = best guess for par b (-0.53 from Brett & Benjamin)

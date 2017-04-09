@@ -13,10 +13,12 @@ dat.forest.n <- stoich[, c(27,8,9,12,17,33,42)]
 dat.forest.diff <- stoich[,c(52,8,9,12,13,43,17,42,33)]
 dat.forest.change <- stoich[,c(40,8,9,12,13,43,17,42,33)]
 
+
 dat.forest.p[, c(2:7)] <- log10(dat.forest.p[, c(2:7)])
 dat.forest.n[, c(2:7)] <- log10(dat.forest.n[, c(2:7)])
 dat.forest.diff[,c(2:9)] <- log10(dat.forest.diff[,c(2:9)])
 dat.forest.change[,c(2:9)] <- log10(dat.forest.change[,c(2:9)])
+dat.forest.change.out <- dat.forest.change[-influential, ]
 
 # rpart tree for Rn, Rp, diff
 Rp.tree <- rpart(Rp ~ log10(res_time) + log10(mean_depth)+ log10(surface_area) + log10(np_in) + log10(tp_in_mass_aerial) + log10(tp_in_conc), data = stoich)
@@ -33,12 +35,14 @@ Rdiff.forest <- randomForest(R_diff~., data = dat.forest.diff,
                           na.rm = TRUE, importance = TRUE)
 Rchange.forest <- randomForest(np_change~., data = dat.forest.change,
                              na.rm = TRUE, importance = TRUE)
+Rchange.forest.out <- randomForest(np_change~., data = dat.forest.change.out,
+                                   na.rm = TRUE, importance = TRUE)
 
 # calculate top variables
 rfsrc_Rp <- rfsrc(Rp ~ res_time + mean_depth+ surface_area + np_in + tp_in_mass_aerial + tp_in_conc, data = dat.forest.p)
 rfsrc_Rn <- rfsrc(Rn ~ res_time + mean_depth+ surface_area + np_in + tn_in_mass_aerial + tn_in_conc, data = dat.forest.n)
 rfsrc_Rdiff <- rfsrc(R_diff ~ ., data = dat.forest.diff)
-rfsrc_change <- rfsrc(np_change ~ ., data = dat.forest.change)
+rfsrc_change <- rfsrc(np_change ~ ., data = dat.forest.change, importance = TRUE)
 
 gg_v_Rp <- gg_variable(rfsrc_Rp)
 gg_v_Rn <- gg_variable(rfsrc_Rn)
@@ -49,6 +53,7 @@ gg_md_Rp <- gg_minimal_depth(rfsrc_Rp)
 gg_md_Rn <- gg_minimal_depth(rfsrc_Rn)
 gg_md_Rdiff <- gg_minimal_depth(rfsrc_Rdiff)
 gg_md_change <- gg_minimal_depth(rfsrc_change)
+plot(gg_minimal_vimp(rfsrc_change))
 
 xvar.Rp <- gg_md_Rp$topvars
 xvar.Rn <- gg_md_Rn$topvars
@@ -136,7 +141,7 @@ partialPlot(x = Rchange.forest, pred.data = dat.forest.change, np_in, main = "",
             ylab = "", cex.lab = 1.5, cex.axis = 1.2)
 partialPlot(x = Rchange.forest, pred.data = dat.forest.change, tn_in_conc, main = "", xlab = "log TN in (ug/L)",
             ylab = "", cex.lab = 1.5, cex.axis = 1.2)
-partialPlot(x = Rchange.forest, pred.data = dat.forest.change, tn_in_mass_aerial, main = "", xlab = "log Tn in (kg/ha y)",
+partialPlot(x = Rchange.forest, pred.data = dat.forest.change, tn_in_mass_aerial, main = "", xlab = "log TN in (kg/ha y)",
             ylab = "", cex.lab = 1.5, cex.axis = 1.2)
 partialPlot(x = Rchange.forest, pred.data = dat.forest.change, surface_area, main = "", xlab = "log Surface Area (ha)",
             ylab = "", cex.lab = 1.5, cex.axis = 1.2)
