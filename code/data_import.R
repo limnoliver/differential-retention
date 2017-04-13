@@ -32,7 +32,10 @@ lakes = readOGR(dsn = ".", layer = "HydroLAKES_points_v10")
 # Finlay data
 #########################
 
-finlay <-read.csv("FromFinlay_Pextraction.csv", header = TRUE, skip = 1)
+finlay <-read.csv("data/Finlay_Pextraction.csv", header = TRUE, skip = 1)
+
+# exclude status = 0 (already in database), and = 3 (needs more work)
+finlay <- finlay[finlay$Status == 1, ]
 
 finlay <- finlay[,c(4,3,)]
 ###################
