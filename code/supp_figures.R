@@ -88,3 +88,16 @@ test.trophic <- aov(log10(d.trophic$tp_r_mass_aerial)~log10(d.trophic$tp_in_mass
 summary(lm(log10(d.trophic$tp_r_mass_aerial)~log10(d.trophic$tp_in_mass_aerial)+d.trophic$trophic))
 plot(log10(oligo$tp_r_mass_aerial)~log10(oligo$tp_in_mass_aerial))
 mod.o <- lm(log10(oligo$tp_r_mass_aerial)~log10(oligo$tp_in_mass_aerial))
+
+##########################
+# N load vs P load
+###########################
+png("N_P_loads.png", height = 700, width = 700)
+par(mar=c(6,6,1,1), cex = 1.8)
+plot(log10(stoich$tn_in_mass_areal)~log10(stoich$tp_in_mass_areal),
+     ylab = expression(paste("log N load (g ",m^-2," ",y^-1,")", sep = "")), 
+     xlab = expression(paste("log P load (g ",m^-2," ",y^-1,")", sep = "")),
+     pch = 16, cex = .8, col = rgb(122,122,122,max=255,122), cex.lab = 1.8, 
+     cex.axis = 1.5)
+dev.off()
+
