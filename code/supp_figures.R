@@ -81,6 +81,7 @@ test.eutro.0 <- lm(log10(d.eutro$tp_r_mass_aerial)~log10(d.eutro$tp_in_mass_aeri
 
 test.trophic <- aov(log10(d.trophic$tp_r_mass_aerial)~log10(d.trophic$tp_in_mass_aerial)*d.trophic$trophic)
 test.trophic <- lm(log10(d.trophic$tp_r_mass_aerial)~log10(d.trophic$tp_in_mass_aerial)*d.trophic$trophic)
+test.trophic <- lm(log10(d.trophic$tp_r_mass_aerial)~d.trophic$trophic/log10(d.trophic$tp_in_mass_aerial)-1)
 
 d.trophic <- dat.p.real[dat.p.real$tp_r_mass_aerial>0 & dat.p.real$res_time>1.2,]
 test.trophic <- aov(log10(d.trophic$tp_r_mass_aerial)~log10(d.trophic$tp_in_mass_aerial)*d.trophic$trophic)
