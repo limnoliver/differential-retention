@@ -41,10 +41,16 @@ finlay <- finlay[,c(4,3,)]
 ###################
 # epa data
 ###################
-epa <- read.csv("EPA data extraction.csv", header = TRUE, na.strings = c("", "NA"))
+epa <- read.csv("data/EPA data extraction.csv", header = TRUE, na.strings = c("", "NA"))
 
 # add volume column
 epa$volume <- epa$surface_area_km2*(epa$mean_depth_m/1000)
+epa$name <- toupper(epa$lake)
+epa$state.u <- toupper(epa$state_country)
+
+lake.coords <- read.csv("data/NES_lakecoordsid.csv", header = TRUE)
+lake.coords <- lake.coords[,c(2,4,7,11,12)]
+epa <- merge(epa, lake.coords, by = c("name", "state.u"), all.x = TRUE)
 
 # add country column
 epa$country = "United States"
@@ -52,18 +58,15 @@ epa$tp_in_conc = ""
 epa$tn_in_conc = ""
 epa$Rp_source = ""
 epa$Rn_source = ""
-epa$latitude = ""
-epa$longitude = ""
+epa$latitude = epa$Lat
+epa$longitude = epa$Long
 
 # convert "impoundment" to "reservoir
 levels(epa$type)[1:4] = c("reservoir", "lake", "lake", "lake")
 
-# get rid of all lakes with residence time <1 day
-
-#epa <- epa[epa$retention_time_years>(1/365), ]
 #################################################
 # rearrange columns, create data frame to work from
-dat <- epa[,c(1,2,3,4,22,27,28,6,7,21,8,9,23,14,10,16,24,15,11,17,25,18,26,19, 20)]
+dat <- epa[,c(3,1,5,6,27,32,33,8,9,23,10,11,28,16,12,18,29,17,13,19,30,20,31,21,22)]
 names(dat) <- c("source", "waterbody_name", "lake_type", 
                 "state", "country", "latitude", "longitude",
                 "surface_area", "mean_depth", "volume", "Q", "res_time",
@@ -73,7 +76,7 @@ names(dat) <- c("source", "waterbody_name", "lake_type",
 #######################
 # harrison et al data
 #######################
-har <- read.csv("Harrison et al data_with P.csv", header = TRUE,
+har <- read.csv("data/Harrison et al data_with P.csv", header = TRUE,
                 na.strings = c("", "NA", "ND"))
 har <- har[,c(1:26)]
 har$Rn_calculated = har$N_retention
@@ -94,16 +97,25 @@ for (i in 1:nrow(har)){
         har$tp_out_mass[i] = har$P_out_mass[i]*1000000
         har$tn_in_mass[i] = har$N_in_mass[i]*1000000
         har$tp_in_mass[i] = har$P_in_mass[i]*1000000
+        
       } else if (har$mass_units[i] %in% "mg m-2 y-1"){
         har$tn_out_mass[i] = (har$N_out_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tp_out_mass[i] = (har$P_out_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tn_in_mass[i] = (har$N_in_mass[i]*(har$Area_km2[i]*1000000))/1000000
         har$tp_in_mass[i] = (har$P_in_mass[i]*(har$Area_km2[i]*1000000))/1000000
+        
       } else if (har$mass_units[i] %in% "mg N m-2 d-1"){
         har$tn_out_mass[i] = har$N_out_mass[i]*har$Area_km2[i]*365
         har$tp_out_mass[i] = har$P_out_mass[i]*har$Area_km2[i]*365
         har$tn_in_mass[i] = har$N_in_mass[i]*har$Area_km2[i]*365
         har$tp_in_mass[i] = har$P_in_mass[i]*har$Area_km2[i]*365
+        
+      } else if (har$mass_units[i] %in% "mmol m2 d"){
+        har$tn_out_mass[i] = har$N_out_mass[i]*har$Area_km2[i]*365*14
+        har$tp_out_mass[i] = har$P_out_mass[i]*har$Area_km2[i]*365*14
+        har$tn_in_mass[i] = har$N_in_mass[i]*har$Area_km2[i]*365*14
+        har$tp_in_mass[i] = har$P_in_mass[i]*har$Area_km2[i]*365*14
+     
       } else if (har$mass_units[i] %in% "t y-1"){
         har$tn_out_mass[i] = har$N_out_mass[i]*1000
         har$tp_out_mass[i] = har$P_out_mass[i]*1000
@@ -127,7 +139,7 @@ names(har) <- names(dat)
 #har <- har[har$res_time>(1/365), ]
 #################################
 # Maavara data
-maav <- read.csv("Maavara et al 2015 data_with N.csv", header = TRUE, 
+maav <- read.csv("data/Maavara et al 2015 data_with N.csv", header = TRUE, 
                  na.strings = c("", "NA"))
 maav <- maav[c(1:156), ]
 maav$lake_type = "reservoir"
@@ -154,7 +166,7 @@ maav$tp_out_mass = maav$tp_out_mass*(30.97/1000)
 # Brett & Benjamin data
 ########################
 
-brett <- read.csv("Brett_with_N.csv", header = TRUE, na.strings = c("", NA))
+brett <- read.csv("data/Brett_with_N.csv", header = TRUE, na.strings = c("", NA))
 brett <- brett[,c(2:28, 30)]
 brett[,1] = "brett2008"
 brett <- brett[,c(1:9, 11:28)] 
@@ -220,7 +232,7 @@ names(brett) <- names(dat)
 # Donald et al 2015 data
 #################################
 
-donald <- read.csv("Donald et al 2015 data.csv", header = TRUE, na.strings = c("NA", ""))
+donald <- read.csv("data/Donald et al 2015 data.csv", header = TRUE, na.strings = c("NA", ""))
 donald$tn_in_conc = ""
 donald$tp_in_conc = ""
 donald$tn_calculated = ""
@@ -242,8 +254,78 @@ names(donald) <- names(dat)
 # my compiled data
 ##############################
  
-lit <- read.csv("NP_retention_litreview.csv", header = TRUE, na.strings = c("", "NA", "ND"))
+lit <- read.csv("data/NP_retention_litreview.csv", header = TRUE, na.strings = c("", "NA", "ND"))
+names(lit)[1] <- "paper_id"
+meta <- read.csv("data/literature_metadata.csv", header = TRUE)
+meta$source <- with(meta, paste(first_author, year))
+meta <- meta[,c(1,17)]
+lit <- merge(lit, meta, by = "paper_id", all.x = TRUE)
 
+#convert units
+# discharge to m3 s-1
+for (i in 1:nrow(lit)){
+  if (lit$discharge_units[i] %in% "CubicMetersPerDay") {
+    lit$Q[i] = lit$discharge[i]*(24*60*60) 
+  } else if (lit$discharge_units[i] %in% "CubicMetersPerYear") {
+    lit$Q[i] = lit$discharge[i]*(365*24*60*60)
+  } else if (lit$discharge_units[i] %in% "1000GigaLiters" | lit$discharge_units[i] %in% "CubicKilometersPerYear") {
+    lit$Q[i] = lit$discharge[i]*((365*24*60*60)/1000000000)
+  } else {
+    lit$Q[i] = lit$discharge[i]
+  }
+}
+
+# mass to kilograms per year
+for (i in 1:nrow(lit)){
+  if (lit$p_mass_units[i] %in% "GramsPerMeterSquaredPerYear") {
+    lit$tp_in_mass[i] = (lit$p_in_mass[i] * (lit$lake_area_km2[i]*1000000))/1000
+    lit$tp_out_mass[i] = (lit$p_out_mass[i] * (lit$lake_area_km2[i]*1000000))/1000
+    lit$tp_r_mass[i] = (lit$p_retained_mass[i] * (lit$lake_area_km2[i]*1000000))/1000
+    
+  } else if (lit$p_mass_units[i] %in% "KilotonnesPerYear") {
+    lit$tp_in_mass[i] = lit$p_in_mass[i]*1000000
+    lit$tp_out_mass[i] = lit$p_out_mass[i]*1000000
+    lit$tp_r_mass[i] = lit$p_retained_mass[i]*1000000
+    
+  } else if (lit$p_mass_units[i] %in% "TonnesPerYear" | lit$p_mass_units[i] %in% "TonsPerYear") {
+    lit$tp_in_mass[i] = lit$p_in_mass[i]*1000
+    lit$tp_out_mass[i] = lit$p_out_mass[i]*1000
+    lit$tp_r_mass[i] = lit$p_retained_mass[i]*1000
+    
+  } else {
+    lit$tp_in_mass[i] = lit$p_in_mass[i]
+    lit$tp_out_mass[i] = lit$p_out_mass[i]
+    lit$tp_r_mass[i] = lit$p_retained_mass[i]
+    
+  }  
+}
+
+for (i in 1:nrow(lit)){
+  if (lit$n_mass_units[i] %in% "GramsPerMeterSquaredPerYear") {
+    lit$tn_in_mass[i] = (lit$n_in_mass[i] * (lit$lake_area_km2[i]*1000000))/1000
+    lit$tn_out_mass[i] = (lit$n_out_mass[i] * (lit$lake_area_km2[i]*1000000))/1000
+    lit$tn_r_mass[i] = (lit$n_retained_mass[i] * (lit$lake_area_km2[i]*1000000))/1000
+    
+  } else if (lit$n_mass_units[i] %in% "KilotonnesPerYear") {
+    lit$tn_in_mass[i] = lit$n_in_mass[i]*1000000
+    lit$tn_out_mass[i] = lit$n_out_mass[i]*1000000
+    lit$tn_r_mass[i] = lit$n_retained_mass[i]*1000000
+    
+  } else if (lit$n_mass_units[i] %in% "TonnesPerYear" | lit$n_mass_units[i] %in% "TonsPerYear") {
+    lit$tn_in_mass[i] = lit$n_in_mass[i]*1000
+    lit$tn_out_mass[i] = lit$n_out_mass[i]*1000
+    lit$tn_r_mass[i] = lit$n_retained_mass[i]*1000
+    
+  } else {
+    lit$tn_in_mass[i] = lit$n_in_mass[i]
+    lit$tn_out_mass[i] = lit$n_out_mass[i]
+    lit$tn_r_mass[i] = lit$n_retained_mass[i]
+    
+  }  
+}
+
+
+    
 #############################
 # get all data together
 #############################
