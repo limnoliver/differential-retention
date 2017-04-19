@@ -32,12 +32,64 @@ lakes = readOGR(dsn = ".", layer = "HydroLAKES_points_v10")
 # Finlay data
 #########################
 
-finlay <-read.csv("data/Finlay_Pextraction.csv", header = TRUE, skip = 1)
+finlay <-read.csv("data/Finlay_Pextraction.csv", header = TRUE, skip = 1, na.strings = c("", "NA"))
 
 # exclude status = 0 (already in database), and = 3 (needs more work)
-finlay <- finlay[finlay$Status == 1, ]
+finlay <- finlay[finlay$status == 1, ]
 
-finlay <- finlay[,c(4,3,)]
+#change units
+# convert mass in to kg y-1
+
+finlay$tn_in_mass <- finlay$Nload_gm2y*finlay$Lake_area*10^3
+finlay$tn_r_mass <- finlay$Nretention_gm2y*finlay$Lake_area*10^3
+finlay$tn_out_mass <- finlay$tn_in_mass - finlay$tn_r_mass
+
+for (i in 1:nrow(finlay)){
+  if (finlay$p_mass_units[i] %in% "g m2 y") {
+    
+    finlay$tp_out_mass[i] = finlay$tp_out_mass[i]*finlay$Lake_area[i]*10^3
+    finlay$tp_in_mass[i] = finlay$tp_in_mass[i]*finlay$Lake_area[i]*10^3
+    
+    } else if (finlay$p_mass_units[i] %in% "g m2 d"){
+      finlay$tp_out_mass[i] = finlay$tp_out_mass[i]*finlay$Lake_area[i]*1000*365
+      finlay$tp_in_mass[i] = finlay$tp_in_mass[i]*finlay$Lake_area[i]*1000*365
+    
+    } else if (finlay$p_mass_units[i] %in% "mg m2 d"){
+      finlay$tp_out_mass[i] = finlay$tp_out_mass[i]*finlay$Lake_area[i]*365
+      finlay$tp_in_mass[i] = finlay$tp_in_mass[i]*finlay$Lake_area[i]*365
+    
+    } else if (finlay$p_mass_units[i] %in% "mmol m2 y"){
+      finlay$tp_out_mass[i] = finlay$tp_out_mass[i]*finlay$Lake_area[i]*14
+      finlay$tp_in_mass[i] = finlay$tp_in_mass[i]*finlay$Lake_area[i]*14
+      
+    } else if (finlay$p_mass_units[i] %in% "kg d") {
+      finlay$tp_out_mass[i] = finlay$tp_out_mass[i]*365
+      finlay$tp_in_mass[i] = finlay$tp_in_mass[i]*365
+   
+    } else if (finlay$p_mass_units[i] %in% "kt y") {
+      finlay$tp_out_mass[i] = finlay$tp_out_mass[i]*10^6
+      finlay$tp_in_mass[i] = finlay$tp_in_mass[i]*10^6
+       
+    } else if (finlay$p_mass_units[i] %in% "t y" | finlay$p_mass_units[i] %in% "T y") {
+      finlay$tp_out_mass[i] = finlay$tp_out_mass[i]*1000
+      finlay$tp_in_mass[i] = finlay$tp_in_mass[i]*1000
+    }
+}
+
+finlay$tp_in_conc = finlay$tp_in_conc/1000  
+finlay$tp_out_conc = finlay$tp_out_conc/1000  
+
+finlay$volume <- ""
+finlay$Q <- ""
+finlay$tn_in_conc <- ""
+finlay$tn_out_conc <- ""
+finlay$Rp_calculated <- ""
+finlay$Rn_calculated <- ""
+
+
+finlay <- finlay[,c(4,3,5,9,6,7,8,11,22,66,67,17,35,34,37,36,68,63,69,65,38,70,27,71,1)]
+names(finlay) <- names(dat)
+
 ###################
 # epa data
 ###################
@@ -341,21 +393,31 @@ names(lit) <- names(dat)
 # get all data together
 #############################
 
-dat.all <- rbind(dat, brett, har, donald, maav, lit)
+dat.all <- rbind(dat, brett, har, donald, maav, lit, finlay)
+
 dat.all$Rp <- as.numeric(dat.all$Rp_source)
+dat.all$Rp_calculated[is.na(dat.all$Rp_calculated)] <- 1-(dat.all$tp_out_mass[is.na(dat.all$Rp_calculated)]/dat.all$tp_in_mass[is.na(dat.all$Rp_calculated)])
 dat.all$Rp[is.na(dat.all$Rp)] <- as.numeric(dat.all$Rp_calculated[is.na(dat.all$Rp)])
 dat.all$Rn <- as.numeric(dat.all$Rn_source)
+dat.all$Rn_calculated[is.na(dat.all$Rn_calculated)] <- 1-(dat.all$tn_out_mass[is.na(dat.all$Rn_calculated)]/dat.all$tn_in_mass[is.na(dat.all$Rn_calculated)])
 dat.all$Rn[is.na(dat.all$Rn)] <- as.numeric(dat.all$Rn_calculated[is.na(dat.all$Rn)])
 
 #################################
 # calculate all input/output variables
 ###################################
 # calculate volume for all lakes
+dat.all$volume <- as.numeric(dat.all$volume)
+dat.all$Q <- as.numeric(dat.all$Q)
+
 dat.all$volume[which(is.na(dat.all$volume))] = (dat.all$mean_depth[which(is.na(dat.all$volume))]/1000)*dat.all$surface_area[which(is.na(dat.all$volume))]
+dat.all$surface_area[which(is.na(dat.all$surface_area))] = dat.all$volume[which(is.na(dat.all$surface_area))]/(dat.all$mean_depth[which(is.na(dat.all$surface_area))]/1000)
+
 #calculate Q for all lakes
 dat.all$Q[which(is.na(dat.all$Q))] = (dat.all$volume[which(is.na(dat.all$Q))]/dat.all$res_time[which(is.na(dat.all$Q))])*((60*60*24*365)/10^9)
 #for lakes that have q = 0, recalculate from volume and residence time to get non-zero answer
 dat.all$Q[which(dat.all$Q==0)] = (dat.all$volume[which(dat.all$Q==0)]/dat.all$res_time[which(dat.all$Q==0)])*((60*60*24*365)/10^9)
+
+dat.all$volume[which(is.na(dat.all$volume))] = dat.all$res_time[which(is.na(dat.all$volume))]*dat.all$Q[which(is.na(dat.all$volume))]*((60*60*24*365)/10^9)
 
 # calculate in/out nutrients
 
@@ -375,6 +437,7 @@ dat.all$tp_out_mass <- as.numeric(dat.all$tp_out_mass)
 dat.all$tp_out_mass[is.na(dat.all$tp_out_mass)] <- dat.all$tp_out_conc[is.na(dat.all$tp_out_mass)]*dat.all$Q[is.na(dat.all$tp_out_mass)]*31536
 
 # tn out conc
+dat.all$tn_out_conc <- as.numeric(dat.all$tn_out_conc)
 dat.all$tn_out_conc[is.na(dat.all$tn_out_conc)] = (as.numeric(dat.all$tn_out_mass[is.na(dat.all$tn_out_conc)])/dat.all$Q[is.na(dat.all$tn_out_conc)])*(1/31536)
 
 #tn_in_conc
@@ -401,6 +464,7 @@ dat.all$tp_in_mass_areal <- (dat.all$tp_in_mass*1000)/(dat.all$surface_area*1000
 dat.all$tp_out_mass_areal <- (dat.all$tp_out_mass*1000)/(dat.all$surface_area*1000000)
 dat.all$tp_r_mass_areal <- dat.all$tp_in_mass_areal-dat.all$tp_out_mass_areal
 
+# here, run optimization and return to predicted
 # predicted retention
 dat.all$Rn_predicted <- 1-(exp((-Fit.N.np$par[1]*(dat.all$res_time/dat.all$mean_depth))))
 dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp$par[2])))))
