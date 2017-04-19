@@ -86,18 +86,18 @@ Salas & Martino 1991,Paranoa,Brazil,Reservoir,,-15.78542,-47.81970,14.30,0.731,3
 Salas & Martino 1991,Pairaibuna,Brazil,Reservoir,,-23.37435,-45.61928,26.40,1.923,168.000,4.4352,2.30640,10.2,0.742977273,,0.573,22.88,0.79,0.057544318,,0.02,g m-2 yr-1,mg l-1,0.23,0.722,,
 Salas & Martino 1991,Barra Bonita,Brazil,Reservoir,,-22.52500,-48.53041,8.60,0.221,250.000,2.1500,9.72851,98.5,2.53122093,,1.376,45.64,6.96,0.178855814,,0.06,g m-2 yr-1,mg l-1,0.46,0.670,,
 Teodoru and Wehrli 2005,Iron Gate,Romania,Reservoir,,44.66552,22.53138,17.26,0.012,,,,211.7,,247.7,,-17.01,14.90,0.010640913,16.5,,kt y-1,,-0.17,-0.107,changed n data to reflect actual negative value (instead of 0 reported by Harrison),
-Windolf et al. 1996,Hejrede S?,Denmark,Lake,,54.73936,11.59228,0.90,0.100,0.510,,,241.0,9.7,184,,26.00,,0.17,,0.14,,mg l-1,0.26,0.182,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,Lange S?,Denmark,Lake,,55.43490,10.19708,3.10,0.550,0.170,,,208.0,10.3,115,,47.00,,0.207,,0.28,,mg l-1,0.47,-0.329,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,Borup S?,Denmark,Lake,,55.48658,11.98398,0.90,0.050,0.100,,,403.0,8.4,328,,21.00,,0.128,,0.149,,mg l-1,0.21,-0.164,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,S?g†rd S?,Denmark,Lake,,55.42943,9.32265,1.60,0.070,0.270,,,825.0,12.1,683,,18.00,,,,,,,0.18,-0.096,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
-Windolf et al. 1996,Kilen,Denmark,Lake,,56.50043,8.56434,2.90,0.690,3.340,,,92.0,7.8,25,,72.00,,0.15,,0.17,,mg l-1,0.72,-0.120,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,St. S?g†rd S?,Denmark,Lake,,54.93583,9.44316,2.70,0.170,0.270,,,513.0,12,366,,29.00,,,,,,,0.29,-0.103,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
-Windolf et al. 1996,Dons N?rres?,Denmark,Lake,,55.55702,9.42617,1.00,0.050,0.360,,,406.0,7.8,306,,24.00,,0.094,,0.17,,mg l-1,0.24,-0.798,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,Hinge S?,Denmark,Lake,,56.25657,9.49628,1.20,0.040,0.910,,,415.0,6.2,339,,19.00,,,,,,,0.19,-0.053,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
-Windolf et al. 1996,Vesterborg S?,Denmark,Lake,,54.86567,11.27331,1.40,0.050,0.210,,,769.0,11.2,607,,22.00,,,,,,,0.22,0.102,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
-Windolf et al. 1996,Jels Overs?,Denmark,Lake,,55.38330,9.25000,1.20,0.020,0.090,,,1940.0,11,1729,,11.00,,0.136,,0.27,,mg l-1,0.11,-1.015,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,Gunds?magle S?,Denmark,Lake,,55.73330,12.20000,1.20,0.080,0.320,,,468.0,12.8,295,,38.00,,,,,,,0.38,-0.130,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
-Windolf et al. 1996,Lemvig S?,Denmark,Lake,,56.56667,8.78333,2.00,0.080,0.160,,,671.0,8.7,492,,26.00,,0.212,,0.29,,mg l-1,0.26,-0.349,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,F†rup S?,Denmark,Lake,,55.73330,9.40000,5.60,0.490,,,,120.0,3.8,52,,57.00,,,,,,,0.57,,No P data,mass
-Windolf et al. 1996,Fugles?,Denmark,Lake,,55.76670,12.21670,2.00,0.140,0.050,,,435.0,11,201,,56.00,,0.151,,0.22,,mg l-1,0.56,-0.477,Got P data from Jensen et al 2006,mass
-Windolf et al. 1996,?rn S?,Denmark,Lake,,9.51670,56.15000,4.00,0.040,0.420,,,378.0,1.6,331,,12.00,,0.124,,0.09,,mg l-1,0.12,0.242,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,Hejrede S?,Denmark,Lake,,54.73936,11.59228,0.90,0.100,0.510,0.0005,0.00462,241.0,9.7,184,,26.00,,0.17,,0.14,mg N m-2 d-1,mg l-1,0.26,0.182,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,Lange S?,Denmark,Lake,,55.43490,10.19708,3.10,0.550,0.170,0.0005,0.00125,208.0,10.3,115,,47.00,,0.207,,0.28,mg N m-2 d-1,mg l-1,0.47,-0.329,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,Borup S?,Denmark,Lake,,55.48658,11.98398,0.90,0.050,0.100,0.0001,0.00175,403.0,8.4,328,,21.00,,0.128,,0.149,mg N m-2 d-1,mg l-1,0.21,-0.164,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,S?g†rd S?,Denmark,Lake,,55.42943,9.32265,1.60,0.070,0.270,0.0004,0.00672,825.0,12.1,683,,18.00,,,,,mg N m-2 d-1,,0.18,-0.096,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
+Windolf et al. 1996,Kilen,Denmark,Lake,,56.50043,8.56434,2.90,0.690,3.340,0.0097,0.01438,92.0,7.8,25,,72.00,,0.15,,0.17,mg N m-2 d-1,mg l-1,0.72,-0.120,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,St. S?g†rd S?,Denmark,Lake,,54.93583,9.44316,2.70,0.170,0.270,0.0007,0.00421,513.0,12,366,,29.00,,,,,mg N m-2 d-1,,0.29,-0.103,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
+Windolf et al. 1996,Dons N?rres?,Denmark,Lake,,55.55702,9.42617,1.00,0.050,0.360,0.0004,0.00684,406.0,7.8,306,,24.00,,0.094,,0.17,mg N m-2 d-1,mg l-1,0.24,-0.798,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,Hinge S?,Denmark,Lake,,56.25657,9.49628,1.20,0.040,0.910,0.0011,0.02223,415.0,6.2,339,,19.00,,,,,mg N m-2 d-1,,0.19,-0.053,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
+Windolf et al. 1996,Vesterborg S?,Denmark,Lake,,54.86567,11.27331,1.40,0.050,0.210,0.0003,0.00526,769.0,11.2,607,,22.00,,,,,mg N m-2 d-1,,0.22,0.102,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
+Windolf et al. 1996,Jels Overs?,Denmark,Lake,,55.38330,9.25000,1.20,0.020,0.090,0.0001,0.00579,1940.0,11,1729,,11.00,,0.136,,0.27,mg N m-2 d-1,mg l-1,0.11,-1.015,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,Gunds?magle S?,Denmark,Lake,,55.73330,12.20000,1.20,0.080,0.320,0.0004,0.00427,468.0,12.8,295,,38.00,,,,,mg N m-2 d-1,,0.38,-0.130,"P data from Sondergaard et al 2012, pulled data from Fig 3",mass
+Windolf et al. 1996,Lemvig S?,Denmark,Lake,,56.56667,8.78333,2.00,0.080,0.160,0.0003,0.00450,671.0,8.7,492,,26.00,,0.212,,0.29,mg N m-2 d-1,mg l-1,0.26,-0.349,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,F†rup S?,Denmark,Lake,,55.73330,9.40000,5.60,0.490,0.990,0.0055,0.01141,120.0,3.8,52,,57.00,,,,,mg N m-2 d-1,,0.57,,No P data,mass
+Windolf et al. 1996,Fugles?,Denmark,Lake,,55.76670,12.21670,2.00,0.140,0.050,0.0001,0.00072,435.0,11,201,,56.00,,0.151,,0.22,mg N m-2 d-1,mg l-1,0.56,-0.477,Got P data from Jensen et al 2006,mass
+Windolf et al. 1996,?rn S?,Denmark,Lake,,9.51670,56.15000,4.00,0.040,0.420,0.0017,0.03622,378.0,1.6,331,,12.00,,0.124,,0.09,mg N m-2 d-1,mg l-1,0.12,0.242,Got P data from Jensen et al 2006,mass
