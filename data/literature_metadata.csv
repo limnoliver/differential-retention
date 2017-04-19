@@ -1,0 +1,116 @@
+paper_id,included_other_papers,cited_by_crossreference,in_wos,Data_extracted,first_author,year,title,journal,waterbody_name,lake_reservoir,single_multiple,country,read in depth,email authors,notes
+1,koiv,,x,x,Dillon,1975,"The phosphorus budget of Cameron Lake, Ontario: The importance of flushing rate to the degree of eutrophy of lakes",Limnology & Oceanography,Cameron Lake,lake,single,,,,
+2,,,,,Larsen ,1976,Phosphorus retention capacity of lakes,Journal of Fish Research Board Canada,,,multiple,,,,contains Dillon 1975 data and others
+3,,,,,Reddy,1983,Fate of nitrogen and phosphorus in a waste-water retention reservoir containing aquatic macrophytes,Journal of Environmental Quality,,,,,,,
+4,,,,,Persson,1985,"Nutrient concentrations in the acidified Lake Gardsjon: The role of transport and retention of phorphorus, nitrogen and DOC in watershed and lake",Ecological Bulletins,,,,,,,
+5,,,,,Ahlgren,1988,"Empirical and theoretical models of phosphorus loading, retention and concentration vs. lake trophic status",Hydrobiologia,,,,,x,,
+6,Harrison 2009,x,,x,Dillon ,1990,"Retention and resuspension of phosphorus, nitrogen, and iron in a central Ontario lake",Canadian Journal of Fisheries and Aquatic Sciences,Blue Chalk Lake,lake,single,Canada,,,
+7,,,x,,Jones,1990,"Internal phosphorus loading related to mixing and dilution in a dendritic, shallow prairie lake",Water Environment Federation,Moses Lake,lake,single,,,,
+8,Finlay,,x,,Jensen,1992,"Nitrogen loss and denitrification as studied in relation to reductions in nitrogen loading in a shallow, hypertrophic lake (Lake Sobygard, Denmark)",International Revue der gesamten Hydrobiologie unde Hydrographie,Lake Sobygard,lake,single,,,,
+9,,,,x,Dillon,1993,A comparison of phosphorus retention in lakes determined from mass balance and sediment core calculations,Water Research,,,multiple,,,,"no P data, could be found elsewhere?"
+10,Harrison 2009,,,x,Molot,1993,Nitrogen mass balances and denitrification rates in central ontario lakes,Biogeochemistry,,,,,,,
+11,,,x,,Straskraba,1995,The effect of reservoirs on phosphorus concentration,International Revue der gesamten Hydrobiologie unde Hydrographie,,reservoirs,multiple,,,,
+12,"Harrison 2009, Finlay",,x,x,Windolf,1996,Modelling of seasonal variation in nitrogen retention and in-lake concentration: A four-year mass balance study in 16 shallow Danish Lakes,Biogeochemistry,,lakes,multiple,,,,
+13,Finlay,,x,x,Berge,1997,Nitrogen retention in two Norwegian watercourses of different trophic status,Ambio,,lake,multiple,,,,
+14,"Maavara 2015, Koiv",,,,James,1997,"Net and gross sedimentation in relation to the phosphorus budget of Eau Galle Reservoir, Wisconsin",Hydrobiologia,Eau Galle Reservoir,reservoir,single,,,,no P data
+15,,,x,,Kennedy,1999,Basin-wide considerations for water quality management: Importance of phosphorus retention by reservoirs,International Review of Hydrobiology,,reservoirs,multiple,,,,data table
+16,,,x,,Anda,2000,Phosphorus balance in Lake Chapala (Mexico),Journal of Great Lakes Research,Lake Chapala,lake,single,,,,
+17,,,,,Housner,2000,Food web structure and nutrient enrichment: effects on sediment phosphorus retention in whole-lake experiments,Canadian Journal of Fisheries and Aquatic Sciences,,lakes,multiple,,,,
+18,,,x,,Tang,2000,"Budgets and dynamics of nitrogen and phosphorus in a shallow, hypereutrophic lake in China",Journal of Freshwater Ecology,Lake Donghu,lake,single,,,,
+19,,,,,Saunders ,2001,"Nitrogen retention in wetlands, lakes and rivers",,,,multiple,,,,likely contains data in other papers
+20,,,,,Sondergaard,2001,"Retention and internal loading of phosphorus in shallow, eutrophic lakes",The Scientific World,,,,,,,
+21,,,x,,Lamontagne,2002,"Groundwater delivery rate of nitrate and predicted change in nitrate concetration in Blue Lake, South Australia",Marine and freshwater Research,Blue Lake,lake,single,,,,
+22,,,x,,Koszelnik,2003,The influence of reservoir morphometry on nitrogen retention,Transactions on Ecology and the Environment,,reservoirs,multiple,,,,
+23,,,x,,Ito,2005,Nitrogen input-output budgets for lake-containing watersheds in the Airondack region of New York,Biogeochemistry,,lake,multiple,,,,
+24,Finlay2,x,x,,David,2006,Denitrification and the nitrogen budget of a reservoir in an agricultural landscape,Ecological Applications,Lake Shelbyville,reservoir,single,,,,
+25,koiv,,,,Moosmann,2006,Is phosphorus retention in autochthonous lake sediments controlled by oxygen or phosphorus?,Limnology & Oceanography,,,multiple,,,,
+26,,,x,,Seitzinger,2006,Denitrification across landscapes and waterscapes: A synthesis,Ecological Applications,,,,,,,
+27,,,x,,Brett,2008,A review and reassessment of lake phosphorus retention and the nutrient loading concept,Freshwater Biology,,,multiple,,x,,
+28,,,x,,Irfanullah,2008,"Low retention of nitrogen in a clear-water, shallow, temperate lake",Fundamental and Applied Limnology,Little Budworth Pool,lake,single,,,,
+29,,x,x,,Kumar,2008,Nitrogen and carbon uptake dynamics in Lake Superior,Journal of Geophysical Research,Lake Superior,lake,single,,,,
+30,,,,,Harrison,2009,The regional and global significance of nitrogen removal in lakes and reservoirs,Biogeochemistry,,,multiple,,,,
+31,,,x,,Klump,2009,"Benthic biogeochemical cycling, nutrient stoichiometry, and carbon and nitrogen mass balances in a eutrophic freshwater bay",Limnology & Oceanography,Lake Michigan,lake,single,,,,
+32,,,x,,Suchowolec,2009,Riverine water transformation during retention in small lowland reservoirs,Oceanological and Hydrobiological Studies,,reservoirs,multiple,,,,
+33,"Maavara 2015, Finlay2",,x,x,Cook,2010,"Retention of nitrogen, phosphorus and silicon in a large semi-arid riverine lake system",Biogeochemistry,,,single,,,,
+34,,,x,,McDonald,2010,Modeling historical trends in Lake Superior total nitrogen concentrations,Journal of Great Lakes Research,Lake Superior,lake,single,,,,
+35,,,,,Brown,2011,"Nutrient sources and transport in the missouri river basin, with emphasis on the effects of irrigation and reservoirs",Journal of the American Water Resources Association,,,mutliple,,,,
+36,,,,,Hargan,2011,A total phosphorus budget for the Lake of the Woods and the Rainy River catchment,Journal of Great Lakes Research,,lake,single,,,,
+37,Harrison 2009,,x,,Koiv,2011,"Phosphorus retention as a function of external loading, hydraulic turnover time, area and relative depth in 54 lakes and reservoirs",Hydrobiologia,,,multiple,,,,
+38,,,x,x,Kunz,2011,"Impact of a large tropical reservoir on riverine transport of sediment, carbon and nutrients to downstream wetlands",Water Resources Research,Itezhi-Tezhi Reservoir,reservoir,single,,,,
+39,"Finlay, Maavara",,,x,Vanni,2011,Nutrient stoichiometry of linked catchment-lake systems along a gradient of land use,Freshwater Biology,Acton Lake,reservoir,single,,,,
+40,Finlay2,,,,Bruesewitz,2012,Incorporating spatial variation of nitrification and denitrification rates into whole-lake nitrogen dynamics,JGR Biogeosciences,Gull Lake,lake,single,,,,
+41,,,,,May,2012,"Historical changes (1905-2005) in external phosphorus loads to Loch Leven, Scotland, UK",Hydrobiologia,,,single,,,,
+42,paired with Harrison data,,x,x,Sondergaard,2012,Persistent internal phosphorus loading during summer in shallow eutrophic lakes,Hydrobiologia,,lakes,multiple,,,,
+43,,x,x,x,Weilhartner,2012,Gravel pit lake ecosystems reduce nitrate and phophate concetrations in the outflow groundwater,Science of The Total Environment,,gravel pit lakes,multiple,,,,
+44,most data in Harrison,,,,Finlay,2013,Human influences on nitrogen removal in lakes,Science,,,multiple,,,,requested data
+45,Maavara 2015,,x,x,Cunha,2014,Trends in nutrient and sediment retention in Great Plains reservoirs (USA),Environmental Monitoring and Assessment,,reservoirs,multiple,,,,
+46,Finlay2,,,x,Grantz,2014,"Stoichiometric imbalance in rates of nitrogen and phosphorus retention, storage, and recycling can perpetuate nitrogen deficiency in high-productive reservoirs",Limnology & Oceanography,,reservoirs,multiple,,x,,
+47,,,x,1,Kenney,2014,"Whole-basin, mass-balance approach for identifying critical phosphorus-loading thresholds in shallow lakes ",Journal of Paleolimnology,Lake Lochloosa,,single,,,,only P data
+48,,,,1,Small,2014,An ecological network analysis of nitrogen cycling in the Laurentian Great Lakes,Ecological Modeling,,lakes,multiple,,,,only N data
+49,,,x,1,Stenback,2014,Nitrate loss in Saylorville Lake reservoir in Iowa,Journal of Hydrology,Saylorville Lake,reservoir,single,,,,only N data
+50,,,,x,Maavara,2015,Global phosphorus retention by river damming,PNAS,,reservoirs,multiple,,x,,data downloaded
+51,,x,,x,Powers,2015,Control of nitrogen and phosphorus transport by reservoirs in agricultural landscapes,Biogeochemistry,,reservoirs,multiple,,,,
+52,,,,0,Welch,2015,A dramatic recovery of Lake Spokane water quality following wastewater phosphorus reduction,Lake and Reservoir Management,Lake Spokane,lake,single,,,,no budget data
+53,,x,x,0,Wu,2015,"Estimates of long-term water total phosphorus (TP) concentrations in three large shallow lakes in the Yangtze River basin, China",Environmental Science and Pollution Research,,,multiple,,,,only P data
+54,,,x,0,Hupfer,2016,Long-term efficiency of lake restoration by chemical phosphorus precipitation: Scenario analysis with a phosphorus balance model,Water Research,Lake Arendsee,lake,single,,,,"modeled retention under different scenarios, data in other papers, may already have this lake?"
+55,,,x,0,Lu,2016,Hydrological controls on cascade reservoirs regulating phosphorus retention and downriver fluxes,Environmental Science and Pollution Research,Xipi Reservoir,reservoir,single,,,,only P data
+56,Harrison 2009,,,x,O'Brien,2016,Sediment and nutrient budgets are inherently dynamic: evidence form a long-term study of two subtropical reservoirs,Hydrology and Earth System Sciences,,reservoir,multiple,,,,
+57,,,x,x,Sow,2016,"Retention of nutrients, suspended particulate matter and phytoplankton in a pondage associated with a run-of-the-river type hydroelectric power plant",Ecohydrology,Malause Pondage,reservoir,,,,,
+58,,,x,0,Zhang,2017,"Analysis of nutrient transport and ecological response in Honghu Lake, China by using a mathematical model",Science of The Total Environment,Honghu Lake,,single,,,,no residence time estimate
+59,Harrison & Maavara,,,x,Kelly,2001,Influence of reservoirs on solute transport: a regional-scale approach,Hydrological Processes,,reservoirs,multiple,,,,
+60,"Harrison, Maavara, Koiv",,,x,Garnier,1999,"Biogeochemical mass-balances (C, N, P, Si) in three large reservoirs of the Seine Basin (France)",Biogeochemistry,,reservoirs,multiple,,,,
+61,"Maavara 2015, Finlay2",,,x,Burford,2012,Sources and fate of nutrients in a subtropical reservoir,Aquatic Scinces,,reservoir,single,,,,
+62,Maavara 2015 (+ missing some lakes),,,x,Donald,2015,Nutrient sequestration in the Lake Winnipeg watershed,Journal of Great Lakes Research,,lakes and reservoirs,multiple,,,,
+63,"Maavara 2015, Koiv",,,x,Hart,2002,"Nutrient budget for Saguling Reservoir, West Java, Indonesia",Water Research,Saguling Reservoir,reservoir,single,,,,
+64,Maavara 2015,,,x,Walker,1985,Empirical methods for predicting eutrophication in impoundments,US Army Corps of Engineers Report,,reservoirs,multiple,,,,
+65,"N from other paper in Harrison et al, P extracted from this paper",,,x,Jensen ,2006,An empirical model describing the seasonal dynamics of phosphorus in 16 shallow eutrophic lakes after external loading reduction,Limnology & Oceanography,,lakes,multiple,,,,lake recovering from eutrophication
+66,"Harrison, Finlay ",,,x,Teodiru ,2005,Retention of sediments and nutrients in the Iron Gate I Reservoir on the Danube River,Biogeochemistry,Iron Gate Reservoir,reservoir,single,,,,
+67,Maavara,,,x,Pomogyi,1993,Nutrient retention by the Kis-Balaton Water Protection System,Hydrobiologia,,reservoir,single,,,,
+68,Maavara,,,x,Le Thi,2010,Nutrient transfers in the subtropical Red River system (China and Vietnam): Modelling and budget of nutrient sources and sinks,,,,,,,,
+69,Maavara,,,x,Ramirez,2010,"Changing water, phosphorus and nitrogen budgets for Valle de Bravo reservoir, water supply for Mexico City Metropolitan Area",Lake and Reservoir Management,Valle de Bravo,reservoir,single,,,,
+70,Maavara,,,x,Rydin,2008,Compensetory nutrient enrichment in an oligotrophicated mountain reservoir - effects and fate of added nutrients,Aquatic Scieces,Mjolkvattnet,reservoir,single,,,,
+71,Maavara,,,x,Turner,1983,Nutrient retention and transformation in relation to hydraulic flushing rate in a small impoundment,Freshwater Biology,Lake Talquin,lake,single,United States,,,
+72,"Maavara, koiv",,,x,Wagner,1996,Diagnostic and feasibility study of Lake Skipout,Oklahoma Conservation Commission Water Quality Division,,lake,single,United States,,,
+73,,,,x,Nemery,2015,"Carbon, nitrogen, phosphorus, and sediment sources and retention in a small eutrophic tropical reservoir",Aquatic Sciences,Cointzio,reservoir,single,,,,
+74,"Harrison, Finlay",,,x,Ahlgren,1994,Nitrogen budgets in relation to microbial transformations in lakes,Ambio,,lake,multiple,Sweden,,,
+75,Finlay,,,,Granina,1997,The chemical budget of lake Baikal: A review,Limnology & Oceanography,Lake Baikal,lake,single,Russia,,,
+76,"Finlay, koiv",,,x,Hamilton,2006,Nutrient and water budget for Lake Tarawera,University of Waikato,,,single,New Zealand,,,
+77,Finlay,,,,Wilander,2001,Recovery from eutrophication: Experiences of reduced phosphorus input to the four largest lakes of Sweden,Ambio,,lakes,multiple,Sweden,,,
+78,Finlay,,,,Stalnacke,1998,Trends in nitrogen transport in Swedish rivers,,,,,Sweden,,,no P data
+79,"Finlay, Harrison",,,x,Mengis,1997,Nitrogen elimination in two deep eutrophic lakes,,,,multiple,,,,no P data
+80,Finlay,,,,Smith,1989,"Internal sources and sinks of water, P, N, Ca, and Cl in Lake Kinneret, Israel",,,,single,Israel,,,
+81,Finlay,,,x,Jonsson,1997,"Sedimentation and mineralisation of organic carbon, nitrogen, and phosphorus in a large humic lake, northern Sweden",Archive fur Hydrobiologia,,lake,single,,,,
+82,"Finlay, koiv",,,,Kvarnas,2001,Morphometry and hydrology of the four large lakes of Sweden,Ambio,,,,,,,
+83,Finlay,,,x,Schindler,1973,"Physical and chemical limnology of Char Lake, Cornwallis Island",Fisheries Research Board of Canada,Char Lake,lake,single,,,,
+84,Finlay,,,,Schindler ,1976,Natural water and chemical budgets for a small Precambrian lake basin in central Canada,Fisheries Research Board of Canada,Rawson Lake,lake,single,Canada,,,
+85,Finlay,,,,Dillon,1990,The role of ammonium and nitrate retention in the acidification of lakes and forested catchments,Biogeochemistry,,,multiple,,x,,no P data
+86,"Finlay, koiv",,,,Schernewski,2003,"Nutrient budgets, dynamics, and storm effects in a eutrophic, stratified Baltic lake",Acta hydrochimica et hydrobiologica,Lake Belau,,single,Germany,,,
+87,Finlay,,,,Gibson,1992,"The nitrogen cycle in Lough Neagh, N. Ireland 1975 to 1987",Int. Rev. Gesamten Hydrobiol. Hydrograph,Lough Neagh,,single,Northern Ireland,,,no P data
+88,Finlay,,,,Noges,1998,Nutrient budget of Lake Peipsi in 1998,Proceedings of the Estonian Academy of Sciences Bio. Ecol.,Lake Peipsi,,single,Estonia,,,
+89,"Harrison, Finlay, Koiv",,,x,Noges,1998,The budgets of nitrogen and phosphorus in shallow eutrophic Lake Vortsjarv,Hydrobiologia,Lake Vortsjarv,,single,Estonia,,,
+90,"Harrison, koiv",,,x,Noges,2005,Water and nutrient mass balance of the partly meromictic temperate Lake Verevi,Hydrobiologia,Lake Verevi,,single,Estonia,,,
+91,Finlay,,,,Whalen,1985,"Nitrogen, phosphorus and organic carbon cycling in an arctic lake",Canadian Journal of Fisheries and Aquatic Sciences,Toolik Lake,,single,United States,,,
+92,"Finlay, koiv",,,,Ekholm,1997,Internal and external loading as regulators of nutrient concentrations in the agriculturally loaded Lake Pyhajarvi,Hydrobiologia,Lake Pyhajarvi,,single,Finland,,,
+93,"Finlay, Harrison",,,x,Dudel,1992,"The nitrogen budget of a shallow lake (Grosser Muggelsee, Berlin)",Int. Rev. Gesamten Hydrobiol. Hydrograph,Grosser Muggelsee,,single,Germany,,,"may not have P data, but may be elsewhere?, P reported in Finlay, so deleted from harrison"
+94,Finlay,,,,Broberg,1984,"External budgets for phosphorus, nitrogen and dissolved organic carbon for the acidified Lake Gardsjon",Archive fur Hydrobiologia,Lake Gardsjob,,single,,,,
+95,"Finlay, koiv",,,,Ojanen,1979,Phosphorus and nitrogen balance of the eutrophic Lake Tuusulanjarvi,"Publications of the Water Research Institute, National Board of Waters, Finland",Lake Tuusulanjarvi,lake,single,Finland,,,
+96,"Finlay, koiv",,,x,Knuuttila,1994,Nutrient balances and phytoplankton dynamics in two agriculturally loaded shallow lakes,Hydrobiologia,,,multiple,Finland,,,
+97,"Finlay, Koiv",,,x,Havens,2001,"Nutrient dynamics and the eutrophication of shallow lakes Kasumigaura (Japan), Donghu (PR China), and Okeechobee (USA)",Environmental Pollution,,,multiple,"Japan, China, USA",,,
+98,Finlay,,,,Passy,2012,"Restoration of ponds in rural landscapes: Modelling the effect on nitrate contamination of surface water (the Seine River Basin, France)",Science of The Total Environment,,,multiple,France,,,see table 1 for possible other N retention (guessing Finlay has all of these)
+99,Finlay,,,,Kronvang,2001,"Chapter 9: Nitrogen transport and fate in European streams, rivers, lakes and wetlands","Book: Nitrogen in the environment: Sources, problems, and management",,,multiple,,,,data may be elsewhere
+100,Finlay,,,,Olsen,1994,"Nutrient cycling in shallow, oligotrophic Lake Kvie, Denmark",Hydrobiologia,Lake Kvie,lake,single,Denmark,,,no P data
+101,"Harrison, Finlay",,,x,Jeppesen,1998,Changes in nitrogen retention in shallow eutrophic lakes following a decline in density of cyprinids,Archive fur Hydrobiologia,,,multiple,,,,"N only, may be P data in other Danish lakes papers"
+102,Finlay,,,,Devito,1989,Phosphorus and nitrogen retention in five Precambrian shield wetlands,Biogeochemistry,,,multiple,Canada,,,
+103,Finlay,,,,Olsson,1991,Nitrogen and phosphorus mass balances for Vanern 1970-1989,Vatten,,,single,,,,can't find paper
+104,Finlay,,,,Persson,1989,"Lake Vattern, Sweden - a 20-year perspective",Ambio,,,single,Sweden,,,can't find paper
+105,Finlay,,,x,Fleischer,1994,Nitrogen removal in created ponds,Ambio,,,multiple,Sweden,,,no P data
+106,Finlay2,,,,Verburg,2013,"Nutrient ratios, differential retention, and the effoect on nutrient limitation in a deep oligotrophic lake",Hydrobiologia,Lake Brunner,lake,single,,,,
+107,Finlay,,,,Sterner,2007,Increasing stoichiometric imbalance in North America's largest lake: Nitrification in Lake Superior,Geophysical Research Letters,Lake Superior,lake,single,United States,,,
+108,"Finlay, Harrison",,,x,Kelly,1987,Prediction of biological acid neutralization in acid-sensitive lakes,Biogeochemistry,,lake,multiple,,,,"may be more lakes than reported in Finlay, but maybe repeats of other papers?"
+109,Finlay,,,x,Ferris,2008,Nutrient budgets and river impoundments: Interannual variation and implications for detecting future changes,Lake and Reservoir Management,,reservoirs,multiple,,,,
+110,Finlay,,,x,Kaste,2005,Influence of moderate phosphate addition on nitrogen retention in an acidic boreal lake,Canadian Journal of Fisheries and Aquatic Sciences,Lake Nedre Lundetjenn,lake,multiple,,,,
+111,Finlay2,,,,LaBaugh,1995,"Groundwater contribution to the water and chemical budgets of Williams Lake, Minnesota, 1980-1991",Canadian Journal of Fisheries and Aquatic Sciences,Williams Lake,lake,single,United States,,,
+112,Finlay2,,,,Leavitt,2006,Landscape-scale effects of urban nitrogen on a chain of freshwater lakes in central North America,Limnology & Oceanography,,lake,multiple,Canada,,,
+113,Finlay2,,,,Hemond,1984,"Neutralization of acid deposition by nitrate retention at Bickford watershed, Massachusetts",Water Resources Research,Bickford ,,single,,,,
+114,"Harrison, Finlay2",,,x,Andersen,1974,Nitrogen and phosphorus budgets and the role of sediments in six shallow Danish lakes,,,,,,,,
+115,Finlay2,,,x,Kunz,2011,"Sediment accumulation and carbon, nitrogen, and phosphorus deposition in the large tropical reservoir Lake Kariba (Zambia/Zimbabwe)",Journal of Geophysical Research,Lake Kariba,reservoir,single,Zambia/Zimbabwe,,,"was in Finlay2, but should just extract in this data sheet"
