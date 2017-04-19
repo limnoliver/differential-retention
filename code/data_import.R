@@ -219,10 +219,16 @@ maav$tp_out_mass = maav$tp_out_mass*(30.97/1000)
 ########################
 
 brett <- read.csv("data/Brett_with_N.csv", header = TRUE, na.strings = c("", NA))
-brett <- brett[,c(2:28, 30)]
-brett[,1] = "brett2008"
-brett <- brett[,c(1:9, 11:28)] 
 
+# fill in missing P loading data, so as to override from Rydin
+brett$tp_in_mass[is.na(brett$tp_in_mass)] <- brett$Loading_constant_kgy[is.na(brett$tp_in_mass)]
+
+brett[c(1:30),2] = "Rast and Lee 1978"
+brett[c(93:157),2] = "Janis and Vollenweider 1981"
+brett[c(158:171),2] = "Rydin 1980"
+
+brett <- brett[,c(1:9, 11:28)] 
+brett <- brett[,c(2:28, 30)]
 names(brett)[c(1:20)] <- c("source", "waterbody_name", "state", 
                   "surface_area", "mean_depth", "Q", "res_time", 
                   "tp_out_conc", "tp_in_mass", 
@@ -464,10 +470,6 @@ dat.all$tp_in_mass_areal <- (dat.all$tp_in_mass*1000)/(dat.all$surface_area*1000
 dat.all$tp_out_mass_areal <- (dat.all$tp_out_mass*1000)/(dat.all$surface_area*1000000)
 dat.all$tp_r_mass_areal <- dat.all$tp_in_mass_areal-dat.all$tp_out_mass_areal
 
-# here, run optimization and return to predicted
-# predicted retention
-dat.all$Rn_predicted <- 1-(exp((-Fit.N.np$par[1]*(dat.all$res_time/dat.all$mean_depth))))
-dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp$par[2])))))
 
 # calculate np in and out
 dat.all$np_in <- (dat.all$tn_in_mass/dat.all$tp_in_mass)*(30.97/14)
@@ -488,6 +490,18 @@ influential.p <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  
 #validated epa data
 influential.p <- influential.p[c(18:45)]
 dat.all$outlier[influential.p] = 1
+
+mod <- lm(log10(tp_in_mass_areal)~log10(tn_in_mass_areal), data=dat.all)
+cooksd <- cooks.distance(mod)
+influential.np <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers
+plot(log10(tp_in_mass_areal)~log10(tn_in_mass_areal), dat.all)
+points(log10(tp_in_mass_areal)~log10(tn_in_mass_areal), dat.all[influential.np, ], pch = 16, col = "red")
+
+# here, run optimization and return to predicted
+# predicted retention
+dat.all$Rn_predicted <- 1-(exp((-Fit.N.np$par[1]*(dat.all$res_time/dat.all$mean_depth))))
+dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp$par[2])))))
+
 
 
 # make subsets of data
