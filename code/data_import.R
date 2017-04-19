@@ -324,13 +324,24 @@ for (i in 1:nrow(lit)){
   }  
 }
 
+# fill in mass in/out if missing (from retained)
+# only missing from source 51, fill in by using proportion removed
 
-    
+lit$tp_out_mass[is.na(lit$tp_out_mass)] = lit$tp_in_mass[is.na(lit$tp_out_mass)]*(1-lit$p_retained[is.na(lit$tp_out_mass)])
+lit$tn_out_mass[is.na(lit$tn_out_mass)] = lit$tn_in_mass[is.na(lit$tn_out_mass)]*(1-lit$n_retained[is.na(lit$tn_out_mass)])
+
+# order data properly
+lit$state <- ""
+lit$Rp_calculated <- ""
+lit$Rn_calculated <- ""
+lit <- lit[,c(34,2,4,42,3,5,6,8,9,11,35,12,16,36,17,37,24,38,25,39,31,43,32,44,33 )]
+
+names(lit) <- names(dat)
 #############################
 # get all data together
 #############################
 
-dat.all <- rbind(dat, brett, har, donald, maav)
+dat.all <- rbind(dat, brett, har, donald, maav, lit)
 dat.all$Rp <- as.numeric(dat.all$Rp_source)
 dat.all$Rp[is.na(dat.all$Rp)] <- as.numeric(dat.all$Rp_calculated[is.na(dat.all$Rp)])
 dat.all$Rn <- as.numeric(dat.all$Rn_source)
