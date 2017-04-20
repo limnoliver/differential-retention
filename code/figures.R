@@ -346,7 +346,34 @@ plot(stoich$Rn~stoich$Rp, pch = 21,
      xlab = "Rp", ylab = "Rn", cex.axis = 1.3)
 
 abline(0,1,col = "red", lwd = 2)
-text(x=-.6, y = .9, "561 of 736 (76%) \nRp > Rn", col = "red", cex = 1.3)
+text(x=-.6, y = .9, "587 of 807 (73%) \nRp > Rn", col = "red", cex = 1.3)
+
+dev.off()
+scatterhist = function(x, y, xlab="", ylab=""){
+  zones=matrix(c(2,0,1,3), ncol=2, byrow=TRUE)
+  layout(zones, widths=c(4/5,1/5), heights=c(1/5,4/5))
+  xhist = hist(x, plot=FALSE)
+  yhist = hist(y, plot=FALSE)
+  top = max(c(xhist$counts, yhist$counts))
+  par(mar=c(4.5,4.5,1,1), cex = 2)
+  plot(x,y, pch = 21, 
+       bg = rgb(222,222,222,alpha = 200, max = 255), xlab = xlab, ylab = ylab, cex.lab = 1.4)
+  abline(0,1,lwd=2, col = "red")
+  text(x=-.6, y = .9, "587 of 807 (73%) \nRp > Rn", col = "red", cex = 1.3)
+  par(mar=c(0,3,1,1))
+  barplot(xhist$counts, axes=FALSE, ylim=c(0, top), space=0)
+  par(mar=c(3,0,1,1))
+  barplot(yhist$counts, axes=FALSE, xlim=c(0, top), space=0, horiz=TRUE)
+  par(oma=c(4,4,0,0))
+  #mtext(xlab, side=1, line=2, outer=TRUE, adj=0, 
+  #      at=.8 * (mean(x) - min(x))/(max(x)-min(x)))
+  #mtext(ylab, side=2, line=2, outer=TRUE, adj=0, 
+  #      at=(.8 * (mean(y) - min(y))/(max(y) - min(y))))
+}
+png("R_scatterhist.png", height = 1000, width = 1000)
+scatterhist(x = stoich$Rp, y = stoich$Rn, xlab = "Rp", ylab = "Rn")
+#abline(0,1,col = "red", lwd = 2)
+#text(x=-.6, y = .9, "587 of 807 (73%) \nRp > Rn", col = "red", cex = 1.3)
 
 dev.off()
 
@@ -2105,6 +2132,8 @@ restime.4 <- median(stoich$res_time[stoich$res_time>=restime[3]])
 n.mod(depth, restime)
 p.mod(restime)
 
+n.mod(depth.3, restime.4)
+p.mod(restime.4)
 ###############################################################
 # Differential retention plotted over depth and residence time
 # first plot with points
@@ -2132,9 +2161,10 @@ rect(depth.min, log10(restime[2]), log10(depth[1]), log10(restime[3]), col = rgb
 rect(log10(depth[1]), log10(restime[2]), depth.max, log10(restime[3]), col =col.p, border = NA)
 rect(depth.min, log10(restime[3]), log10(depth[2]), restime.max, col = col.n, border = NA)
 rect(log10(depth[2]), log10(restime[3]), depth.max, restime.max, col = col.p, border = NA)
-points(log10(stoich$res_time[stoich$R_diff>0.2])~log10(stoich$mean_depth[stoich$R_diff>0.2]),pch = 21, cex = 1.1, bg = col.n)
-points(log10(stoich$res_time[stoich$R_diff< -0.2])~log10(stoich$mean_depth[stoich$R_diff< -0.2]),pch = 21, cex = 1.1, bg = col.p)
-points(log10(stoich$res_time[stoich$R_diff> -0.2&stoich$R_diff<0.2])~log10(stoich$mean_depth[stoich$R_diff> -0.2&stoich$R_diff<0.2]),pch = 21, cex = 1.1, bg = rgb(200,200,200,max=255,200))
+points(log10(stoich$res_time[stoich$R_diff> -0.2&stoich$R_diff<0.2])~log10(stoich$mean_depth[stoich$R_diff> -0.2&stoich$R_diff<0.2]),pch = 21, cex = 1.2, bg = rgb(200,200,200,max=255,200))
+points(log10(stoich$res_time[stoich$R_diff< -0.2])~log10(stoich$mean_depth[stoich$R_diff< -0.2]),pch = 21, cex = 1.2, bg = col.p)
+
+points(log10(stoich$res_time[stoich$R_diff>0.2])~log10(stoich$mean_depth[stoich$R_diff>0.2]),pch = 21, cex = 1.2, bg = col.n)
 dev.off()
 
 # contour plot of depth, res time, and differential retention
