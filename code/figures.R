@@ -610,28 +610,28 @@ pdf("PerChange_stoichin_depth.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
 plot(stoich$np_change[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-legend("topleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
-text(x = 0, y= -1.2, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+legend("bottomleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+text(x = 3, y= 1.2, expression(paste(tau, " < 1 month")), col = "red", pos = 2)
 plot(stoich$np_change[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 1.3), xlim = c(.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-text(x = 0, y= -1.2, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+text(x = 3, y= 1.2, expression(paste(tau, " = 1-5 months")), col = "red", pos = 2)
 plot(stoich$np_change[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-text(x = 0, y= -1.2, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+text(x = 3, y= 1.2, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 2)
 
 plot(stoich$np_change[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 mtext("Change in Stoichiometry", side = 2,cex=1.7, outer = TRUE, line=1.5)
 mtext("log Input TN:TP", side = 1,cex=1.7, outer = TRUE, line=1.5)
-text(x = 0, y= -1.2, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+text(x = 3, y= 1.2, expression(paste(tau, " > 1.2 years")), col = "red", pos = 2)
 
 dev.off()
 
@@ -2207,7 +2207,7 @@ pdf("NPchange_restime_all.pdf")
 par(mar=c(5,5,1,1))
 plot(stoich$np_change~log10(stoich$res_time), xlab = "Residence Time (y)",
      ylab = "Change in Stoichiometry", cex = .8, pch = 16, col = "white", xaxt = "n")
-axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
+axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"))
 
 # add rectangles that show where doubling or halving of stoichiometry occurs
 rect(-3.5, 0, 3, 0.3, col = rgb(200, 200, 200, max = 255, 122), border = NA)
@@ -2261,19 +2261,19 @@ np_quart_in = as.numeric(tapply(log10(stoich$np_in), INDEX = c(p), median, na.rm
 np_quart_out = as.numeric(tapply(log10(stoich$np_out), INDEX = c(p), median, na.rm = TRUE))
 
 pdf("ChangeNP_lines_percentiles.pdf", height = 7, width = 10)
-plot(x = 1, y = 2, xlim = c(-1, 4), ylim = c(-2,2), xaxt = "n", yaxt = "n", col = "white",
+plot(x = 1, y = 2, xlim = c(0, 3.5), ylim = c(-2,2), xaxt = "n", yaxt = "n", col = "white",
      type = "n", axes = FALSE, ylab = "", xlab = "")
 
-rect(-1.1, -2, log10(44), 2, col = col.n, border = NA)
-rect(log10(110), -2, 4, 2, col = col.p, border = NA)
+rect(.1, -2, log10(44), 2, col = col.n, border = NA)
+rect(log10(110), -2, 3.5, 2, col = col.p, border = NA)
 rect(log10(44), -2, log10(110), 2, col = rgb(122,122,122,max=255,122), border = NA)
-text(-1, 1.2, "Inlet Stoichiometry", pos = 4, cex = 1.5)
-text(-1, -1.2, "Outlet Stoichiometry", pos = 4, cex = 1.5)
+text(.1, 1.2, "Inlet Stoichiometry", pos = 4, cex = 1.5)
+text(.1, -1.2, "Outlet Stoichiometry", pos = 4, cex = 1.5)
 text(log10(44), 1.2, "N:P < 44", pos = 2, cex = 1.2)
 text(log10(110), 1.2, "N:P > 110", pos = 4, cex = 1.2)
 text(log10(44), 1.5, "N-limited", pos = 2, cex = 1.2)
 text(log10(110), 1.5, "P-limited", pos = 4, cex = 1.2)
-arrows(x0 = -1, y0 = -1.8, x1 = 3.8, y1 = -1.8, length = 0, lwd = 2)
+arrows(x0 = 0.2, y0 = -1.8, x1 = 3.4, y1 = -1.8, length = 0, lwd = 2)
 arrows(x0 = log10(44), y0 = -1.85, x1 = log10(44), y1 = -1.75, length = 0, lwd = 2)
 arrows(x0 = log10(110), y0 = -1.85, x1 = log10(110), y1 = -1.75, length = 0, lwd = 2)
 arrows(x0 = log10(500), y0 = -1.85, x1 = log10(500), y1 = -1.75, length = 0, lwd = 2)
@@ -2281,7 +2281,7 @@ arrows(x0 = log10(1000), y0 = -1.85, x1 = log10(1000), y1 = -1.75, length = 0, l
 arrows(x0 = log10(20), y0 = -1.85, x1 = log10(20), y1 = -1.75, length = 0, lwd = 2)
 arrows(x0 = log10(5), y0 = -1.85, x1 = log10(5), y1 = -1.75, length = 0, lwd = 2)
 text(x = log10(c(5,20,44,110,500,1000)), y = -1.65, labels = c("5", "20", "44", "110", "500", "1000"))
-text(-1, -1.7, "N:P (moles)", pos = 4)
+text(0.2, -1.7, "N:P (moles)", pos = 4)
 arrows(x0 = x.start, y0 = y.start, x1 = x.end, y1 = y.end, length = 0,
        col = rgb(250,250,250,max = 255, 122))
 arrows(x0 = np_quart_in, y0 = y.start, x1 = np_quart_out, y1 = y.end, lwd=5, length = 0, col = rgb(10,10,10,max=255,122))
