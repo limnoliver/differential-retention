@@ -35,21 +35,21 @@ Molot & Dillon 1993,Chub,Canada,Lake,Ontario,45.29580,-79.23377,8.90,2.018,0.344
 Molot & Dillon 1993,Blue Chalk,Canada,Lake,Ontario,45.19855,-78.93910,8.50,5.346,0.524,,0.00083,1550.0,,415,,73.00,44.10,,8.8,,mg m-2 y-1,,0.73,0.800,Found P data in Dillon & Evans (1993),mass
 Molot & Dillon 1993,Crosson,Canada,Lake,Ontario,45.08272,-79.03627,9.20,1.600,0.567,,0.00326,3450.0,,2210,,36.00,98.60,,57.1,,mg m-2 y-1,,0.36,0.421,Found P data in Dillon & Evans (1993),mass
 Molot & Dillon 1993,Red Chalk,Canada,Lake,Ontario,45.18996,-78.94850,14.20,2.461,0.571,,0.00329,3180.0,,1880,,40.00,73.30,,30.8,,mg m-2 y-1,,0.40,0.580,Found P data in Dillon & Evans (1993),mass
-Molot & Dillon 1993,Harp,Canada,Lake,Ontario,45.37892,-79.13516,13.30,3.122,0.714,,0.00304,3120.0,,1620,,48.00,,,,,,,0.48,,no data,
-Molot & Dillon 1993,Dickie,Canada,Lake,Ontario,45.14879,-79.08766,5.00,1.799,0.936,,0.00260,2260.0,,1090,,51.00,,,,,,,0.51,,no data,
+Molot & Dillon 1993,Harp,Canada,Lake,Ontario,45.37892,-79.13516,13.30,3.122,0.714,,0.00304,3120.0,,1620,,48.00,,,,,mg m-2 y-1,,0.48,,no data,
+Molot & Dillon 1993,Dickie,Canada,Lake,Ontario,45.14879,-79.08766,5.00,1.799,0.936,,0.00260,2260.0,,1090,,51.00,,,,,mg m-2 y-1,,0.51,,no data,
 Dillon & Evans 1993,Jerry,Canada,Lake,Ontario,45.38352,-79.11207,12.40,,0.510,,,,,,,,175.10,,80.4,,mg m-2 y-1,,,0.541,"Not in harrison, added because of matching P data above",mass
 Dillon & Evans 1993,Heney,Canada,Lake,Ontario,45.12771,-79.10238,3.30,,0.214,,,,,,,,98.50,,14,,mg m-2 y-1,,,0.858,"Not in harrison, added because of matching P data above",mass
 Noges 1998,V?rtsj„rv,Estonia,Lake,,58.31252,26.08677,2.80,0.880,270.000,,,7.7,,,,53.10,0.20,,,,g m-2 y-1,,0.53,0.280,,
 Noges 2005,Verevi 1991,Estonia,Lake,,58.23075,26.40535,3.60,1.111,0.126,,,573.0,,272,,52.00,14.00,,20,,kg,,0.52,-0.400,"change N retention estimates to the 50:50 surface:groundwater estimate, because discussion says that probably most closely reflects the lake. Time period for loading mass was April-October",mass
 Noges 2005,Verevi 1993,Estonia,Lake,,58.23075,26.40535,3.60,1.493,0.126,,,1062.0,,146,,86.00,11.00,,8,,kg,,0.86,0.220,"change N retention estimates to the 50:50 surface:groundwater estimate, because discussion says that probably most closely reflects the lake. Time period for loading mass was April-October",mass
-Patoine et al. 2006,Echo ,Canada,Lake,Saskatchewan,50.79635,-103.83973,9.80,0.700,,,,,,,,50.00,,,,,,,0.50,,No P data,
-Patoine et al. 2006,Crooked,Canada,Lake,Saskatchewan,50.59979,-102.75334,8.10,0.500,15.000,,,282.0,,162,,42.00,,,,,,,0.42,,No P data,
-Patoine et al. 2006,Pasqua,Canada,Lake,Saskatchewan,50.78538,-103.95713,6.00,0.700,,,,,,,,41.00,,,,,,,0.41,,No P data,
-Patoine et al. 2006,Mission,Canada,Lake,Saskatchewan,50.75879,-103.74009,8.20,0.400,,,,,,,,61.00,,,,,,,0.61,,No P data,
-Patoine et al. 2006,Katepwa,Canada,Lake,Saskatchewan,50.68431,-103.61953,14.40,1.300,16.000,,,468.1,,96,,80.00,,,,,,,0.80,,No P data,
-Patoine et al. 2006,Wascana,Canada,Reservoir,Saskatchewan,50.426269,-104.59036,1.40,0.050,0.500,,,15.5,,12,,23.00,,,,,,,0.23,,No P data,
-Patoine et al. 2006,Buffalo Pound,Canada,Reservoir,Saskatchewan,59.65,-105.50000,3.00,0.700,29.000,,,417.0,,18,,95.00,,,,,,,0.95,,No P data,
-Patoine et al. 2006,Last Mountain,Canada,Reservoir,Saskatchewan,51.07749,-105.25208,7.90,12.600,227.000,,,10144.0,,74,,99.00,,,,,,,0.99,,No P data,
+Patoine et al. 2006,Echo ,Canada,Lake,Saskatchewan,50.79635,-103.83973,9.80,0.700,,,,,,,,50.00,,,,,,,0.50,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
+Patoine et al. 2006,Crooked,Canada,Lake,Saskatchewan,50.59979,-102.75334,8.10,0.500,15.000,,,,,,,42.00,,,,,,,0.42,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
+Patoine et al. 2006,Pasqua,Canada,Lake,Saskatchewan,50.78538,-103.95713,6.00,0.700,,,,,,,,41.00,,,,,,,0.41,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
+Patoine et al. 2006,Mission,Canada,Lake,Saskatchewan,50.75879,-103.74009,8.20,0.400,,,,,,,,61.00,,,,,,,0.61,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
+Patoine et al. 2006,Katepwa,Canada,Lake,Saskatchewan,50.68431,-103.61953,14.40,1.300,16.000,,,,,,,80.00,,,,,,,0.80,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
+Patoine et al. 2006,Wascana,Canada,Reservoir,Saskatchewan,50.426269,-104.59036,1.40,0.050,0.500,,,,,,,23.00,,,,,,,0.23,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
+Patoine et al. 2006,Buffalo Pound,Canada,Reservoir,Saskatchewan,59.65,-105.50000,3.00,0.700,29.000,,,,,,,95.00,,,,,,,0.95,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
+Patoine et al. 2006,Last Mountain,Canada,Reservoir,Saskatchewan,51.07749,-105.25208,7.90,12.600,227.000,,,,,,,99.00,,,,,,,0.99,,"No P data, did not include mass data because it was only for 100 summer days and wasn't sure how to scale up",
 Prairie Unpub,Nick,Canada,Lake,Quebec,45.21299,-72.32860,3.00,0.314,,,,,,,,6.07,,,,,,,0.06,,unpublished,
 Prairie Unpub,Orford,Canada,Lake,Quebec,45.29388,-72.27154,17.70,3.820,,,,,,,,21.73,,,,,,,0.22,,unpublished,
 Prairie Unpub,Roxton,Canada,Lake,Quebec,45.46587,-72.65352,3.20,0.560,,,,,,,,31.49,,,,,,,0.31,,unpublished,
