@@ -474,7 +474,7 @@ dat.p.pos <- dat.p[dat.p$Rp>0, ]
 
 dat.n <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth), ]
 dat.n.real <-dat.n[dat.n$Rn>=-1,]
-dat.n.pos <-dat.n[dat.n$Rn>=0,]
+dat.n.pos <-dat.n[dat.n$Rn>=0 & dat.n$tn_r_mass_areal>0,]
 
 # dataframe for lakes with both N and P data
 dat.np <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn),]

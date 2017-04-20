@@ -642,28 +642,28 @@ pdf("PerChangePred_stoichin_depth.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
 plot(stoich$np_change_predicted[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 1.3), xlim = c(.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-legend("topleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
-text(x = 0, y= -1.2, expression(paste(tau, " < 1 month")), col = "red", pos = 4)
+legend("bottomleft", title = "Depth Percentiles", legend = c("<20th (<2.7m)", "20-50th (2.7-5.9m)", "50-80th (5.9-13.8m)", ">80th (>13.8m)"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+text(x = 3, y = 1.2, expression(paste(tau, " < 1 month")), col = "red", pos = 2)
 plot(stoich$np_change_predicted[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-text(x = 0, y= -1.2, expression(paste(tau, " = 1-5 months")), col = "red", pos = 4)
+text(x = 3, y= 1.2, expression(paste(tau, " = 1-5 months")), col = "red", pos = 2)
 plot(stoich$np_change_predicted[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-text(x = 0, y= 1.8, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 4)
+text(x = 3, y= 1.2, expression(paste(tau, " = 0.4-1.2 years")), col = "red", pos = 2)
 
 plot(stoich$np_change_predicted[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.3, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(0,3))
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 mtext("Change in Stoichiometry", side = 2,cex=1.7, outer = TRUE, line=1.5)
 mtext("log Input TN:TP (m)", side = 1,cex=1.7, outer = TRUE, line=1.5)
-text(x = 0, y= 1.8, expression(paste(tau, " > 1.2 years")), col = "red", pos = 4)
+text(x = 3, y= 1.2, expression(paste(tau, " > 1.2 years")), col = "red", pos = 2)
 
 dev.off()
 
@@ -897,29 +897,55 @@ pdf("Rp_restime_stoichin.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
 plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+legend("topright", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
 plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
 plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
 plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 2), xlim = c(-0.5,2.5))
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("Rp", side = 2,cex=1.7, outer = TRUE, line=1.5)
 mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
-pdf("Rp_restime_stoichin.pdf")
+pdf("R_diff_restime_stoichin.pdf")
+par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
+plot(stoich$R_diff[stoich$res_time<.0872]~log10(stoich$np_in[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
+plot(stoich$R_diff[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$np_in[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$R_diff[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "Change in Stoichiometry",
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+
+plot(stoich$R_diff[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$np_in[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+     xlab = "", ylab = "",
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 1.3), xlim = c(0.5,3))
+abline(h=0, lty = 2, col = "red", lwd = 2)
+mtext("Rn - Rp", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
+
+dev.off()
+
+pdf("RpR_restime_stoichin.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
 plot(stoich$Rp_res[stoich$res_time<.0872]~log10(stoich$tp_in_conc[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
@@ -941,7 +967,7 @@ plot(stoich$Rp_res[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_
      pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.1, 1.1), xlim = c(-4,3.5))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
-mtext("log Input N:P", side = 1,cex=1.7, outer = TRUE, line=1.5)
+mtext("log TP conc in", side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 #######################################################
@@ -1052,27 +1078,27 @@ dev.off()
 
 pdf("Rp_restime_pin.pdf")
 par(mfrow=c(2,2), mar=c(1.5,1.5,1,1), oma = c(4,4,0,0))
-plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$tp_in_mass_aerial[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
+plot(stoich$Rp[stoich$res_time<.0872]~log10(stoich$tp_in_mass_areal[stoich$res_time<.0872]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 1.3), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time<.0872], ylim = c(-1.3, 1.3), xlim = c(-2,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 legend("topleft", title = "Depth Percentile", legend = c("<20th", "20-50th", "50-80th", ">80th"), pch = 21, pt.bg = stoich.cols, cex = 1, pt.cex = 1.3)
-plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
+plot(stoich$Rp[stoich$res_time>=.0872&stoich$res_time<.4025]~log10(stoich$tp_in_mass_areal[stoich$res_time>=.0872&stoich$res_time<.4025]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 1.3), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.0872&stoich$res_time<.4025], ylim = c(-1.3, 1.3), xlim = c(-2,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
-plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
+plot(stoich$Rp[stoich$res_time>=.4025&stoich$res_time<1.2]~log10(stoich$tp_in_mass_areal[stoich$res_time>=.4025&stoich$res_time<1.2]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "Change in Stoichiometry",
-     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 1.3), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time>=.4025&stoich$res_time<1.2], ylim = c(-1.3, 1.3), xlim = c(-2,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
 
-plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_mass_aerial[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
+plot(stoich$Rp[stoich$res_time>=1.2&stoich$res_time<478]~log10(stoich$tp_in_mass_areal[stoich$res_time>=1.2&stoich$res_time<478]), cex.lab = 1.8, cex = 1.4, 
      xlab = "", ylab = "",
-     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 1.3), xlim = c(-1,6))
+     pch = 21, bg = stoich$colors[stoich$res_time>=1.2&stoich$res_time<478], ylim = c(-1.3, 1.3), xlim = c(-2,3))
 abline(h=0, lty = 2, col = "red", lwd = 2)
-mtext("P Retention", side = 2,cex=1.7, outer = TRUE, line=1.5)
-mtext("log P in (kg h-1 y-1)", side = 1,cex=1.7, outer = TRUE, line=1.5)
+mtext("Rp", side = 2,cex=1.7, outer = TRUE, line=1.5)
+mtext(expression(paste("log P in (g ",m^-2, y^-1,")", sep = "")), side = 1,cex=1.7, outer = TRUE, line=1.5)
 
 dev.off()
 
@@ -1354,6 +1380,55 @@ plot(log10(stoich$tn_r_mass_aerial[stoich$trophic == "mesotrophic"])~log10(stoic
 plot(log10(stoich$tn_r_mass_aerial[stoich$trophic == "mesotrophic"])~log10(stoich$tn_in_mass_aerial[stoich$trophic == "mesotrophic"]),
      cex = 1.2, pch = 16, col = "darkblue")
 
+#########################
+# Create figure that shows all data, not broken up into res time
+###########################
+np.cols <- brewer.pal(4, "BrBG")
+np.cols.a <- adjustcolor(np.cols, alpha = 0.5)
+pdf("NPchange_restime_npin_all.pdf", height = 6, width = 10)
+par(mar=c(5,5,1,.5), mfrow=c(1,2), cex =1)
+plot(stoich$np_change~log10(stoich$res_time),
+     cex = 1.2, xlab = "log Residence Time (y)", ylab = "Change in Stoichiometry",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
+points(stoich$np_change[stoich$np_in>=64.5]~log10(stoich$res_time[stoich$np_in>=64.5]),
+       col = np.cols.a[1], pch = 16, cex = 1.2)
+points(stoich$np_change[stoich$np_in>=36.33 & stoich$np_in<64.5]~log10(stoich$res_time[stoich$np_in>=36.33 & stoich$np_in<64.5]),
+       col = np.cols.a[2], pch = 16, cex = 1.2) 
+points(stoich$np_change[stoich$np_in>=22.3 & stoich$np_in<36.3]~log10(stoich$res_time[stoich$np_in>=22.3 & stoich$np_in<36.3]),
+       col = np.cols.a[3], pch = 16,cex = 1.2) 
+points(stoich$np_change[stoich$np_in<22.3]~log10(stoich$res_time[stoich$np_in<22.3]),
+       col = np.cols.a[4], pch = 16, cex = 1.2) 
+legend("bottomleft", legend = c("> 65","36-65","22-36","< 22"), 
+       title = "N:P in (molar)", bty = "n", pch = 16, col = np.cols, cex = 1, pt.cex = 1.4)
+
+plot(stoich$np_change~log10(stoich$np_in),
+     cex = 1.2, xlab = "log N:P in (molar)", ylab = "Change in Stoichiometry",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
+points(stoich$np_change[stoich$res_time>=1.2]~log10(stoich$np_in[stoich$res_time>=1.2]),
+       col = restime.cols.a[4], pch = 16, cex = 1.2)
+points(stoich$np_change[stoich$res_time>=0.3975 & stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=0.3975 & stoich$res_time<1.2]),
+       col = restime.cols.a[3], pch = 16, cex = 1.2) 
+points(stoich$np_change[stoich$res_time>=0.0850 & stoich$res_time<.3975]~log10(stoich$np_in[stoich$res_time>=0.0850 & stoich$res_time<.3975]),
+       col = restime.cols.a[2], pch = 16,cex = 1.2) 
+points(stoich$np_change[stoich$res_time<.085]~log10(stoich$np_in[stoich$res_time<.085]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2)  
+legend("bottomleft", legend = c("< 1 month", "1-5 months", "0.4-1.2 yrs", "> 1.2 yrs"), 
+       title = "Residence time", bty = "n", pch = 16, col = c(restime.cols[1], restime.cols[2], restime.cols[3], restime.cols[4]), cex = 1, pt.cex = 1.4)
+dev.off()
+
+par(mar=c(5,5,1,.5), mfrow=c(1,3), cex =1)
+plot(stoich$np_change~log10(stoich$np_in),
+     cex = 1.2, xlab = "log N:P in (molar)", ylab = "Change in Stoichiometry",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
+points(stoich$np_change[stoich$res_time>=1.2]~log10(stoich$np_in[stoich$res_time>=1.2]),
+       col = restime.cols.a[4], pch = 16, cex = 1.2)
+points(stoich$np_change[stoich$res_time>=0.3975 & stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=0.3975 & stoich$res_time<1.2]),
+       col = restime.cols.a[3], pch = 16, cex = 1.2) 
+points(stoich$np_change[stoich$res_time>=0.0850 & stoich$res_time<.3975]~log10(stoich$np_in[stoich$res_time>=0.0850 & stoich$res_time<.3975]),
+       col = restime.cols.a[2], pch = 16,cex = 1.2) 
+points(stoich$np_change[stoich$res_time<.085]~log10(stoich$np_in[stoich$res_time<.085]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
+
 ##################################################
 # Fig plot aerial mass remval vs aerial load
 # similar to Finlay plot
@@ -1365,7 +1440,7 @@ restime.cols.a <- adjustcolor(restime.cols, alpha = 0.7)
 pdf("out_in.pdf", height = 5, width = 12)
 par(mar=c(5,5,1,.5), mfrow=c(1,3), cex =1)
 plot(log10(dat.n.pos$tn_r_mass_areal)~log10(dat.n.pos$tn_in_mass_areal),
-     cex = 1.2, xlab = expression(paste("TN in (g ", m^-2," ", y^-1, ")", sep = "")), ylab = expression(paste("TN removed (g ", m^-2, " ", y^-1, ")", sep = "")),
+     cex = 1.2, xlab = expression(paste("log TN in (g ", m^-2," ", y^-1, ")", sep = "")), ylab = expression(paste("log TN removed (g ", m^-2, " ", y^-1, ")", sep = "")),
      cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
 points(log10(dat.n.pos$tn_r_mass_areal[dat.n.pos$res_time>=1.2])~log10(dat.n.pos$tn_in_mass_areal[dat.n.pos$res_time>=1.2]),
        col = restime.cols.a[4], pch = 16, cex = 1.2)
@@ -1377,15 +1452,15 @@ points(log10(dat.n.pos$tn_r_mass_areal[dat.n.pos$res_time<.085])~log10(dat.n.pos
        col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
                                                                                 
 abline(0,1,col = "red", lwd = 2, lty = 2)
-abline(-0.53, 0.80, col = restime.cols[1], lwd = 2, lty = 1)
-abline(-0.91, 1.14, col = restime.cols[2], lwd = 2, lty = 1)
-abline(-0.72, 1.09, col = restime.cols[3], lwd = 2, lty = 1)
-abline(-0.41, 1.02, col = restime.cols[4], lwd = 2, lty = 1)
+abline(-0.28, 0.77, lwd = 2, lty = 1)
+
 legend("topleft", legend = c("< 1 month", "1-5 months", "0.4-1.2 yrs", "> 1.2 yrs"), 
        title = "Residence time",bty = "n", pch = 16, col = c(restime.cols[1], restime.cols[2], restime.cols[3], restime.cols[4]), cex = 1, pt.cex = 1.4)
+text(2,-1.65,"y = 0.77x - 0.29", pos = 4)
+text(2,-2,expression(paste(R^2, " = 0.61", sep = "")), pos = 4)
 
 plot(log10(dat.p.pos$tp_r_mass_areal)~log10(dat.p.pos$tp_in_mass_areal),
-     cex = 1.2, xlab = expression(paste("TP in (g ", m^-2, " ", y^-1, ")", sep = "")), ylab = expression(paste("TP removed (g ", m^-2," ", y^-1, ")", sep = "")),
+     cex = 1.2, xlab = expression(paste("log TP in (g ", m^-2, " ", y^-1, ")", sep = "")), ylab = expression(paste("log TP removed (g ", m^-2," ", y^-1, ")", sep = "")),
      cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
 points(log10(dat.p.pos$tp_r_mass_areal[dat.p.pos$res_time>=1.2])~log10(dat.p.pos$tp_in_mass_areal[dat.p.pos$res_time>=1.2]),
        col = restime.cols.a[4], pch = 16, cex = 1.2)
@@ -1397,13 +1472,13 @@ points(log10(dat.p.pos$tp_r_mass_areal[dat.p.pos$res_time<.085])~log10(dat.p.pos
        col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
 
 abline(0,1,col = "red", lwd = 2, lty = 2)
-abline(-0.76, 1.08, col = restime.cols[1], lwd = 2, lty = 1)
-abline(-0.62, 1.30, col = restime.cols[2], lwd = 2, lty = 1)
-abline(-0.37, 1.25, col = restime.cols[3], lwd = 2, lty = 1)
-abline(-0.21, 1.09, col = restime.cols[4], lwd = 2, lty = 1)
+abline(-0.40,0.94, lwd = 2, lty = 1)
+text(1.3,-2.9,"y = 0.94x - 0.40", pos = 4)
+text(1.3,-3.35,expression(paste(R^2, " = 0.83", sep = "")), pos = 4)
+
 
 plot(log10(stoich$np_r)~log10(stoich$np_in),
-     cex = 1.2, xlab = "N:P in (moles)", ylab = "N:P removed (moles)",
+     cex = 1.2, xlab = "log N:P in (moles)", ylab = "log N:P removed (moles)",
      cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
 points(log10(stoich$np_r[stoich$res_time>=1.2])~log10(stoich$np_in[stoich$res_time>=1.2]),
        col = restime.cols.a[4], pch = 16, cex = 1.2)
@@ -1414,10 +1489,10 @@ points(log10(stoich$np_r[stoich$res_time>=0.0850 & stoich$res_time<.3975])~log10
 points(log10(stoich$np_r[stoich$res_time<.085])~log10(stoich$np_in[stoich$res_time<.085]),
        col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
 abline(0,1,col = "red", lwd = 2, lty = 2)
-abline(-0.8, 1.27, col = restime.cols[1], lwd = 2, lty = 1)
-abline(-0.61, 1.27, col = restime.cols[2], lwd = 2, lty = 1)
-abline(-0.69, 1.27, col = restime.cols[3], lwd = 2, lty = 1)
-abline(-0.54, 1.27, col = restime.cols[4], lwd = 2, lty = 1)
+abline(-0.62, 1.26, lwd = 2, lty = 1)
+
+text(1.9,-0.8,"y = 1.26x - 0.62", pos = 4)
+text(1.9,-1.1,expression(paste(R^2, " = 0.53", sep = "")), pos = 4)
 
 dev.off()
 
