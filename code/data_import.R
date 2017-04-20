@@ -173,6 +173,7 @@ for (i in 1:nrow(har)){
         har$tp_out_mass[i] = har$P_out_mass[i]*1000
         har$tn_in_mass[i] = har$N_in_mass[i]*1000
         har$tp_in_mass[i] = har$P_in_mass[i]*1000
+
       } else {
         har$tn_out_mass[i] = har$N_out_mass[i]
         har$tp_out_mass[i] = har$P_out_mass[i]
@@ -222,68 +223,18 @@ brett <- read.csv("data/Brett_with_N.csv", header = TRUE, na.strings = c("", NA)
 
 # fill in missing P loading data, so as to override from Rydin
 brett$tp_in_mass[is.na(brett$tp_in_mass)] <- brett$Loading_constant_kgy[is.na(brett$tp_in_mass)]
-
-brett[c(1:30),2] = "Rast and Lee 1978"
-brett[c(93:157),2] = "Janis and Vollenweider 1981"
-brett[c(158:171),2] = "Rydin 1980"
-
-brett <- brett[,c(1:9, 11:28)] 
-brett <- brett[,c(2:28, 30)]
-names(brett)[c(1:20)] <- c("source", "waterbody_name", "state", 
-                  "surface_area", "mean_depth", "Q", "res_time", 
-                  "tp_out_conc", "tp_in_mass", 
-                   "volume", "tp_in_aerial", 
-                   "tpout_tpin", "Rp_calculated", 
-                  "Rp_predidcted", "tp_in_conc", "k", "10overz", 
-                  "flush_rate", "qs", "qs2")
-brett$country = ""
-brett$country = brett$state
-levels(brett$country)[c(2,3,4,6,8,11,12,14:21,23:30,33:36)] = c("Canada", 
-                                                                 rep("United States", 2),
-                                                                 "Canada",
-                                                                 rep("United States", 4),
-                                                                 "Canada",
-                                                                 rep("United States", 4), 
-                                                              "Canada",
-                                                              "United States",
-                                                              "Canada",
-                                                              rep("United States", 2),
-                                                              "Canada",
-                                                              "United States",
-                                                              "Canada",
-                                                              "United States",
-                                                              "Canada",
-                                                              "United States",
-                                                              rep("United States", 3))
-
-                                                              
-                                                              
-                                                              
-
-levels(brett$state) = c(NA, "British Colombia", "California", "Connecticut",
-                        NA, "Ontario", NA, "Florida", NA, NA, NA, "Iowa",
-                        NA, "Maine", "Manitoba", "Massachusetts", "Michigan",
-                        "Minnesota", "North Carolina", "New Brunswick", "New Hampshire",
-                        NA, "Nova Scotia", "New York", "Ohio", "Ontario", "Oregon", "Quebec",
-                        "Rhode Island", "Saskatchewan", NA, NA, "Tennessee", "Vermont",
-                        "Washington", "Wisconsin")
-brett$lake_type = ""
-brett$latitude = ""
-brett$longitude = ""
 brett$Rn_calculated = ""
 brett$notes = ""
-brett <- brett[,c(1,2,29,3,28,30,31,4,5,10,6,7,15,9,8,22,26,23,27,21,25,13,24,32,33)]
+brett <- brett[,c(1,3,4,5,6,7,8,9,10,15,11,12,20,29,13,27,32,28,33,26,31,18,30,34,35)]
+
+names(brett) <- names(dat)
+# change units of volume from 10^6m3 to km3
+brett$volume <- brett$volume/1000
 # change units of concentration from mgperm3 to mgperL
 brett$tp_in_conc = brett$tp_in_conc/1000
 brett$tp_out_conc = brett$tp_out_conc/1000
 brett$tn_in_conc = brett$tn_in_conc/1000
 brett$tn_out_conc = brett$tn_out_conc/1000
-
-# change units of volume from 10^6m3 to km3
-brett$volume <- brett$volume/1000
-
-names(brett) <- names(dat)
-
 
 
 #################################
@@ -408,6 +359,11 @@ dat.all$Rn <- as.numeric(dat.all$Rn_source)
 dat.all$Rn_calculated[is.na(dat.all$Rn_calculated)] <- 1-(dat.all$tn_out_mass[is.na(dat.all$Rn_calculated)]/dat.all$tn_in_mass[is.na(dat.all$Rn_calculated)])
 dat.all$Rn[is.na(dat.all$Rn)] <- as.numeric(dat.all$Rn_calculated[is.na(dat.all$Rn)])
 
+# remove duplicates of long residence time systems (>50 years)
+# this includes Taho, Superior, Michigan, Superior
+# keep values with most complete data
+
+#dat.all[c(1:648,650:759,761:804,806:1160)]
 #################################
 # calculate all input/output variables
 ###################################
@@ -428,6 +384,7 @@ dat.all$volume[which(is.na(dat.all$volume))] = dat.all$res_time[which(is.na(dat.
 # calculate in/out nutrients
 
 # tp_out_conc
+dat.all$tp_out_conc <- as.numeric(dat.all$tp_out_conc)
 dat.all$tp_out_conc[is.na(dat.all$tp_out_conc)] = (as.numeric(dat.all$tp_out_mass[is.na(dat.all$tp_out_conc)])/dat.all$Q[is.na(dat.all$tp_out_conc)])*(1/31536)
 
 #tp_in_conc
@@ -480,16 +437,21 @@ mod <- lm(log10(tn_in_mass_areal)~log10(res_time), data=dat.all)
 cooksd <- cooks.distance(mod)
 influential.n <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers
 #verified all EPA cites, remove those from potential outliers
-influential.n <- influential.n[13:30]
-dat.all$outlier <- 0
-dat.all$outlier[influential.n] = 1
+#influential.n <- influential.n[13:30]
+#dat.all$outlier <- 0
+#dat.all$outlier[influential.n] = 1
+plot(log10(tn_in_mass_areal)~log10(res_time), dat.all)
+points(log10(tn_in_mass_areal)~log10(res_time), dat.all[influential.n, ], pch = 16, col = "red")
 
 mod <- lm(log10(tp_in_mass_areal)~log10(res_time), data=dat.all)
 cooksd <- cooks.distance(mod)
 influential.p <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers
 #validated epa data
-influential.p <- influential.p[c(18:45)]
-dat.all$outlier[influential.p] = 1
+#influential.p <- influential.p[c(18:45)]
+#dat.all$outlier[influential.p] = 1
+plot(log10(tp_in_mass_areal)~log10(res_time), dat.all)
+points(log10(tp_in_mass_areal)~log10(res_time), dat.all[influential.p, ], pch = 16, col = "red")
+
 
 mod <- lm(log10(tp_in_mass_areal)~log10(tn_in_mass_areal), data=dat.all)
 cooksd <- cooks.distance(mod)
@@ -506,18 +468,18 @@ dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp
 
 # make subsets of data
 # all lakes with N budgets
-dat.p <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$res_time)&dat.all$outlier == 0, ]
+dat.p <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$res_time), ]
 dat.p.real <- dat.p[dat.p$Rp>-1, ]
 dat.p.pos <- dat.p[dat.p$Rp>0, ]
 
-dat.n <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth)&dat.all$outlier ==0, ]
+dat.n <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth), ]
 dat.n.real <-dat.n[dat.n$Rn>=-1,]
 dat.n.pos <-dat.n[dat.n$Rn>=0,]
 
 # dataframe for lakes with both N and P data
-dat.np <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn)&dat.all$outlier==0,]
+dat.np <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn),]
 dat.np.real <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn) & dat.all$Rn>-1 &
-                         dat.all$Rp>-1&dat.all$outlier==0,]
+                         dat.all$Rp>-1,]
 
 stoich <- dat.all[!is.na(dat.all$np_in)&
                    !is.na(dat.all$np_out)&
@@ -526,8 +488,7 @@ stoich <- dat.all[!is.na(dat.all$np_in)&
                    !is.na(dat.all$tn_in_mass)&
                    !is.na(dat.all$tp_in_mass)&
                    dat.all$Rn>-1 &
-                   dat.all$Rp>-1 &
-                   dat.all$outlier == 0, ]
+                   dat.all$Rp>-1, ]
 
 # calculate stoich change
 # calculate log of change - then make numbers with decreasing TN:TP negative, those with
@@ -536,7 +497,7 @@ stoich$np_out_predicted <- ((stoich$tn_in_mass*(1-stoich$Rn_predicted))/((stoich
 stoich$np_change <- log10(stoich$np_out) - log10(stoich$np_in) 
 stoich$np_change_predicted <- log10(stoich$np_out_predicted) - log10(stoich$np_in)
 stoich$np_r <- (stoich$tn_r_mass_areal/14)/(stoich$tp_r_mass_areal/30.97)
-
+stoich$R_diff <- stoich$Rn - stoich$Rp
 
 # in lagos, max TN = 20.57 max TP = 1.22
 summary(dat.all$tn_out_conc)
