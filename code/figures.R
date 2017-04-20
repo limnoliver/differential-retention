@@ -104,11 +104,11 @@ png("R_restime.png", height = 600, width = 800)
 par(mar=c(5,5,1,1))
 
 # plot new P curve + Brett & Benjamin curve
-curve(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2]))))), 0.001,1000,log = "x",
-     ylab = "Retention", xlab = "Residence Time (y)",
-     col = col.p, ylim = c(0, 1.1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
-         col = col.p, lwd = 2, lty = 2, add = TRUE)
+     ylab = "Retention Efficiency", xlab = "Residence Time (y)",
+     col = col.p, ylim = c(0, 1.1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+#curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
+#         col = col.p, lwd = 2, lty = 2)
 
 axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
@@ -117,10 +117,10 @@ axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 year
       col = col.n1, add = TRUE, lwd = 4)
 #curve(1-(exp((-8.91*x)/3)), .001, 1000, 
       col = col.n1, add = TRUE, lwd = 2, lty =2)
-curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), .001, 1000, 
+#curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), .001, 1000, 
       col = col.n3, add = TRUE, lwd = 4)
-curve(1-(exp((-8.91*x)/5.9)), .001, 1000, 
-      col = col.n3, add = TRUE, lwd = 2, lty =2)
+curve(1-(exp((-8.91*x)/6)), .001, 1000, 
+      col = col.n3, add = TRUE, lwd = 4)
 #curve(1-(exp((-Fit.N.real$par[1]*x)/11.1)), .001, 1000, 
       col = col.n5, add = TRUE, lwd = 4)
 #curve(1-(exp((-8.91*x)/11.1)), .001, 1000, 
@@ -144,14 +144,14 @@ dev.off()
 #######################################################
 png("RnRp_restime.png", height = 600, width = 800)
 par(mar=c(5,5,1,1))
-curve((1-(exp((-Fit.N.real$par[1]*x)/1.8)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
+curve((1-(exp((-Fit.N.real$par[1]*x)/1.8)))/(1-(1/(1+(Fit.Rp.real$par[1]*(x^(1+Fit.Rp.real$par[2])))))), 0.001,1000,log = "x",
       ylab = "Rn:Rp", xlab = "Residence Time (y)", 
-      col = new.cols[3], ylim = c(0, 1.5), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
+      col = new.cols[3], ylim = c(0, 1.7), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
-curve((1-(exp((-Fit.N.real$par[1]*x)/5.9)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
+curve((1-(exp((-Fit.N.real$par[1]*x)/6)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
       col = new.cols[6], lwd = 4, add = TRUE)
-curve((1-(exp((-Fit.N.real$par[1]*x)/18.9)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
+curve((1-(exp((-Fit.N.real$par[1]*x)/19.44)))/(1-(1/(1+(Fit.real$par[1]*(x^(1+Fit.real$par[2])))))), 0.001,1000,log = "x",
       col = new.cols[9], lwd = 4, add = TRUE)
 
 abline(h=1, col = "red", lwd = 2, lty = 2)
@@ -164,10 +164,10 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-legend("topleft", legend = c("1.8", "5.9", "18.9"), title = "Depth (m)", 
+legend("topleft", legend = c("1.8", "6.0", "19.4"), title = "Depth (m)", 
        col = new.cols[c(3,6,9)], lty = 1, lwd = 3, cex = 1.7)
-text(x=100, y=1.3, "Remove more N \nDecrease N:P", cex = 1.7)
-text(x=100, y=0.7, "Remove more P \nIncrease N:P", cex = 1.7)
+text(x=100, y=1.5, "Remove more N \nDecrease N:P", cex = 1.7)
+text(x=100, y=0.5, "Remove more P \nIncrease N:P", cex = 1.7)
 
 dev.off()
 
@@ -279,7 +279,7 @@ dev.off()
 pdf("RvsEq.pdf", height = 6, width = 14)
 par(mar=c(5,5,1,1), mfrow = c(1,2))
 #plot retention vs residence time then add curve of Harrison
-curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), 0.001,1000,log = "x",
+curve(1-(exp((-Fit.N.real$par[1]*x)/6)), 0.001,1000,log = "x",
       ylab = "Rn", xlab = "Residence Time (y)", 
       col = "red", ylim = c(-1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
@@ -299,7 +299,7 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-text(x=2/365, y = .9, labels = "n = 838", cex = 1.3, col = "red")
+text(x=2/365, y = .9, labels = "n = 903", cex = 1.3, col = "red")
 
 #plot retention vs residence time then add curve of Brett & Benjamin
 curve(1-(1/(1+(Fit.Rp.real$par[1]*(x^(1+Fit.Rp.real$par[2]))))), 0.001,1000,log = "x",
@@ -312,8 +312,6 @@ points(dat.all$Rp~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.1,
        bg = rgb(222,222,222,max=255,alpha=200))
 curve(1-(1/(1+(Fit.Rp.real$par[1]*(x^(1+Fit.Rp.real$par[2]))))), 0.001,1000,log = "x",add = TRUE,
       col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
-curve(1-(1/(1+(Fit.np.Rp$par[1]*(x^(1+Fit.np.Rp$par[2]))))), 0.001,1000,log = "x",add = TRUE,
-      col = "blue", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
 
 abline(v=1/365, col="gray", lty=2)
 # week
@@ -324,7 +322,7 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-text(x=2/365, y = .9, labels = "n = 1001", cex = 1.3, col = "red")
+text(x=2/365, y = .9, labels = "n = 1076", cex = 1.3, col = "red")
 
 dev.off()
 
