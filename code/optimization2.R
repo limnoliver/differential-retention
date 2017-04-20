@@ -63,6 +63,7 @@ Fit.Brett <- P.ret.mod.fit(dat.in = brett, type = "concentration")
 Fit.all <- P.ret.mod.fit(dat.in = dat.p, type = "concentration")
 Fit.real <- P.ret.mod.fit(dat.in = dat.p.real, type = "concentration")
 Fit.pos <- P.ret.mod.fit(dat.in = dat.p.pos, type = "concentration")
+
 Fit.Rp <- P.ret.mod.fit(dat.in = dat.p, type = "retention")
 Fit.Rp.real <- P.ret.mod.fit(dat.in = dat.p.real, type = "retention")
 Fit.Rp.pos <- P.ret.mod.fit(dat.in = dat.p.pos, type = "retention")
