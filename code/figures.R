@@ -1389,45 +1389,71 @@ pdf("NPchange_restime_npin_all.pdf", height = 6, width = 10)
 par(mar=c(5,5,1,.5), mfrow=c(1,2), cex =1)
 plot(stoich$np_change~log10(stoich$res_time),
      cex = 1.2, xlab = "log Residence Time (y)", ylab = "Change in Stoichiometry",
-     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
-points(stoich$np_change[stoich$np_in>=64.5]~log10(stoich$res_time[stoich$np_in>=64.5]),
-       col = np.cols.a[1], pch = 16, cex = 1.2)
-points(stoich$np_change[stoich$np_in>=36.33 & stoich$np_in<64.5]~log10(stoich$res_time[stoich$np_in>=36.33 & stoich$np_in<64.5]),
-       col = np.cols.a[2], pch = 16, cex = 1.2) 
-points(stoich$np_change[stoich$np_in>=22.3 & stoich$np_in<36.3]~log10(stoich$res_time[stoich$np_in>=22.3 & stoich$np_in<36.3]),
-       col = np.cols.a[3], pch = 16,cex = 1.2) 
-points(stoich$np_change[stoich$np_in<22.3]~log10(stoich$res_time[stoich$np_in<22.3]),
-       col = np.cols.a[4], pch = 16, cex = 1.2) 
-legend("bottomleft", legend = c("> 65","36-65","22-36","< 22"), 
-       title = "N:P in (molar)", bty = "n", pch = 16, col = np.cols, cex = 1, pt.cex = 1.4)
-
-plot(stoich$np_change~log10(stoich$np_in),
-     cex = 1.2, xlab = "log N:P in (molar)", ylab = "Change in Stoichiometry",
-     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
-points(stoich$np_change[stoich$res_time>=1.2]~log10(stoich$np_in[stoich$res_time>=1.2]),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white", ylim = c(-1.5,2))
+points(stoich$np_change[stoich$mean_depth>=11.3]~log10(stoich$res_time[stoich$mean_depth>=11.3]),
        col = restime.cols.a[4], pch = 16, cex = 1.2)
-points(stoich$np_change[stoich$res_time>=0.3975 & stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=0.3975 & stoich$res_time<1.2]),
+points(stoich$np_change[stoich$mean_depth>=6 & stoich$mean_depth<11.3]~log10(stoich$res_time[stoich$mean_depth>=6 & stoich$mean_depth<11.3]),
        col = restime.cols.a[3], pch = 16, cex = 1.2) 
-points(stoich$np_change[stoich$res_time>=0.0850 & stoich$res_time<.3975]~log10(stoich$np_in[stoich$res_time>=0.0850 & stoich$res_time<.3975]),
+points(stoich$np_change[stoich$mean_depth>=3.1 & stoich$mean_depth<36.3]~log10(stoich$res_time[stoich$mean_depth>=3.1 & stoich$mean_depth<36.3]),
        col = restime.cols.a[2], pch = 16,cex = 1.2) 
-points(stoich$np_change[stoich$res_time<.085]~log10(stoich$np_in[stoich$res_time<.085]),
+points(stoich$np_change[stoich$mean_depth<3.1]~log10(stoich$res_time[stoich$mean_depth<3.1]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2) 
+legend("topleft", legend = c("> 3.1", "3.1-6.0", "6.0-11.3", "> 11.3"), 
+       title = "Mean Depth (m)", pch = 16, col = restime.cols, cex = 1, pt.cex = 1.4)
+abline(h=0, col = "red", lwd = 2, lty = 2)
+
+plot(stoich$np_change~log10(stoich$mean_depth),
+     cex = 1.2, xlab = "log N:P in (molar)", ylab = "Change in Stoichiometry",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white", ylim = c(-1.5,2))
+points(stoich$np_change[stoich$mean_depth>=11.3]~log10(stoich$np_in[stoich$mean_depth>=11.3]),
+       col = restime.cols.a[4], pch = 16, cex = 1.2)
+points(stoich$np_change[stoich$mean_depth>=6 & stoich$mean_depth<11.3]~log10(stoich$np_in[stoich$mean_depth>=6 & stoich$mean_depth<11.3]),
+       col = restime.cols.a[3], pch = 16, cex = 1.2) 
+points(stoich$np_change[stoich$mean_depth>=3.1 & stoich$mean_depth<6]~log10(stoich$np_in[stoich$mean_depth>=3.1 & stoich$mean_depth<6]),
+       col = restime.cols.a[2], pch = 16,cex = 1.2) 
+points(stoich$np_change[stoich$mean_depth<3.1]~log10(stoich$np_in[stoich$mean_depth<3.1]),
        col = restime.cols.a[1], pch = 16, cex = 1.2)  
-legend("bottomleft", legend = c("< 1 month", "1-5 months", "0.4-1.2 yrs", "> 1.2 yrs"), 
-       title = "Residence time", bty = "n", pch = 16, col = c(restime.cols[1], restime.cols[2], restime.cols[3], restime.cols[4]), cex = 1, pt.cex = 1.4)
+abline(h=0, col = "red", lwd = 2, lty = 2)
+abline(h=0, col = "red", lwd = 2, lty = 2)
+text(0.1,0.5, "Rn < Rp\nIncrease N:P",col = "red")
+text(0.1,-0.5, "Rn > Rp\nDecrease N:P",col = "red")
+
 dev.off()
 
-par(mar=c(5,5,1,.5), mfrow=c(1,3), cex =1)
-plot(stoich$np_change~log10(stoich$np_in),
-     cex = 1.2, xlab = "log N:P in (molar)", ylab = "Change in Stoichiometry",
-     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white")
-points(stoich$np_change[stoich$res_time>=1.2]~log10(stoich$np_in[stoich$res_time>=1.2]),
+pdf("NPchange_restime_npin_all_pred.pdf", height = 6, width = 10)
+par(mar=c(5,5,1,.5), mfrow=c(1,2), cex =1)
+plot(stoich$np_change_predicted~log10(stoich$res_time),
+     cex = 1.2, xlab = "log Residence Time (y)", ylab = "Change in Stoichiometry",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white", ylim = c(-1.5,2))
+points(stoich$np_change_predicted[stoich$mean_depth>=11.3]~log10(stoich$res_time[stoich$mean_depth>=11.3]),
        col = restime.cols.a[4], pch = 16, cex = 1.2)
-points(stoich$np_change[stoich$res_time>=0.3975 & stoich$res_time<1.2]~log10(stoich$np_in[stoich$res_time>=0.3975 & stoich$res_time<1.2]),
+points(stoich$np_change_predicted[stoich$mean_depth>=6 & stoich$mean_depth<11.3]~log10(stoich$res_time[stoich$mean_depth>=6 & stoich$mean_depth<11.3]),
        col = restime.cols.a[3], pch = 16, cex = 1.2) 
-points(stoich$np_change[stoich$res_time>=0.0850 & stoich$res_time<.3975]~log10(stoich$np_in[stoich$res_time>=0.0850 & stoich$res_time<.3975]),
+points(stoich$np_change_predicted[stoich$mean_depth>=3.1 & stoich$mean_depth<36.3]~log10(stoich$res_time[stoich$mean_depth>=3.1 & stoich$mean_depth<36.3]),
        col = restime.cols.a[2], pch = 16,cex = 1.2) 
-points(stoich$np_change[stoich$res_time<.085]~log10(stoich$np_in[stoich$res_time<.085]),
-       col = restime.cols.a[1], pch = 16, cex = 1.2)                                                                                 
+points(stoich$np_change_predicted[stoich$mean_depth<3.1]~log10(stoich$res_time[stoich$mean_depth<3.1]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2) 
+legend("topleft", legend = c("> 3.1", "3.1-6.0", "6.0-11.3", "> 11.3"), 
+       title = "Mean Depth (m)", pch = 16, col = restime.cols, cex = 1, pt.cex = 1.4)
+abline(h=0, col = "red", lwd = 2, lty = 2)
+text(-2.3,0.35, "Rn < Rp\nIncrease N:P",col = "red")
+text(-2.3,-0.35, "Rn > Rp\nDecrease N:P",col = "red")
+
+plot(stoich$np_change_predicted~log10(stoich$mean_depth),
+     cex = 1.2, xlab = "log N:P in (molar)", ylab = "Change in Stoichiometry",
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, col = "white", ylim = c(-1.5,2))
+points(stoich$np_change_predicted[stoich$mean_depth>=11.3]~log10(stoich$np_in[stoich$mean_depth>=11.3]),
+       col = restime.cols.a[4], pch = 16, cex = 1.2)
+points(stoich$np_change_predicted[stoich$mean_depth>=6 & stoich$mean_depth<11.3]~log10(stoich$np_in[stoich$mean_depth>=6 & stoich$mean_depth<11.3]),
+       col = restime.cols.a[3], pch = 16, cex = 1.2) 
+points(stoich$np_change_predicted[stoich$mean_depth>=3.1 & stoich$mean_depth<6]~log10(stoich$np_in[stoich$mean_depth>=3.1 & stoich$mean_depth<6]),
+       col = restime.cols.a[2], pch = 16,cex = 1.2) 
+points(stoich$np_change_predicted[stoich$mean_depth<3.1]~log10(stoich$np_in[stoich$mean_depth<3.1]),
+       col = restime.cols.a[1], pch = 16, cex = 1.2)  
+abline(h=0, col = "red", lwd = 2, lty = 2)
+abline(h=0, col = "red", lwd = 2, lty = 2)
+dev.off()
+
 
 ##################################################
 # Fig plot aerial mass remval vs aerial load
