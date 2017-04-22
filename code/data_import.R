@@ -532,6 +532,8 @@ exp((-9.92*x)/9.6)
 # create a data frame where lakes have retention estimates for both N and P
 ####################################
 dat.np <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$Rp),]
+dat.np.real <- dat.np[dat.np$Rp > -1 & dat.np$Rn > -1, ]
+dat.np.complete
 dat.np$relret <- dat.np$Rn/dat.np$Rp
 
 # now create input TN:TP and out TN:TP
