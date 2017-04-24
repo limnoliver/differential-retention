@@ -2137,8 +2137,18 @@ Rdiff <- t.test(x = log10(stoich$Rn+1), y = log10(stoich$Rp+1), paired = TRUE)
 Rdiffnp <- wilcox.test(x = stoich$Rn, y = stoich$Rp, paired = TRUE,
                        conf.int = TRUE)
 Rdiffnpstoich <- t.test(x = log10(stoich$np_in), y = log10(stoich$np_out), paired = TRUE)
+Rdiffnp.all <- t.test(x = log10(dat.np$np_in[dat.np$np_out != Inf]), y = log10(dat.np$np_out[dat.np$np_out != Inf]), paired = TRUE)
+Rdiffnp.real <- t.test(x = log10(dat.np.real$np_in[dat.np.real$np_out != Inf]), y = log10(dat.np.real$np_out[dat.np.real$np_out != Inf]), paired = TRUE)
+Rdiffnp.pos <- t.test(x = log10(dat.np.pos$np_in[dat.np.pos$np_out != Inf]), y = log10(dat.np.pos$np_out[dat.np.pos$np_out != Inf]), paired = TRUE)
+
 Rdiffnpstoichnp <- wilcox.test(x = stoich$np_in, y = stoich$np_out, paired = TRUE, conf.int = TRUE)
 
+Rdiff.np.all <- wilcox.test(x = dat.np$Rn, y = dat.np$Rp, paired = TRUE,
+                          conf.int = TRUE)
+Rdiff.np.real <- wilcox.test(x = dat.np.real$Rn, y = dat.np.real$Rp, paired = TRUE,
+                            conf.int = TRUE)
+Rdiff.np.pos <- wilcox.test(x = dat.np.pos$Rn, y = dat.np.pos$Rp, paired = TRUE,
+                             conf.int = TRUE)
 ###################################
 # Fig N:P change vs N:P input
 ###################################
