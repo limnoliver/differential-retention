@@ -477,6 +477,8 @@ dat.n.pos <-dat.n[dat.n$Rn>=0 & dat.n$tn_r_mass_areal>0,]
 dat.np <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn),]
 dat.np.real <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn) & dat.all$Rn>-1 &
                          dat.all$Rp>-1,]
+dat.np.pos <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn) & dat.all$Rn>0 &
+                         dat.all$Rp>0,]
 
 stoich <- dat.all[!is.na(dat.all$np_in)&
                    !is.na(dat.all$np_out)&
@@ -485,7 +487,8 @@ stoich <- dat.all[!is.na(dat.all$np_in)&
                    !is.na(dat.all$tn_in_mass)&
                    !is.na(dat.all$tp_in_mass)&
                    dat.all$Rn>-1 &
-                   dat.all$Rp>-1, ]
+                   dat.all$Rp>-1 &
+                   dat.all$np_out != Inf, ]
 
 # calculate stoich change
 # calculate log of change - then make numbers with decreasing TN:TP negative, those with
