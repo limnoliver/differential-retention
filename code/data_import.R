@@ -194,13 +194,10 @@ names(har) <- names(dat)
 # Maavara data
 maav <- read.csv("data/Maavara et al 2015 data_with N.csv", header = TRUE, 
                  na.strings = c("", "NA"))
-maav <- maav[c(1:156), ]
 maav$lake_type = "reservoir"
-maav$state = ""
-maav$country = ""
 maav$Rp_calculated = ""
 maav$Rn_calculated = ""
-maav <- maav[,c(34,1,36,37,38,2,3,8,9,10,12,11,15,17,16,18,19,21,20,22,23,39,24,40,35)]
+maav <- maav[,c(35,1,37,4,5,2,3,9,10,11,13,12,16,18,17,19,20,22,21,23,24,38,25,39,36)]
 names(maav) <- names(dat)
 
 #update units to match rest of data
