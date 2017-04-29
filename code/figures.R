@@ -64,42 +64,11 @@ plot(h1, freq = FALSE, ylim = c(0,40), add = TRUE, col = col.n)
 plot(h4, freq = FALSE, add = TRUE, col = col.p)
 
 
-############################################
-# Calculate summary statistics for Table 2
-############################################
-vars <- c("volume", "surface_area", "mean_depth", "res_time", "tp_in_conc", "tp_out_conc",
-          "Rp", "tn_in_conc", "tn_out_conc", "Rn", "RnRpdiff")
-sum.stats <- function(input.dat, percentile) {
-  d <- input.dat
-  d$RnRpdiff <- d$Rn-d$Rp
-  summ <- c()
-  for (i in 1:length(vars)){
-  summ[i] <- as.numeric(quantile(d[,vars[i]], probs = percentile, na.rm = TRUE))
-  }
-  return(as.data.frame(t(summ)))
-}
-
-r1 <- sum.stats(dat.np, percentile = 0.9)
-r2 <- sum.stats(dat.np, percentile = 0.5)
-r3 <- sum.stats(dat.np, percentile = 0.1)
-r4 <- sum.stats(dat.n, percentile = .5)
-r5 <- sum.stats(dat.n.real, percentile = 0.5)
-r6 <- sum.stats(dat.n.pos, percentile = 0.5)
-r7 <- sum.stats(dat.p, percentile = .5)
-r8 <- sum.stats(dat.p.real, percentile = 0.5)
-r9 <- sum.stats(dat.p.pos, percentile = 0.5)
-
-dat.sum <- rbind(r1, r2, r3, r4, r5, r6, r7, r8, r9)
-names(dat.sum) <- vars
-
-write.csv(dat.sum, "table2.csv")
-
-sum.stats <- 
 
 ##################################################################
 # Figure 1: N and P retention according to Vollenweider & Harrison
 ##################################################################
-png("R_restime.png", height = 600, width = 800)
+png("R_restime.png", height = 600, width = 900)
 # plot N and P lines together 
 par(mar=c(5,5,1,1))
 
@@ -107,24 +76,16 @@ par(mar=c(5,5,1,1))
 curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
      ylab = "Retention Efficiency", xlab = "Residence Time (y)",
      col = col.p, ylim = c(0, 1.1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
-#curve(1-(1/(1+(1.12*(x^.47)))), 0.001,1000,log = "x",
-#         col = col.p, lwd = 2, lty = 2)
 
 axis(1, labels = c("1 day", "1 week", "1 month", "1 year", "10 years", "100 years"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
-# Harrison N curves + new fit N curves
-#curve(1-(exp((-Fit.N.real$par[1]*x)/3)), .001, 1000, 
+
+curve(1-(exp((-8.91*x)/5.9)), .001, 1000, 
+      col = col.n3, add = TRUE, lwd = 4)
+curve(1-(exp((-8.91*x)/1.8)), .001, 1000, 
       col = col.n1, add = TRUE, lwd = 4)
-#curve(1-(exp((-8.91*x)/3)), .001, 1000, 
-      col = col.n1, add = TRUE, lwd = 2, lty =2)
-#curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), .001, 1000, 
-      col = col.n3, add = TRUE, lwd = 4)
-curve(1-(exp((-8.91*x)/6)), .001, 1000, 
-      col = col.n3, add = TRUE, lwd = 4)
-#curve(1-(exp((-Fit.N.real$par[1]*x)/11.1)), .001, 1000, 
+curve(1-(exp((-8.91*x)/19.2)), .001, 1000, 
       col = col.n5, add = TRUE, lwd = 4)
-#curve(1-(exp((-8.91*x)/11.1)), .001, 1000, 
-      col = col.n5, add = TRUE, lwd = 2, lty =2)
 
 abline(v=1/365, col="gray", lty=2)
 # week
@@ -135,8 +96,10 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-legend("topleft", legend = c("Nitrogen", "Phosphorus"), 
-       col = c(col.n3, col.p), lty = 1, lwd = 3, cex = 1.7)
+
+legend("topleft", legend = c("Nitrogen (2m)","Nitrogen (6m)","Nitrogen (19m)", "Phosphorus"), 
+       col = c(col.n1,col.n3,col.n5, col.p), lty = 1, lwd = 3, cex = 1.7)
+
 dev.off()
 
 ########################################################
@@ -276,8 +239,8 @@ dev.off()
 # Figure 5: N and P retention vs H and V
 #########################################
 
-pdf("RvsEq.pdf", height = 6, width = 14)
-par(mar=c(5,5,1,1), mfrow = c(1,2))
+png("RvsEq.png", height = 1200, width = 2800)
+par(mar=c(5,5,1,1), mfrow = c(1,2), cex = 3)
 #plot retention vs residence time then add curve of Harrison
 curve(1-(exp((-Fit.N.real$par[1]*x)/6)), 0.001,1000,log = "x",
       ylab = "Rn", xlab = "Residence Time (y)", 
@@ -285,7 +248,7 @@ curve(1-(exp((-Fit.N.real$par[1]*x)/6)), 0.001,1000,log = "x",
 axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.3)
 
-points(dat.n$Rn~dat.n$res_time, xlog = TRUE, pch = 21, cex = 1.1,
+points(dat.n.real$Rn~dat.n.real$res_time, xlog = TRUE, pch = 21, cex = 1.1,
        bg = rgb(222,222,222,max=255,alpha=200))
 curve(1-(exp((-Fit.N.real$par[1]*x)/5.9)), 0.001,1000,log = "x",add = TRUE,
       col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
@@ -299,7 +262,7 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-text(x=2/365, y = .9, labels = "n = 903", cex = 1.3, col = "red")
+text(x=2/365, y = .9, labels = "n = 847", cex = 1.3, col = "red")
 
 #plot retention vs residence time then add curve of Brett & Benjamin
 curve(1-(1/(1+(Fit.Rp.real$par[1]*(x^(1+Fit.Rp.real$par[2]))))), 0.001,1000,log = "x",
@@ -308,7 +271,7 @@ curve(1-(1/(1+(Fit.Rp.real$par[1]*(x^(1+Fit.Rp.real$par[2]))))), 0.001,1000,log 
 axis(1, labels = c("1 d", "1 wk", "1 mo", "1 yr", "10 yr", "100 yr"), 
      at = c(1/365, 7/365, 30/365, 1, 10, 100), cex.axis=1.2)
 
-points(dat.all$Rp~dat.all$res_time, xlog = TRUE, pch = 21, cex = 1.1,
+points(dat.p.real$Rp~dat.p.real$res_time, xlog = TRUE, pch = 21, cex = 1.1,
        bg = rgb(222,222,222,max=255,alpha=200))
 curve(1-(1/(1+(Fit.Rp.real$par[1]*(x^(1+Fit.Rp.real$par[2]))))), 0.001,1000,log = "x",add = TRUE,
       col = "red", ylim = c(-.1, 1), lwd = 4,xaxt = "n", cex.lab = 2, cex.axis = 1.3)
@@ -322,7 +285,7 @@ abline(v=30/365, col="gray", lty=2)
 abline(v=1, col = "gray", lty = 2)
 abline(v=10, col = "gray", lty = 2)
 abline(v=100, col = "gray", lty = 2)
-text(x=2/365, y = .9, labels = "n = 1076", cex = 1.3, col = "red")
+text(x=2/365, y = .9, labels = "n = 998", cex = 1.3, col = "red")
 
 dev.off()
 
@@ -330,23 +293,30 @@ dev.off()
 ## optimize with 1) only positive values, 2) only "realistic" values,
 ## 3) all values
 
+
+library(caTools)
+plot(stoich$np_change ~ log10(stoich$res_time))
+test <-runquantile(stoich$np_change, k = 50, probs=c(0.1,.5,.9))
+points(test[seq(from = 20, to =740, by= 40),1]~log10(stoich$res_time[order(stoich$res_time)])[seq(from = 20, to =740, by= 40)], type = "l", col = "red")
+test <- supsmu(stoich$np_change, log10(stoich$res_time))
+
 #########################################
 # Figure 6: N vs P retention + histograms
 #########################################
 
 pdf("Rn_Rp_hist_xy.pdf", height = 6, width = 12)
 par(mar=c(5,5,1,1), mfrow=c(1,2))
-hist(stoich$Rn[stoich$Rn>-1], xlim = c(-1,1), col = col.n, main = "", 
+hist(dat.np.real$Rn[dat.np.real$Rn>-1], xlim = c(-1,1), col = col.n, main = "", 
      xlab = "Proportion Retention", cex.lab = 1.8, cex.axis = 1.3)
-hist(stoich$Rp[stoich$Rp>-1], add = TRUE, col = col.p)
+hist(dat.np.real$Rp[dat.np.real$Rp>-1], add = TRUE, col = col.p)
 legend("topleft", legend = c("Rn", "Rp"), fill = c(col.n, col.p), cex = 1.3)
 
-plot(stoich$Rn~stoich$Rp, pch = 21, 
+plot(dat.np.real$Rn~dat.np.real$Rp, pch = 21, 
      bg = rgb(222,222,222,alpha = 200, max = 255), cex = 1.3, cex.lab = 1.8,
      xlab = "Rp", ylab = "Rn", cex.axis = 1.3)
 
 abline(0,1,col = "red", lwd = 2)
-text(x=-.6, y = .9, "587 of 807 (73%) \nRp > Rn", col = "red", cex = 1.3)
+text(x=-.6, y = .9, "552 of 782 (71%) \nRp > Rn", col = "red", cex = 1.3)
 
 dev.off()
 scatterhist = function(x, y, xlab="", ylab=""){
@@ -404,6 +374,25 @@ vals = hist(log10(stoich$res_time[stoich$Rn<stoich$Rp]), breaks = breaks.n, plot
 vals$counts = vals$counts/length(stoich$res_time[stoich$Rn<stoich$Rp])
 plot(vals, col = col.p, add = TRUE)
 dev.off()
+
+###############
+# pred diff retention vs h
+#######################
+png("Rdiff_h.png", height = 1000, width = 1200)
+par(mar=c(5,5,1,1), cex = 3)
+plot(dat.np.real$R_diff~log10(dat.np.real$h),
+     pch = 16, col = adjustcolor("red", 0.3), cex = .8, cex.lab = 1.5, cex.axis = 1.2,
+     xlab = expression(paste(log[10]," h (m ",y^-1,")")), ylab = expression(paste(R[diff])), ylim = c(-1.5,1))
+points(dat.np.real$R_diff_predicted~log10(dat.np.real$h),
+       pch = 16, col = adjustcolor("black", 0.3), cex = 0.8)
+abline(h=0, lty = 2, lwd = 2)
+text(x = 3.8, y = .8,expression(paste(R[N], " > ", R[P])),cex=1.5)
+text(x = 3.8, y = -.8,expression(paste(R[N], " < ", R[P])),cex=1.5)
+legend("bottomright", legend = c("Predicted", "Observed"), 
+       col = c(adjustcolor("black", 0.6), adjustcolor("red", 0.6)), 
+       pch = 16, pt.cex = 1)
+dev.off()
+
 
 #####################################################################
 # Figure 7: Differential retention with deciles for depth and retention time + 
@@ -1527,6 +1516,120 @@ text(1.9,-1.1,expression(paste(R^2, " = 0.53", sep = "")), pos = 4)
 
 dev.off()
 
+dat.n$res_time_cat <- "b"
+dat.n$res_time_cat[dat.n$res_time < 0.099] <- "a"
+dat.n$res_time_cat[dat.n$res_time >= 0.441 & dat.n$res_time < 1.4] <- "c"
+dat.n$res_time_cat[dat.n$res_time >= 1.4] <- "d"
+dat.n$res_time_cat <- as.factor(dat.n$res_time_cat)
+
+
+dat.p$res_time_cat <- "b"
+dat.p$res_time_cat[dat.p$res_time < 0.099] <- "a"
+dat.p$res_time_cat[dat.p$res_time >= 0.441 & dat.p$res_time < 1.4] <- "c"
+dat.p$res_time_cat[dat.p$res_time >= 1.4] <- "d"
+dat.p$res_time_cat <- as.factor(dat.p$res_time_cat)
+
+dat.np$res_time_cat <- "b"
+dat.np$res_time_cat[dat.np$res_time < 0.099] <- "a"
+dat.np$res_time_cat[dat.np$res_time >= 0.441 & dat.np$res_time < 1.4] <- "c"
+dat.np$res_time_cat[dat.np$res_time >= 1.4] <- "d"
+dat.np$res_time_cat <- as.factor(dat.np$res_time_cat)
+
+png("out_in_outlet.png", height = 1200, width = 1100)
+par(mar=c(1,2,1,1), mfcol=c(4,3), oma = c(4,4,1,1),cex =1.6)
+plot(log10(tn_out_mass_areal)~log10(tn_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.n[dat.n$res_time_cat == "a", ],
+     xlim = c(-0.5,4.5), ylim = c(-1, 4.5))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+text(-0.3, 4, expression(paste(tau, " < 1 month")), pos = 4, offset = 0, col = "red", cex = 1.5)
+
+plot(log10(tn_out_mass_areal)~log10(tn_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.n[dat.n$res_time_cat == "b", ],
+     xlim = c(-0.5,4.5), ylim = c(-1, 4.5))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+text(-0.3, 4, expression(paste(tau, " = 1-5 months")), pos = 4, offset = 0, col = "red", cex = 1.5)
+
+plot(log10(tn_out_mass_areal)~log10(tn_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.n[dat.n$res_time_cat == "c", ],
+     xlim = c(-0.5,4.5), ylim = c(-1, 4.5))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+text(-0.3, 4, expression(paste(tau, " = 0.4-1.4 years")), pos = 4, offset = 0, col = "red", cex = 1.5)
+
+plot(log10(tn_out_mass_areal)~log10(tn_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.n[dat.n$res_time_cat == "d", ],
+     xlim = c(-0.5,4.5), ylim = c(-1, 4.5))
+abline(0,1,col = "red", lty = 2)
+text(-0.3, 4, expression(paste(tau, " > 1.4 years")), pos = 4, offset = 0, col = "red", cex = 1.5)
+
+# add p column
+plot(log10(tp_out_mass_areal)~log10(tp_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.p[dat.p$res_time_cat == "a", ],
+     xlim = c(-2,4.5), ylim = c(-3, 4))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+
+
+plot(log10(tp_out_mass_areal)~log10(tp_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.p[dat.p$res_time_cat == "b", ],
+     xlim = c(-2,4.5), ylim = c(-3, 4))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+
+plot(log10(tp_out_mass_areal)~log10(tp_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.p[dat.p$res_time_cat == "c", ],
+     xlim = c(-2,4.5), ylim = c(-3, 4))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+
+plot(log10(tp_out_mass_areal)~log10(tp_in_mass_areal),
+     cex = 1.2, xlab = "", ylab = "", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.p[dat.p$res_time_cat == "d", ],
+     xlim = c(-2,4.5), ylim = c(-3, 4))
+abline(0,1,col = "red", lty = 2)
+
+# add n:p column
+plot(log10(np_out)~log10(np_in),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.np[dat.np$res_time_cat == "a", ],
+     xlim = c(.5,3), ylim = c(-0.5,3.5))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+
+
+plot(log10(np_out)~log10(np_in),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.np[dat.np$res_time_cat == "b", ],
+     xlim = c(.5,3), ylim = c(-0.5,3.5))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+
+plot(log10(np_out)~log10(np_in),
+     cex = 1.2, xlab = "", ylab = "",xaxt = "n", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.np[dat.np$res_time_cat == "c", ],
+     xlim = c(.5,3), ylim = c(-0.5,3.5))
+abline(0,1,col = "red", lty = 2)
+axis(1, labels = FALSE)
+
+plot(log10(np_out)~log10(np_in),
+     cex = 1.2, xlab = "", ylab = "", col = rgb(122,122,122,max=255,122),
+     cex.lab = 1.5, cex.axis = 1.2, pch = 16, dat = dat.np[dat.np$res_time_cat == "d", ],
+     xlim = c(.5,3), ylim = c(-0.5,3.5))
+abline(0,1,col = "red", lty = 2)
+mtext(expression(paste("log ",N["in"]," or ", P["in"], " (g ", m^-2," ", y^-1, ") or N:P (molar)")), side = 1, line =2, outer = TRUE, cex = 2.5)  
+mtext(expression(paste("log ",N["out"]," or ", P["out"], " (g ", m^-2," ", y^-1, ") or N:P (molar)")), side = 2, line = 1.5, outer = TRUE, cex = 2.5)  
+mtext("Nitrogen                         Phosphorus                         N:P    ", side = 3, line = -0.5, cex = 2.5,outer = TRUE )
+dev.off()
+
 #########################
 # GGplot facet alternative to above
 ##########################
@@ -2158,12 +2261,10 @@ abline(v = log10(40), col = "green", lwd = 2)
 #########################################################
 
 Rdiff <- t.test(x = log10(stoich$Rn+1), y = log10(stoich$Rp+1), paired = TRUE)
-Rdiffnp <- wilcox.test(x = stoich$Rn, y = stoich$Rp, paired = TRUE,
-                       conf.int = TRUE)
-Rdiffnpstoich <- t.test(x = log10(stoich$np_in), y = log10(stoich$np_out), paired = TRUE)
-Rdiffnp.all <- t.test(x = log10(dat.np$np_in[dat.np$np_out != Inf]), y = log10(dat.np$np_out[dat.np$np_out != Inf]), paired = TRUE)
-Rdiffnp.real <- t.test(x = log10(dat.np.real$np_in[dat.np.real$np_out != Inf]), y = log10(dat.np.real$np_out[dat.np.real$np_out != Inf]), paired = TRUE)
-Rdiffnp.pos <- t.test(x = log10(dat.np.pos$np_in[dat.np.pos$np_out != Inf]), y = log10(dat.np.pos$np_out[dat.np.pos$np_out != Inf]), paired = TRUE)
+
+Rdiffnp.all <- t.test(y = log10(dat.np$np_in[dat.np$np_out != Inf]), x = log10(dat.np$np_out[dat.np$np_out != Inf]), paired = TRUE)
+Rdiffnp.real <- t.test(y = log10(dat.np.real$np_in[dat.np.real$np_out != Inf]), x = log10(dat.np.real$np_out[dat.np.real$np_out != Inf]), paired = TRUE)
+Rdiffnp.real.comp <- t.test(y = log10(dat.np.real.comp$np_in[dat.np.real.comp$np_out != Inf]), x = log10(dat.np.real.comp$np_out[dat.np.real.comp$np_out != Inf]), paired = TRUE)
 
 Rdiffnpstoichnp <- wilcox.test(x = stoich$np_in, y = stoich$np_out, paired = TRUE, conf.int = TRUE)
 
@@ -2171,7 +2272,7 @@ Rdiff.np.all <- wilcox.test(x = dat.np$Rn, y = dat.np$Rp, paired = TRUE,
                           conf.int = TRUE)
 Rdiff.np.real <- wilcox.test(x = dat.np.real$Rn, y = dat.np.real$Rp, paired = TRUE,
                             conf.int = TRUE)
-Rdiff.np.pos <- wilcox.test(x = dat.np.pos$Rn, y = dat.np.pos$Rp, paired = TRUE,
+Rdiff.np.real.comp <- wilcox.test(x = dat.np.real.comp$Rn, y = dat.np.real.comp$Rp, paired = TRUE,
                              conf.int = TRUE)
 ###################################
 # Fig N:P change vs N:P input

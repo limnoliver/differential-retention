@@ -414,7 +414,7 @@ dat.all$tn_out_mass[is.na(dat.all$tn_out_mass)] <- dat.all$tn_out_conc[is.na(dat
 
 # H
 dat.all$h <- dat.all$mean_depth/dat.all$res_time
-
+dat.all$h2 <- dat.all$Q*60*60*24*365/(dat.all$surface_area*1000000)
 #aerial mass
 dat.all$tn_in_mass_areal <- (dat.all$tn_in_mass*1000)/(dat.all$surface_area*1000000)
 dat.all$tn_out_mass_areal <- (dat.all$tn_out_mass*1000)/(dat.all$surface_area*1000000)
@@ -458,27 +458,42 @@ points(log10(tp_in_mass_areal)~log10(tn_in_mass_areal), dat.all[influential.np, 
 
 # here, run optimization and return to predicted
 # predicted retention
-dat.all$Rn_predicted <- 1-(exp((-Fit.N.np$par[1]*(dat.all$res_time/dat.all$mean_depth))))
-dat.all$Rp_predicted <- 1-(1/(1+(Fit.np.Rp$par[1]*(dat.all$res_time^(1+Fit.np.Rp$par[2])))))
+dat.all$Rn_predicted <- 1-(exp((-Fit.N.np.real.comp$par[1]*(dat.all$res_time/dat.all$mean_depth))))
+dat.all$Rp_predicted <- 1-(1/(1+(Fit.Rp.np.real.comp$par[1]*(dat.all$res_time^(1+Fit.Rp.np.real.comp$par[2])))))
+
+dat.all$np_out_predicted <- ((dat.all$tn_in_mass*(1-dat.all$Rn_predicted))/((dat.all$tp_in_mass)*(1-dat.all$Rp_predicted)))*(30.97/14)
+dat.all$np_change <- log10(dat.all$np_out) - log10(dat.all$np_in) 
+dat.all$np_change_predicted <- log10(dat.all$np_out_predicted) - log10(dat.all$np_in)
+dat.all$np_r <- (dat.all$tn_r_mass_areal/14)/(dat.all$tp_r_mass_areal/30.97)
+dat.all$R_diff <- dat.all$Rn - dat.all$Rp
+dat.all$R_diff_predicted <- dat.all$Rn_predicted - dat.all$Rp_predicted
+
+
+dat.all$res_time_cat <- "b"
+dat.all$res_time_cat[dat.all$res_time < 0.093] <- "a"
+dat.all$res_time_cat[dat.all$res_time >= 0.433 & dat.all$res_time < 1.348] <- "c"
+dat.all$res_time_cat[dat.all$res_time >= 1.348] <- "d"
+dat.all$res_time_cat <- as.factor(dat.all$res_time_cat)
 
 
 
 # make subsets of data
 # all lakes with N budgets
-dat.p <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$res_time), ]
+dat.p <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$res_time)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth),, ]
 dat.p.real <- dat.p[dat.p$Rp>-1, ]
 dat.p.pos <- dat.p[dat.p$Rp>0, ]
-
+dat.p.real.comp <- dat.p[dat.p$Rp>-1 & !is.na(dat.p$tp_r_mass_areal), ]
+  
 dat.n <- dat.all[!is.na(dat.all$Rn)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth), ]
 dat.n.real <-dat.n[dat.n$Rn>=-1,]
 dat.n.pos <-dat.n[dat.n$Rn>=0 & dat.n$tn_r_mass_areal>0,]
+dat.n.real.comp <- dat.n[dat.n$Rn>=-1 & !is.na(dat.n$tn_r_mass_areal),]
 
 # dataframe for lakes with both N and P data
-dat.np <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn),]
-dat.np.real <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn) & dat.all$Rn>-1 &
-                         dat.all$Rp>-1,]
-dat.np.pos <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn) & dat.all$Rn>0 &
-                         dat.all$Rp>0,]
+dat.np <- dat.all[!is.na(dat.all$Rp)&!is.na(dat.all$Rn)&!is.na(dat.all$res_time)&!is.na(dat.all$mean_depth),]
+dat.np.real <- dat.np[dat.np$Rn>-1 & dat.np$Rp>-1,]
+dat.np.pos <- dat.np[dat.np$Rn>0 &dat.np$Rp>0,]
+dat.np.real.comp <- dat.np[dat.np$Rn>-1 &dat.np$Rp>-1 & !is.na(dat.np$np_out) & dat.np$np_out != Inf & dat.np$np_out != -Inf,]
 
 stoich <- dat.all[!is.na(dat.all$np_in)&
                    !is.na(dat.all$np_out)&

@@ -59,17 +59,12 @@ return(Fit)
 
 }
 
-Fit.Brett <- P.ret.mod.fit(dat.in = brett, type = "concentration")
-Fit.all <- P.ret.mod.fit(dat.in = dat.p, type = "concentration")
-Fit.real <- P.ret.mod.fit(dat.in = dat.p.real, type = "concentration")
-Fit.pos <- P.ret.mod.fit(dat.in = dat.p.pos, type = "concentration")
-
 Fit.Rp <- P.ret.mod.fit(dat.in = dat.p, type = "retention")
 Fit.Rp.real <- P.ret.mod.fit(dat.in = dat.p.real, type = "retention")
-Fit.Rp.pos <- P.ret.mod.fit(dat.in = dat.p.pos, type = "retention")
-
-Fit.np.p <- P.ret.mod.fit(dat.in = stoich, type = "concentration")
-Fit.np.Rp <- P.ret.mod.fit(dat.in = stoich, type = "retention")
+Fit.Rp.comp <- P.ret.mod.fit(dat.in = dat.p.real.comp, type = "retention")
+Fit.Rp.np <- P.ret.mod.fit(dat.in = dat.np, type = "retention")
+Fit.Rp.np.real <- P.ret.mod.fit(dat.in = dat.np.real, type = "retention")
+Fit.Rp.np.real.comp <- P.ret.mod.fit(dat.in = dat.np.real.comp, type = "retention")
 
 Vf.start = 8.91
 lowerBound = 0
@@ -100,7 +95,11 @@ N.ret.mod.fit <- function(dat.in){
 }
 Fit.N <- N.ret.mod.fit(dat.n)
 Fit.N.real <- N.ret.mod.fit(dat.n.real)
-Fit.N.pos <- N.ret.mod.fit(dat.n.pos)
+Fit.N.comp <- N.ret.mod.fit(dat.n.real.comp)
+Fit.N.np <- N.ret.mod.fit(dat.np)
+Fit.N.np.real <- N.ret.mod.fit(dat.np.real)
+Fit.N.np.real.comp <- N.ret.mod.fit(dat.np.real.comp)
+
 har.all <- har[!is.na(har$Rn_calculated)&!is.na(har$res_time)&!is.na(har$mean_depth), ]
 har.all$Rn <- har.all$Rn_calculated
 Fit.N.harrison <- N.ret.mod.fit(har.all)
