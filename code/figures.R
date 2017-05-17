@@ -6,6 +6,7 @@ col.n2 <- rgb(.94,.73,0.035,.7)
 col.n3 <- rgb(.705,.5475,.02625,.7)
 col.n4 <- rgb(.47, .365, .0175, .7)
 col.n5 <- rgb(.313, .243, .0117, .7)
+col.n <- rgb(.705,.5475,.02625,.7)
 
 col.p = rgb(.07,.57,.45,0.7)
 # gradient of blues for depth where appropriate
@@ -2488,15 +2489,15 @@ text(30, -1.5,"44%", cex = 2)
 text(45, -1.5,"16%", cex = 2)
 dev.off()
 
-x.start = log10(stoich$np_in)
-x.end = log10(stoich$np_out)
+x.start = log10(dat.np.real.comp$np_in)
+x.end = log10(dat.np.real.comp$np_out)
 y.start = 1
 y.end = -1
-p <- .bincode(log10(stoich$np_in), breaks = as.numeric(quantile(log10(stoich$np_in), seq(0,1,by=0.05), na.rm = TRUE)), right = FALSE, include.lowest = TRUE)
-np_quart_in = as.numeric(tapply(log10(stoich$np_in), INDEX = c(p), median, na.rm = TRUE))
-np_quart_out = as.numeric(tapply(log10(stoich$np_out), INDEX = c(p), median, na.rm = TRUE))
+p <- .bincode(log10(dat.np.real.comp$np_in), breaks = as.numeric(quantile(log10(dat.np.real.comp$np_in), seq(0,1,by=0.05), na.rm = TRUE)), right = FALSE, include.lowest = TRUE)
+np_quart_in = as.numeric(tapply(log10(dat.np.real.comp$np_in), INDEX = c(p), median, na.rm = TRUE))
+np_quart_out = as.numeric(tapply(log10(dat.np.real.comp$np_out), INDEX = c(p), median, na.rm = TRUE))
 
-pdf("ChangeNP_lines_percentiles.pdf", height = 7, width = 10)
+pdf("ChangeNP_lines_percentiles_random.pdf", height = 7, width = 10)
 plot(x = 1, y = 2, xlim = c(0, 3.5), ylim = c(-2,2), xaxt = "n", yaxt = "n", col = "white",
      type = "n", axes = FALSE, ylab = "", xlab = "")
 
@@ -2508,7 +2509,6 @@ text(.1, -1.2, "Outlet Stoichiometry", pos = 4, cex = 1.5)
 text(log10(44), 1.2, "N:P < 44", pos = 2, cex = 1.2)
 text(log10(110), 1.2, "N:P > 110", pos = 4, cex = 1.2)
 text(log10(44), 1.5, "N-limited", pos = 2, cex = 1.2)
-text(log10(110), 1.5, "P-limited", pos = 4, cex = 1.2)
 arrows(x0 = 0.2, y0 = -1.8, x1 = 3.4, y1 = -1.8, length = 0, lwd = 2)
 arrows(x0 = log10(44), y0 = -1.85, x1 = log10(44), y1 = -1.75, length = 0, lwd = 2)
 arrows(x0 = log10(110), y0 = -1.85, x1 = log10(110), y1 = -1.75, length = 0, lwd = 2)
@@ -2518,9 +2518,13 @@ arrows(x0 = log10(20), y0 = -1.85, x1 = log10(20), y1 = -1.75, length = 0, lwd =
 arrows(x0 = log10(5), y0 = -1.85, x1 = log10(5), y1 = -1.75, length = 0, lwd = 2)
 text(x = log10(c(5,20,44,110,500,1000)), y = -1.65, labels = c("5", "20", "44", "110", "500", "1000"))
 text(0.2, -1.7, "N:P (moles)", pos = 4)
+random <- sample(x = 1:nrow(dat.np.real.comp), size = 10)
 arrows(x0 = x.start, y0 = y.start, x1 = x.end, y1 = y.end, length = 0,
        col = rgb(250,250,250,max = 255, 122))
-arrows(x0 = np_quart_in, y0 = y.start, x1 = np_quart_out, y1 = y.end, lwd=5, length = 0, col = rgb(10,10,10,max=255,122))
+arrows(x0 = x.start[random], y0 = y.start, x1 = x.end[random], y1 = y.end, length = 0,
+       col = "black", lwd = 1.5)
+
+#arrows(x0 = np_quart_in, y0 = y.start, x1 = np_quart_out, y1 = y.end, lwd=5, length = 0, col = rgb(10,10,10,max=255,122))
 dev.off()
 
 # calculate sedimentation coefficients for stoich.pos
