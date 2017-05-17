@@ -340,7 +340,7 @@ lit$tn_out_mass[is.na(lit$tn_out_mass)] = lit$tn_in_mass[is.na(lit$tn_out_mass)]
 lit$state <- ""
 lit$Rp_calculated <- ""
 lit$Rn_calculated <- ""
-lit <- lit[,c(34,2,4,42,3,5,6,8,9,11,35,12,16,36,17,37,24,38,25,39,31,43,32,44,33 )]
+lit <- lit[,c(34,2,4,42,3,5,6,8,9,11,35,12,16,36,17,37,24,39,25,40,31,43,32,44,33)]
 
 names(lit) <- names(dat)
 #############################
